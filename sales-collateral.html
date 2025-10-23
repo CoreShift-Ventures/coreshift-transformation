@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreShift - Post-Sales Platform</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #272624;
+            background: white;
+        }
+
+        /* Print optimization */
+        @media print {
+            body {
+                width: 8.5in;
+                height: 11in;
+                margin: 0;
+                padding: 0;
+            }
+            .page {
+                page-break-after: avoid;
+                break-inside: avoid;
+            }
+            @page {
+                margin: 0;
+                size: letter;
+            }
+        }
+
+        .page {
+            max-width: 8.5in;
+            min-height: 11in;
+            margin: 0 auto;
+            padding: 0.5in 0.6in;
+            background: white;
+            position: relative;
+        }
+
+        /* Brand colors */
+        :root {
+            --orange: #ec5f2b;
+            --charcoal: #272624;
+            --gray: #5a5856;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--orange);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--charcoal);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .tagline {
+            font-size: 11px;
+            color: var(--gray);
+            font-weight: 600;
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            margin-bottom: 28px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(236, 95, 43, 0.05) 0%, rgba(236, 95, 43, 0.02) 100%);
+            border-radius: 12px;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--charcoal);
+            margin-bottom: 10px;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .highlight {
+            color: var(--orange);
+        }
+
+        .hero p {
+            font-size: 13px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Two column layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(236, 95, 43, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--orange);
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--orange);
+            box-shadow: 0 2px 8px rgba(236, 95, 43, 0.1);
+        }
+
+        .card h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 6px;
+        }
+
+        .card p {
+            font-size: 11px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .card-stat {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--orange);
+            margin-top: 8px;
+        }
+
+        .card-stat-label {
+            font-size: 9px;
+            color: var(--gray);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        /* Workflow Steps */
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .workflow-step {
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 16px;
+            position: relative;
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--orange);
+            color: white;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .workflow-step h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 6px;
+        }
+
+        .workflow-step p {
+            font-size: 10px;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .features-list li {
+            font-size: 9px;
+            color: var(--gray);
+            margin-bottom: 3px;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--orange);
+            font-weight: 700;
+        }
+
+        /* Key Benefits Grid */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(236, 95, 43, 0.03);
+            border-radius: 8px;
+            border-left: 3px solid var(--orange);
+        }
+
+        .benefit-icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--orange);
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .benefit-content h4 {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--charcoal);
+            margin-bottom: 3px;
+        }
+
+        .benefit-content p {
+            font-size: 9px;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        /* Differentiators */
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .diff-item {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+        }
+
+        .diff-item strong {
+            display: block;
+            font-size: 11px;
+            color: var(--charcoal);
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+
+        .diff-item span {
+            font-size: 9px;
+            color: var(--gray);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--orange) 0%, #d94f1f 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .cta h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .cta p {
+            font-size: 11px;
+            margin-bottom: 14px;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cta-button {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .cta-button.primary {
+            background: white;
+            color: var(--orange);
+        }
+
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9px;
+            color: var(--gray);
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Icons */
+        .icon {
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            background: rgba(236, 95, 43, 0.1);
+            color: var(--orange);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 600;
+            border: 1px solid rgba(236, 95, 43, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                Core<span>Shift</span>
+            </div>
+            <div class="tagline">
+                AI-Powered Post-Sales Platform<br>
+                <span class="badge">Deploy in Under 4 Weeks</span>
+            </div>
+        </div>
+
+        <!-- Hero -->
+        <div class="hero">
+            <h1>Own Your Post-Sales <span class="highlight">Engine</span></h1>
+            <p>Transform from firefighting to world-class post-sales. Start simple, unlock advanced features as you mature. Built to scale with your team.</p>
+        </div>
+
+        <!-- Two Column Layout -->
+        <div class="two-col">
+            <!-- Left Column -->
+            <div>
+                <!-- The Problem -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="section-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                        </svg>
+                        The Challenge
+                    </h2>
+                    <div class="card">
+                        <h3>📊 Data Fragmentation</h3>
+                        <p>Customer intelligence scattered across Salesforce, Zendesk, Intercom, and spreadsheets—no single source of truth.</p>
+                        <div class="card-stat">73%</div>
+                        <div class="card-stat-label">of CS teams cite data silos as #1 challenge</div>
+                    </div>
+                    <div class="card">
+                        <h3>💰 Vendor Lock-In Tax</h3>
+                        <p>Enterprise CS platforms cost $120K+ annually with rigid pricing that scales with ARR, not your needs.</p>
+                        <div class="card-stat">$280K</div>
+                        <div class="card-stat-label">average first-year cost for enterprise tools</div>
+                    </div>
+                    <div class="card">
+                        <h3>🔒 Limited Flexibility</h3>
+                        <p>One-size-fits-all workflows that force your team to adapt to the tool.</p>
+                        <div class="card-stat">6-12mo</div>
+                        <div class="card-stat-label">typical time to full deployment</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div>
+                <!-- The Solution -->
+                <div class="section">
+                    <h2 class="section-title">
+                        <svg class="section-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                        </svg>
+                        The CoreShift Approach
+                    </h2>
+                    <div class="benefits">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🎯</div>
+                            <div class="benefit-content">
+                                <h4>Goals & NRR Aligned</h4>
+                                <p>Dual North Star framework connecting customer success to revenue</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🤖</div>
+                            <div class="benefit-content">
+                                <h4>AI-Ready Platform</h4>
+                                <p>Built-in ML models & predictive analytics out of the box</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🏗️</div>
+                            <div class="benefit-content">
+                                <h4>Full Data Ownership</h4>
+                                <p>Deploy in your cloud, own your database, control your data</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">⚡</div>
+                            <div class="benefit-content">
+                                <h4>Rapid Deployment</h4>
+                                <p>Production-ready in under 4 weeks, not months</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🔐</div>
+                            <div class="benefit-content">
+                                <h4>Enterprise Security</h4>
+                                <p>Row-level security, SSO, and BYOK ready from day one</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🔄</div>
+                            <div class="benefit-content">
+                                <h4>Seamless Integrations</h4>
+                                <p>Connects with Salesforce, HubSpot, Slack, Teams & more</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="section">
+            <h2 class="section-title">
+                <svg class="section-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                How It Works: Simple. Powerful. Automated.
+            </h2>
+            <div class="workflow">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <h3>🎯 Set Goals</h3>
+                    <p>Define customer objectives and organizational targets</p>
+                    <ul class="features-list">
+                        <li>Multi-timeframe tracking</li>
+                        <li>Goal hierarchies</li>
+                        <li>Progress metrics</li>
+                    </ul>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <h3>📋 Smart Planning</h3>
+                    <p>Automated success plan generation</p>
+                    <ul class="features-list">
+                        <li>AI-powered plans</li>
+                        <li>Template library</li>
+                        <li>Dynamic workflows</li>
+                    </ul>
+                </div>
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <h3>📈 Track & Optimize</h3>
+                    <p>Real-time monitoring and insights</p>
+                    <ul class="features-list">
+                        <li>Live dashboards</li>
+                        <li>Predictive analytics</li>
+                        <li>Health scoring</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why CoreShift vs. Competition -->
+        <div class="section">
+            <h2 class="section-title">
+                <svg class="section-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
+                </svg>
+                What Sets CoreShift Apart
+            </h2>
+            <div class="diff-grid">
+                <div class="diff-item">
+                    <strong>Own Your Stack</strong>
+                    <span>Not rented SaaS</span>
+                </div>
+                <div class="diff-item">
+                    <strong>Your Cloud</strong>
+                    <span>Full data control</span>
+                </div>
+                <div class="diff-item">
+                    <strong>No ARR Tax</strong>
+                    <span>Predictable pricing</span>
+                </div>
+                <div class="diff-item">
+                    <strong>Under 4 Weeks</strong>
+                    <span>Not 6-12 months</span>
+                </div>
+                <div class="diff-item">
+                    <strong>AI-Native</strong>
+                    <span>Built-in intelligence</span>
+                </div>
+                <div class="diff-item">
+                    <strong>Open Platform</strong>
+                    <span>Fully customizable</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+            <h3>Ready to Transform Your Post-Sales Operations?</h3>
+            <p>Start with a free CS maturity audit or see CoreShift in action with our live demo.</p>
+            <div class="cta-buttons">
+                <a href="#" class="cta-button primary">📋 Start Free Audit</a>
+                <a href="#" class="cta-button secondary">▶️ View Live Demo</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>Email:</strong> hello@coreshift.ai
+                </div>
+                <div class="contact-item">
+                    <strong>Web:</strong> www.coreshift.ai
+                </div>
+            </div>
+            <div>
+                © 2025 CoreShift. Built to Scale with Your Team.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
