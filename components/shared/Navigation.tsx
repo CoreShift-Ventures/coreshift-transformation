@@ -119,6 +119,12 @@ export function Navigation() {
               Pricing
             </Link>
             <Link
+              href="/transformation"
+              className={`text-sm font-medium transition-colors ${isDark ? 'text-gray-300 hover:text-brand-orange' : 'text-brand-gray hover:text-brand-orange'}`}
+            >
+              Transformation
+            </Link>
+            <Link
               href="/audit"
               className={`text-sm font-medium transition-colors ${isDark ? 'text-gray-300 hover:text-brand-orange' : 'text-brand-gray hover:text-brand-orange'}`}
             >
@@ -182,6 +188,13 @@ export function Navigation() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Pricing
+              </Link>
+              <Link
+                href="/transformation"
+                className={`text-sm font-medium transition-colors py-2 ${isDark ? 'text-gray-300 hover:text-brand-orange' : 'text-brand-gray hover:text-brand-orange'}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Transformation
               </Link>
               <Link
                 href="/audit"
