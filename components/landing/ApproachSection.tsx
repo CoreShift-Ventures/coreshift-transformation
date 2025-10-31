@@ -22,17 +22,17 @@ export function ApproachSection() {
           {/* Section badge */}
           <div className="flex justify-center mb-6">
             <span className={`px-4 py-2 rounded-full text-sm font-semibold ${isDark ? 'bg-[#ec5f2b]/10 text-[#ec5f2b] border border-[#ec5f2b]/20' : 'bg-[#ec5f2b]/5 text-[#ec5f2b] border border-[#ec5f2b]/10'}`}>
-              The CoreShift Approach
+              The Transformation Method
             </span>
           </div>
 
           <h2 className={`text-3xl md:text-4xl font-bold text-center mb-5 leading-[1.1] tracking-[-0.02em] ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-            Build & Own Your<br />
-            <span className="text-[#ec5f2b]">Post-Sales Infrastructure</span>
+            Enterprise Transformation Rigor.<br />
+            <span className="text-[#ec5f2b]">AI-First Speed. Your Asset Forever.</span>
           </h2>
 
           <p className={`text-base text-center mb-12 max-w-3xl mx-auto font-light ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            Deploy a production-ready Customer Success platform in your cloud. Own the code, control your data, scale on your terms.
+            We bring decades of enterprise transformation expertise combined with modern AI architecture. You get enterprise-grade post-sales infrastructure in 30 days, not 18 months, deployed to your infrastructure.
           </p>
 
           {/* CoreShift Engine Visualization - Enterprise Grade */}
@@ -54,7 +54,9 @@ export function ApproachSection() {
             </div>
 
             <div className="relative">
-              <h3 className="text-xl md:text-2xl font-bold text-center mb-12 text-[#ec5f2b]">The CoreShift Engine</h3>
+              <h3 className={`text-xl md:text-2xl font-bold text-center mb-12 ${isDark ? 'text-white' : 'text-brand-charcoal'}`}>
+                The <span className={isDark ? 'text-white' : 'text-brand-charcoal'}>Core</span><span className="text-[#ec5f2b]">Shift</span> Engine
+              </h3>
 
               {/* Main Architecture Diagram */}
               <div className="grid lg:grid-cols-12 gap-8 mb-12">
@@ -69,7 +71,7 @@ export function ApproachSection() {
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                       </svg>
-                      Why CoreShift
+                      Why <span className={isDark ? 'text-white' : 'text-[#272624]'}>Core</span><span className="text-[#ec5f2b]">Shift</span>
                     </h4>
                     <div className={`flex flex-col justify-between flex-1 text-sm ${isDark ? 'text-white' : 'text-[#272624]'}`}>
                       {[
@@ -96,7 +98,7 @@ export function ApproachSection() {
                         {
                           icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>,
                           title: 'Enterprise Security',
-                          sub: 'RLS, SSO, BYOK ready'
+                          sub: 'Built-in security & encryption'
                         }
                       ].map((item, idx) => (
                         <div key={idx} className="flex gap-3 items-start group hover:translate-x-1 transition-transform duration-200">
@@ -178,47 +180,92 @@ export function ApproachSection() {
                           title: 'Data Sources',
                           icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375" /></svg>,
                           items: [
-                            { name: 'Salesforce', logo: '/logos/Engine/Salesforce.com.png', scale: 1.5 },
-                            { name: 'HubSpot', logo: '/logos/Engine/HubSpot.png', scale: 1 },
-                            { name: 'ServiceNow', logo: '/logos/Engine/ServiceNow.png', scale: 0.7 },
-                            { name: 'CSV', logo: '/logos/Engine/csv.png', scale: 1.4 }
-                          ]
+                            { name: 'Salesforce', logo: '/logos/Engine/Salesforce.com.png', scale: 1.5, invertInDark: false },
+                            { name: 'HubSpot', logo: '/logos/Engine/HubSpot.png', scale: 1, invertInDark: true },
+                            { name: 'ServiceNow', logo: '/logos/Engine/ServiceNow.png', scale: 0.7, invertInDark: true },
+                            { name: 'CSV', logo: '/logos/Engine/csv.png', scale: 1.4, invertInDark: false }
+                          ],
+                          showMore: true
                         },
                         {
                           title: 'Collaboration',
                           icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>,
                           items: [
-                            { name: 'Slack', logo: '/logos/Engine/Slack.png', scale: 1 },
-                            { name: 'Teams', logo: '/logos/Engine/Teams.png', scale: 1 },
-                            { name: 'Notion', logo: '/logos/Engine/Notion.png', scale: 1 }
-                          ]
+                            { name: 'Slack', logo: '/logos/Engine/Slack.png', scale: 1, invertInDark: true },
+                            { name: 'Teams', logo: '/logos/Engine/Teams.png', scale: 1, invertInDark: true },
+                            { name: 'Notion', logo: '/logos/Engine/Notion.png', scale: 1, invertInDark: false },
+                            { name: 'more...', isPlaceholder: true }
+                          ],
+                          showMore: false
                         },
                         {
                           title: 'AI & Intelligence',
                           icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" /></svg>,
                           items: [
-                            { name: 'OpenAI', logo: '/logos/Engine/OpenAI.png', scale: 2.2 },
-                            { name: 'Anthropic', logo: '/logos/Engine/Anthropic.svg', scale: 1 }
+                            { name: 'OpenAI', logo: '/logos/Engine/OpenAI.png', scale: 2.2, invertInDark: false },
+                            { name: 'Anthropic', logo: '/logos/Engine/Anthropic.svg', scale: 1, invertInDark: false }
                           ]
                         }
                       ].map((system) => (
-                        <div key={system.title} className={`p-4 rounded-lg ${isDark ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-50 hover:bg-gray-100'} transition-colors border ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+                        <div key={system.title} className={`p-4 rounded-lg relative ${isDark ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-50 hover:bg-gray-100'} transition-colors border ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
                           <div className="flex items-center gap-2 mb-3">
                             <div className="text-[#ec5f2b]">{system.icon}</div>
                             <h4 className={`font-bold text-xs ${textClass}`}>{system.title}</h4>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            {system.items.map((item) => (
-                              <div key={item.name} className={`group relative flex items-center justify-center h-10 w-full rounded transition-all duration-300 hover:scale-105 ${isDark ? 'bg-gray-700/50 hover:bg-gray-600' : 'bg-white hover:bg-gray-50'} border ${isDark ? 'border-gray-600' : 'border-gray-200'}`}>
-                                <img
-                                  src={item.logo}
-                                  alt={item.name}
-                                  className={`h-4 w-auto object-contain ${isDark ? 'brightness-0 invert opacity-80 group-hover:opacity-100' : 'opacity-70 group-hover:opacity-100'}`}
-                                  style={{ transform: `scale(${item.scale || 1})` }}
-                                  title={item.name}
-                                />
-                              </div>
-                            ))}
+                            {system.items.map((item, idx) => {
+                              const isLastItem = idx === system.items.length - 1;
+                              const shouldSplit = isLastItem && system.showMore;
+
+                              return (
+                                <div key={item.name} className={`group relative flex items-center justify-center h-10 w-full rounded transition-all duration-300 ${!shouldSplit && !item.isPlaceholder && 'hover:scale-105'} ${item.isPlaceholder ? (isDark ? 'bg-gray-700/30 border-dashed border border-gray-600' : 'bg-gray-100 border-dashed border border-gray-300') : (isDark ? 'bg-gray-700/50 hover:bg-gray-600 border border-gray-600' : 'bg-white hover:bg-gray-50 border border-gray-200')} ${shouldSplit ? 'overflow-hidden' : ''}`}>
+                                  {item.isPlaceholder ? (
+                                    <span className={`text-[10px] font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                                      {item.name}
+                                    </span>
+                                  ) : shouldSplit ? (
+                                    <div className="flex w-full h-full gap-1 p-1">
+                                      {/* Left side - Logo */}
+                                      <div className={`flex items-center justify-center flex-1 rounded ${isDark ? 'bg-gray-700/50' : 'bg-white'}`}>
+                                        <img
+                                          src={item.logo}
+                                          alt={item.name}
+                                          className={`h-4 w-auto object-contain ${
+                                            isDark
+                                              ? item.invertInDark
+                                                ? 'brightness-0 invert opacity-80'
+                                                : 'opacity-80'
+                                              : 'opacity-70'
+                                          }`}
+                                          style={{ transform: `scale(${item.scale || 1})` }}
+                                          title={item.name}
+                                        />
+                                      </div>
+                                      {/* Right side - +more */}
+                                      <div className={`flex items-center justify-center flex-1 rounded ${isDark ? 'bg-gray-700/30' : 'bg-gray-100'}`}>
+                                        <span className={`text-[10px] font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                                          +more
+                                        </span>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <img
+                                      src={item.logo}
+                                      alt={item.name}
+                                      className={`h-4 w-auto object-contain ${
+                                        isDark
+                                          ? item.invertInDark
+                                            ? 'brightness-0 invert opacity-80 group-hover:opacity-100'
+                                            : 'opacity-80 group-hover:opacity-100'
+                                          : 'opacity-70 group-hover:opacity-100'
+                                      }`}
+                                      style={{ transform: `scale(${item.scale || 1})` }}
+                                      title={item.name}
+                                    />
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
                       ))}

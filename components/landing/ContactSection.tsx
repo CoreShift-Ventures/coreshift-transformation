@@ -30,7 +30,7 @@ const contactOptions = [
     title: 'Contact Us',
     description: 'Have questions? Send us a message',
     cta: 'Email Us',
-    href: 'mailto:hello@coreshift.com',
+    href: 'mailto:contact@cshift.io',
     color: '#3b82f6'
   }
 ];
@@ -68,16 +68,16 @@ export function ContactSection() {
             initial={{ scale: 0.9 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-2 rounded-full bg-brand-orange/10 text-brand-orange font-semibold text-sm mb-6"
+            className={`inline-block px-4 py-2 rounded-full font-semibold text-sm mb-6 ${isDark ? 'bg-[#ec5f2b]/10 text-[#ec5f2b] border border-[#ec5f2b]/20' : 'bg-[#ec5f2b]/5 text-[#ec5f2b] border border-[#ec5f2b]/10'}`}
           >
-            Get Started
+            Stop the Bleed
           </motion.div>
           <h2 className={`text-3xl md:text-4xl font-bold mb-5 leading-[1.1] tracking-[-0.02em] ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-            Ready to Transform Your<br />
-            <span className="gradient-text">Customer Success?</span>
+            Every Day You Wait,<br />
+            <span className="text-[#ec5f2b]">You're Leaving Revenue on the Table</span>
           </h2>
           <p className={`text-base max-w-3xl mx-auto font-light ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            Choose the best way to connect with us
+            Get your free Revenue Leak Audit. See exactly where you're bleeding and how to stop it in 30 days.
           </p>
         </motion.div>
 
@@ -155,10 +155,10 @@ export function ContactSection() {
           <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
             Or reach out directly at{' '}
             <a
-              href="mailto:hello@coreshift.com"
+              href="mailto:contact@cshift.io"
               className="text-brand-orange font-semibold hover:underline"
             >
-              hello@coreshift.com
+              contact@cshift.io
             </a>
           </p>
         </motion.div>

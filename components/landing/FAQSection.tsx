@@ -7,28 +7,36 @@ import { useTheme } from 'next-themes';
 
 const faqs = [
   {
-    question: 'How is CoreShift different from traditional CS platforms?',
-    answer: 'CoreShift is built on a unique dual pole star framework combining Customer Goals and NRR. Unlike traditional platforms that give you 100+ features on Day 1, we provide a maturity-based approach that grows with your organization.'
+    question: 'How is this different from hiring consultants or buying SaaS?',
+    answer: 'Enterprise consultants are expensive, take 18 months, and leave when the contract ends, not when you succeed. SaaS vendors trap you in rigid platforms with vendor lock in. CoreShift combines enterprise transformation rigor with modern speed: you get a custom built CS infrastructure in 2 to 4 weeks, deployed to your infrastructure, and there is zero lock in.'
   },
   {
-    question: 'Do I need to deploy and manage the platform myself?',
-    answer: 'We offer two paths: Build & Own (you deploy and manage) or Managed Service (we handle everything). Your choice depends on your team\'s technical capability and maturity level.'
+    question: 'Do I really own the platform you build?',
+    answer: 'Yes. The platform deploys to YOUR cloud infrastructure. You control access, data, and deployment forever. After implementation, there are zero SaaS fees—just your standard infrastructure costs. You can cancel our support anytime while keeping the platform running. No hostage situations. For enterprises requiring source code access or IP transfer, contact us for premium licensing options.'
   },
   {
-    question: 'How long does implementation take?',
-    answer: 'Build & Own deployments typically take 3 days. Managed Service implementations are completed in 2-4 weeks, compared to 6-12 months with traditional enterprise CS platforms.'
+    question: 'How can you implement so fast when others take 18 months?',
+    answer: 'Two reasons: (1) We have spent 20+ years at SAP, IBM, and Talend building transformation methodology that works, and (2) we leverage modern architecture instead of forcing you to wait for manual customization. We do not waste 6 months on change management theater, we build what stops the bleeding, fast. See our Investment section for specific timelines per package.'
   },
   {
-    question: 'What about data ownership and security?',
-    answer: '100% of your data stays in YOUR cloud accounts. Even with Managed Service, we deploy to your Vercel and Supabase accounts. You own the infrastructure, database, and all customer data.'
+    question: 'What if my team is not technical enough to manage it?',
+    answer: 'We offer flexible paths: you can manage it yourself with our comprehensive documentation, or we provide ongoing Fractional CXA support (see our Evolve package in the Investment section). Even with ongoing support, you still own the deployment and can cancel anytime. The platform keeps running. No hostage situations.'
   },
   {
-    question: 'Can I see the platform before buying?',
-    answer: 'Yes! We have fully functional demo modules you can explore. These aren\'t mockups—they\'re the actual platform you\'ll deploy.'
+    question: 'Can you really save me hundreds of thousands in churn?',
+    answer: 'If you are a B2B SaaS company doing $1M to $100M ARR and experiencing surprise churn, the math is straightforward: 15 to 30% of your ARR is at risk from silent customer exit. Our methodology shows 67% reduction in surprise churn by detecting risk 90 days earlier. The revenue saved in 6 months typically exceeds our entire implementation cost 10 to 20x.'
   },
   {
-    question: 'What\'s included in the free audit?',
-    answer: 'The free audit includes a 45-minute assessment, maturity score (Level 1-5), NRR benchmarks for your industry, gap analysis, and recommended deployment path customized to your needs.'
+    question: 'What is the actual investment?',
+    answer: 'We offer transparent, fixed pricing with no surprise invoices. View our complete <a href="#pricing" class="text-brand-orange hover:underline font-semibold">pricing breakdown</a> for all packages, including assessment options and early adopter discounts. Unlike enterprise consultants with lengthy engagements or SaaS platforms with recurring fees, you pay once and own the deployment forever.'
+  },
+  {
+    question: 'How is this modern and not just buzzword heavy?',
+    answer: 'We do not bolt ChatGPT onto legacy workflows and call it innovative. CoreShift is built on proven enterprise patterns from day one: automated health scoring, churn prediction, sentiment analysis from support tickets, expansion trigger detection. The platform does the manual work so your team focuses on relationships and strategy.'
+  },
+  {
+    question: 'What happens after implementation?',
+    answer: 'You go live with a production ready Post-sales Platform. We provide 90 days of support to ensure adoption and answer questions. After that, you can manage it yourself (it is yours), hire us for ongoing Fractional CXA support, or bring us back for expansion phases. You are never locked in.'
   }
 ];
 
@@ -42,6 +50,57 @@ export function FAQSection() {
   }, []);
 
   const isDark = mounted && theme === 'dark';
+
+  // Helper function to render CoreShift with colors and parse links
+  const renderWithColoredBrand = (text: string) => {
+    // First split by link pattern
+    const linkRegex = /<a href="([^"]*)"[^>]*>([^<]*)<\/a>/g;
+    const parts: (string | JSX.Element)[] = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = linkRegex.exec(text)) !== null) {
+      // Add text before link
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      // Add link element
+      parts.push(
+        <a
+          key={match.index}
+          href={match[1]}
+          className="text-brand-orange hover:underline font-semibold"
+        >
+          {match[2]}
+        </a>
+      );
+      lastIndex = match.index + match[0].length;
+    }
+
+    // Add remaining text
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+
+    // Now process CoreShift branding
+    return parts.map((part, idx) => {
+      if (typeof part === 'string') {
+        const brandParts = part.split('CoreShift');
+        return brandParts.map((brandPart, i) => (
+          <span key={`${idx}-${i}`}>
+            {brandPart}
+            {i < brandParts.length - 1 && (
+              <>
+                <span className={isDark ? 'text-white font-semibold' : 'text-brand-charcoal font-semibold'}>Core</span>
+                <span className="text-[#ec5f2b] font-semibold">Shift</span>
+              </>
+            )}
+          </span>
+        ));
+      }
+      return <span key={idx}>{part}</span>;
+    });
+  };
 
   return (
     <section className={`py-24 px-6 relative overflow-hidden ${isDark ? 'bg-gray-950' : 'bg-white'}`}>
@@ -57,15 +116,16 @@ export function FAQSection() {
             initial={{ scale: 0.9 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-2 rounded-full bg-brand-orange/10 text-brand-orange font-semibold text-sm mb-6"
+            className={`inline-block px-4 py-2 rounded-full font-semibold text-sm mb-6 ${isDark ? 'bg-[#ec5f2b]/10 text-[#ec5f2b] border border-[#ec5f2b]/20' : 'bg-[#ec5f2b]/5 text-[#ec5f2b] border border-[#ec5f2b]/10'}`}
           >
-            FAQ
+            Common Questions
           </motion.div>
           <h2 className={`text-3xl md:text-4xl font-bold mb-5 leading-[1.1] tracking-[-0.02em] ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-            Frequently Asked Questions
+            The Questions Decision Makers Ask<br />
+            <span className="text-[#ec5f2b]">Before Stopping the Bleed</span>
           </h2>
           <p className={`text-base max-w-3xl mx-auto font-light ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            Everything you need to know about CoreShift
+            Straight answers about transformation, ownership, and ROI. No consultant speak.
           </p>
         </motion.div>
 
@@ -108,7 +168,7 @@ export function FAQSection() {
                     className="overflow-hidden"
                   >
                     <div className={`px-6 pb-6 ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-                      {faq.answer}
+                      {renderWithColoredBrand(faq.answer)}
                     </div>
                   </motion.div>
                 )}

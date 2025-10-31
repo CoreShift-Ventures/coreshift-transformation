@@ -33,8 +33,8 @@ const interests = [
 ];
 
 const intents = [
-  'Replace existing CS platform',
-  'First CS platform',
+  'Replace existing Post-sales Platform',
+  'First Post-sales Platform',
   'Supplement current tools',
   'Build internal CS infrastructure',
   'Understand pricing and features',

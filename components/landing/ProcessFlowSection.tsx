@@ -106,17 +106,17 @@ export function ProcessFlowSection() {
             initial={{ scale: 0.9 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 text-brand-orange font-semibold text-sm mb-6 border border-brand-orange/20"
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm mb-6 ${isDark ? 'bg-[#ec5f2b]/10 text-[#ec5f2b] border border-[#ec5f2b]/20' : 'bg-[#ec5f2b]/5 text-[#ec5f2b] border border-[#ec5f2b]/10'}`}
           >
             <Zap className="w-4 h-4" />
-            <span>Your Journey</span>
+            <span>From Chaos to Command</span>
           </motion.div>
           <h2 className={`text-3xl md:text-4xl font-bold mb-5 leading-[1.1] tracking-[-0.02em] ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-            From Audit to<br />
-            <span className="gradient-text">World-Class in 90 Days</span>
+            Stop the Bleeding in 30 Days.<br />
+            <span className="text-[#ec5f2b]">Own Your Transformation Forever.</span>
           </h2>
           <p className={`text-base max-w-3xl mx-auto font-light ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            The only CS platform that meets you where you are
+            From revenue leak audit to AI-powered CS infrastructure—fast enough to save this quarter's churn.
           </p>
         </motion.div>
 

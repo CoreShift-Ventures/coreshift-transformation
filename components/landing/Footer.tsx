@@ -6,18 +6,17 @@ import { useTheme } from 'next-themes';
 
 const navigation = {
   product: [
-    { name: 'Platform', href: '/platform' },
-    { name: 'Live Demo', href: 'http://localhost:3008', target: '_blank' },
-    { name: 'Pricing', href: '/pricing' }
+    { name: 'Platform', href: '/#approach' },
+    { name: 'Investment', href: '/#pricing' }
   ],
   services: [
-    { name: 'Build & Own', href: '/services/build-and-own' },
-    { name: 'Managed Service', href: '/services/managed-service' },
-    { name: 'CS Audit', href: '/audit' }
+    { name: 'Assess', href: '/audit' },
+    { name: 'Build', href: '/contact' },
+    { name: 'Shift', href: '/contact' },
+    { name: 'Evolve', href: '/contact' }
   ],
   company: [
-    { name: 'About', href: '/about' },
-    { name: 'Blog', href: '/blog' },
+    { name: 'Free Audit', href: '/audit' },
     { name: 'Contact', href: '/contact' }
   ],
   legal: [
@@ -44,7 +43,7 @@ const social = [
   },
   {
     name: 'Email',
-    href: 'mailto:hello@coreshift.com',
+    href: 'mailto:contact@cshift.io',
     icon: Mail
   }
 ];
@@ -66,16 +65,61 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-12">
           {/* Brand Column */}
           <div className="col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-orange to-brand-orange-dark flex items-center justify-center text-white font-bold">
-                C
-              </div>
-              <span className={`text-xl font-bold ${isDark ? 'text-white' : 'text-brand-charcoal'}`}>
-                CoreShift
-              </span>
+            <div className="mb-4">
+              <svg width="140" height="56" viewBox="0 0 200 80" className="h-14 w-auto">
+                <g transform="translate(6, 40)">
+                  <g transform="translate(0, -4)">
+                    <path
+                      d="M 6 0 L 3 0 L 3 20 L 6 20"
+                      stroke={isDark ? "#ffffff" : "#272624"}
+                      strokeWidth="2.5"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      transform="translate(0, -10)"
+                    />
+                  </g>
+                  <circle cx="18" cy="-4" r="4" fill="#ec5f2b" />
+                  <g transform="translate(30, 4)">
+                    <path
+                      d="M 0 0 L 3 0 L 3 20 L 0 20"
+                      stroke={isDark ? "#ffffff" : "#272624"}
+                      strokeWidth="2.5"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      transform="translate(0, -10)"
+                    />
+                  </g>
+                  <text
+                    x="50"
+                    y="0"
+                    fontFamily="Inter, Arial, sans-serif"
+                    fontSize="30"
+                    fontWeight={isDark ? "600" : "700"}
+                    fill={isDark ? "#ffffff" : "#272624"}
+                    textAnchor="start"
+                    alignmentBaseline="middle"
+                  >
+                    Core
+                  </text>
+                  <text
+                    x="120"
+                    y="0"
+                    fontFamily="Inter, Arial, sans-serif"
+                    fontSize="30"
+                    fontWeight="400"
+                    fill="#ec5f2b"
+                    textAnchor="start"
+                    alignmentBaseline="middle"
+                  >
+                    Shift
+                  </text>
+                </g>
+              </svg>
             </div>
             <p className={`text-sm mb-6 max-w-xs ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-              Build & Own Your Post-Sales Infrastructure. Deploy a production-ready Customer Success platform in your cloud.
+              Stop the bleeding. Own your CS infrastructure. Fixed pricing, zero vendor lock in. Your infrastructure. Your deployment. Your control.
             </p>
             {/* Social Links */}
             <div className="flex gap-4">
@@ -196,7 +240,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className={`pt-8 border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
           <p className={`text-sm text-center ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            © {new Date().getFullYear()} CoreShift. All rights reserved.
+            © {new Date().getFullYear()} <span className={isDark ? 'text-white' : 'text-brand-charcoal'}>Core</span><span className="text-[#ec5f2b]">Shift</span>. All rights reserved.
           </p>
         </div>
       </div>

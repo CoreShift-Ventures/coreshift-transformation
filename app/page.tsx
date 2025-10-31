@@ -1,13 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { Navigation } from '@/components/shared/Navigation';
 import { HeroSection } from '@/components/landing/HeroSection';
 import { ChallengeSection } from '@/components/landing/ChallengeSection';
+import { WhyUsSection } from '@/components/landing/WhyUsSection';
+import { CompetitivePositioningSection } from '@/components/landing/CompetitivePositioningSection';
 import { ApproachSection } from '@/components/landing/ApproachSection';
-import { GoalsWorkflowSection } from '@/components/landing/GoalsWorkflowSection';
+import { InvestmentOwnershipSection } from '@/components/landing/InvestmentOwnershipSection';
 import { LiveDemoSection } from '@/components/landing/LiveDemoSection';
-import { ProcessFlowSection } from '@/components/landing/ProcessFlowSection';
-import { TransformationOverview } from '@/components/landing/TransformationOverview';
+import { UrgencyCTASection } from '@/components/landing/UrgencyCTASection';
 import { FAQSection } from '@/components/landing/FAQSection';
 import { ContactSection } from '@/components/landing/ContactSection';
 import { Footer } from '@/components/landing/Footer';
@@ -25,17 +27,38 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-white">
-      <HeroSection />
-      <ChallengeSection />
-      <ApproachSection />
-      <GoalsWorkflowSection />
-      <LiveDemoSection onRequestDemo={handleRequestDemo} />
-      <ProcessFlowSection />
-      <TransformationOverview />
-      <FAQSection />
-      <ContactSection />
-      <Footer />
+    <>
+      <Navigation />
+      <main className="min-h-screen bg-white">
+        <HeroSection />
+        <section id="challenge">
+          <ChallengeSection />
+        </section>
+        <section id="why-us">
+          <WhyUsSection />
+        </section>
+        <section id="competitive">
+          <CompetitivePositioningSection />
+        </section>
+        <section id="approach">
+          <ApproachSection />
+        </section>
+        <section id="pricing">
+          <InvestmentOwnershipSection />
+        </section>
+        <section id="demo">
+          <LiveDemoSection onRequestDemo={handleRequestDemo} />
+        </section>
+        <section id="urgency">
+          <UrgencyCTASection />
+        </section>
+        <section id="faq">
+          <FAQSection />
+        </section>
+        <section id="contact">
+          <ContactSection />
+        </section>
+        <Footer />
 
       {/* Global Modals */}
       <DemoOptionsModal
@@ -55,9 +78,10 @@ export default function Home() {
         <InstantAccessForm onClose={() => setShowInstantAccess(false)} />
       )}
 
-      {showGuidedDemo && (
-        <DemoQualificationForm onClose={() => setShowGuidedDemo(false)} />
-      )}
-    </main>
+        {showGuidedDemo && (
+          <DemoQualificationForm onClose={() => setShowGuidedDemo(false)} />
+        )}
+      </main>
+    </>
   );
 }
