@@ -9,10 +9,9 @@ import { InstantAccessForm } from '@/components/forms/InstantAccessForm';
 import { DemoQualificationForm } from '@/components/forms/DemoQualificationForm';
 
 const rotatingTexts = [
-  "23% of Contractual Revenue Right Now",
-  "$1M-$3M in Silent Revenue Leaks",
-  "Revenue While You're Reading This",
-  "15-30% ARR Through Silent Customer Exit"
+  "Start with Strategy: Blueprint Your Transformation",
+  "Activate Engine: Deploy AI-Powered Modules in Weeks, Not Months",
+  "Execute with Expertise: 20 Years of Proven Playbooks"
 ];
 
 export function HeroSection() {
@@ -60,11 +59,11 @@ export function HeroSection() {
   }, [displayText, isDeleting, rotatingIndex]);
 
   return (
-    <section className={`relative min-h-screen flex items-center justify-center px-6 pt-16 overflow-hidden ${isDark ? 'bg-black' : 'bg-white'}`}>
+    <section className={`relative min-h-screen flex items-center justify-center px-6 overflow-hidden ${isDark ? 'bg-black' : 'bg-white'}`}>
       {/* Radial gradient spotlight */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <div
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] rounded-full blur-3xl"
+          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] lg:w-[1200px] lg:h-[1200px] rounded-full blur-3xl"
           style={{
             background: isDark
               ? 'radial-gradient(circle, rgba(236, 95, 43, 0.2) 0%, rgba(236, 95, 43, 0.08) 40%, transparent 70%)'
@@ -74,7 +73,7 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative max-w-5xl mx-auto z-10 text-center">
+      <div className="relative max-w-5xl mx-auto z-10 text-center mt-24">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -91,9 +90,9 @@ export function HeroSection() {
           }}
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
-          <span>Stop Revenue Leak</span>
+          <span>AI Transformation Partner</span>
         </motion.div>
 
         {/* Main Headline */}
@@ -101,9 +100,9 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className={`text-4xl md:text-5xl leading-[1.1] font-bold tracking-[-0.02em] mb-3 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}
+          className={`text-3xl sm:text-4xl lg:text-4xl xl:text-5xl leading-tight font-bold tracking-tight mb-6 px-4 lg:whitespace-nowrap ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}
         >
-          Preventable Churn is Costing You
+          $100M CS Teams Run on Architecture, Not Tools
         </motion.h1>
 
         {/* Rotating hook */}
@@ -111,9 +110,9 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="mb-16"
+          className="mb-16 px-4"
         >
-          <div className={`text-3xl md:text-4xl font-semibold text-[#ec5f2b] leading-[1.1] tracking-[-0.02em] min-h-[36px] md:min-h-[44px]`}>
+          <div className={`text-xl md:text-2xl xl:text-3xl font-semibold text-[#ec5f2b] leading-[1.3] tracking-tight min-h-[90px] md:min-h-[85px]`}>
             {displayText}<span className="animate-pulse font-thin">|</span>
           </div>
         </motion.div>
@@ -123,9 +122,9 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className={`text-base max-w-3xl mx-auto mb-12 font-light leading-relaxed ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}
+          className={`text-sm sm:text-base max-w-3xl mx-auto mb-10 font-light leading-relaxed px-4 ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}
         >
-          While your Post-Sales team works blind, 3 customers are planning to churn, 5 expansion opportunities are being missed, and your CAC is burning through the cracks of spreadsheets and siloed tools.
+          Elite CS teams run on architecture, not luck. We blueprint your transformation, build your AI-powered engine, and activate enterprise-grade revenue growth function.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -133,31 +132,68 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-3xl mx-auto px-4"
         >
           <a
             href="/audit"
-            className="group flex items-center gap-2 px-7 py-3.5 bg-brand-orange text-white rounded-xl font-semibold text-base hover:bg-brand-orange-dark transition-all hover:scale-105 shadow-lg hover:shadow-xl min-w-[240px] justify-center"
+            className="group inline-flex items-center gap-2 px-8 py-4 bg-brand-orange text-white rounded-lg font-semibold text-base hover:bg-brand-orange-dark transition-all hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap"
           >
-            <svg className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
             </svg>
             Get Your Free Revenue Leak Audit
           </a>
-          <button
-            onClick={() => setShowDemoOptions(true)}
-            className={`group flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-base transition-all hover:scale-105 hover:shadow-lg min-w-[240px] justify-center shadow-md border ${
+          <a
+            href="#three-paths"
+            className={`group inline-flex items-center gap-2 px-8 py-4 rounded-lg font-semibold text-base transition-all hover:scale-105 shadow-md border whitespace-nowrap ${
               isDark
                 ? 'bg-gray-900 hover:bg-gray-800 border-gray-700 text-gray-100'
                 : 'bg-white hover:bg-gray-50 border-gray-200 text-gray-900'
             }`}
           >
-            <svg className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            See the Transformation Engine
-          </button>
+            See How We Transform
+          </a>
+        </motion.div>
+
+        {/* Credibility with small icon */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-8 flex items-center justify-center gap-2 px-4"
+        >
+          <svg className="w-4 h-4 text-[#ec5f2b] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+          <div className={`text-xs font-medium text-center ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>
+            <span className="hidden sm:inline">Two Decades Leading Post-Sales at Enterprise Scale • Now Helping Growth-Stage Teams</span>
+            <span className="sm:hidden">20+ Years Enterprise CS Leadership</span>
+          </div>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="mt-12 flex justify-center"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className={`w-6 h-10 border-2 rounded-full flex items-start justify-center pt-2 ${
+              isDark ? 'border-gray-600' : 'border-gray-400'
+            }`}
+          >
+            <motion.div
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1.5 h-1.5 bg-[#ec5f2b] rounded-full"
+            />
+          </motion.div>
         </motion.div>
       </div>
 

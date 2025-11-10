@@ -3,6 +3,14 @@
 import { useState } from 'react';
 import { Navigation } from '@/components/shared/Navigation';
 import { HeroSection } from '@/components/landing/HeroSection';
+import { ProductVideoSection } from '@/components/landing/ProductVideoSection';
+import { ThreePathSection } from '@/components/landing/ThreePathSection';
+import { BlueprintCredibilitySection } from '@/components/landing/BlueprintCredibilitySection';
+import { ProblemAmplificationSection } from '@/components/landing/ProblemAmplificationSection';
+import { RevenueLeakCalculator } from '@/components/landing/RevenueLeakCalculator';
+import { PathDecisionTreeSection } from '@/components/landing/PathDecisionTreeSection';
+import { PricingTransparencySection } from '@/components/landing/PricingTransparencySection';
+import { TransformationFAQSection } from '@/components/landing/TransformationFAQSection';
 import { ChallengeSection } from '@/components/landing/ChallengeSection';
 import { WhyUsSection } from '@/components/landing/WhyUsSection';
 import { CompetitivePositioningSection } from '@/components/landing/CompetitivePositioningSection';
@@ -30,13 +38,18 @@ export default function Home() {
     <>
       <Navigation />
       <main className="min-h-screen bg-white">
+        {/* New Transformation Landing Flow */}
         <HeroSection />
-        <section id="challenge">
-          <ChallengeSection />
-        </section>
-        <section id="why-us">
-          <WhyUsSection />
-        </section>
+        <ProductVideoSection />
+        <ThreePathSection />
+        <BlueprintCredibilitySection />
+        <ProblemAmplificationSection />
+        <RevenueLeakCalculator />
+        <PathDecisionTreeSection />
+        <PricingTransparencySection />
+        <TransformationFAQSection />
+
+        {/* Original Sections - Keep for Now */}
         <section id="competitive">
           <CompetitivePositioningSection />
         </section>
@@ -51,9 +64,6 @@ export default function Home() {
         </section>
         <section id="urgency">
           <UrgencyCTASection />
-        </section>
-        <section id="faq">
-          <FAQSection />
         </section>
         <section id="contact">
           <ContactSection />
