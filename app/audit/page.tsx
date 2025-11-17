@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Navigation } from '@/components/shared/Navigation';
+import { NavigationV4 } from '@/components/landing-v4/NavigationV4';
 import { Footer } from '@/components/landing/Footer';
 import { AuditFormSteps } from '@/components/audit/AuditFormSteps';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -26,24 +26,21 @@ export default function AuditPage() {
     company: '',
     role: '',
 
-    // Step 2: Business Metrics
-    arr: '',
-    customerCount: '',
-    churnRate: '',
-    expansionRate: '',
-
-    // Step 3: Infrastructure & Operations
+    // Step 2: Business Overview
+    industry: '',
     teamSize: '',
-    avgCSMLoad: '',
-    crmTool: '',
-    csPlatform: '',
-    analyticsTool: '',
-    supportTool: '',
-    dataQuality: '',
+    businessStage: '',
 
-    // Step 4: Pain Points
-    topChallenges: [] as string[],
-    urgency: ''
+    // Step 3: Current State
+    currentTools: [] as string[],
+    processMaturity: '',
+    biggestChallenges: [] as string[],
+    otherChallenge: '',
+
+    // Step 4: Goals & Timeline
+    transformationGoals: [] as string[],
+    otherGoal: '',
+    timeline: ''
   });
 
   useEffect(() => {
@@ -70,11 +67,11 @@ export default function AuditPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (currentStep === totalSteps) {
-      setShowResults(true);
-      // Scroll to results
-      setTimeout(() => {
-        document.getElementById('results')?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      // TODO: Send form data to backend/email service
+      console.log('Form submitted:', formData);
+
+      // Redirect to contact/calendly page
+      window.location.href = '/contact';
     }
   };
 
@@ -92,7 +89,7 @@ export default function AuditPage() {
     });
   };
 
-  const handleMultiSelect = (field: 'toolsUsed' | 'topChallenges', value: string) => {
+  const handleMultiSelect = (field: 'currentTools' | 'biggestChallenges' | 'transformationGoals', value: string) => {
     const currentValues = formData[field];
     const newValues = currentValues.includes(value)
       ? currentValues.filter(v => v !== value)
@@ -234,17 +231,17 @@ export default function AuditPage() {
 
   const stepTitles = [
     { title: 'Contact Info', icon: Users },
-    { title: 'Business Metrics', icon: BarChart3 },
-    { title: 'Infrastructure', icon: Database },
-    { title: 'Pain Points', icon: Target }
+    { title: 'Business Overview', icon: BarChart3 },
+    { title: 'Current State', icon: Database },
+    { title: 'Goals & Timeline', icon: Target }
   ];
 
   return (
     <>
-      <Navigation />
+      <NavigationV4 />
       <main className="min-h-screen bg-white dark:bg-gray-900">
         {/* Hero Section */}
-        <section className={`relative pt-24 pb-8 px-6 ${isDark ? 'bg-gradient-to-b from-gray-950 to-gray-900' : 'bg-gradient-to-b from-gray-50 to-white'}`}>
+        <section className={`relative pt-32 pb-8 px-6 ${isDark ? 'bg-gradient-to-b from-gray-950 to-gray-900' : 'bg-gradient-to-b from-gray-50 to-white'}`}>
           <div className="max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -256,18 +253,18 @@ export default function AuditPage() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/20 mb-3">
                 <ClipboardCheck className="w-3.5 h-3.5 text-brand-orange" />
                 <span className="text-xs font-semibold text-brand-orange">
-                  Revenue Leak Assessment
+                  Pre-Discovery Assessment
                 </span>
               </div>
 
               {/* Headline */}
               <h1 className={`text-2xl md:text-3xl font-bold mb-2 leading-tight ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                Post-Sales Health Assessment
+                Business Transformation Readiness
               </h1>
 
               {/* Subheadline */}
               <p className={`text-sm max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                4-minute assessment with personalized recommendations
+                3-minute assessment to help us prepare for your discovery call
               </p>
             </motion.div>
 
@@ -388,7 +385,7 @@ export default function AuditPage() {
                       type="submit"
                       className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-brand-orange text-white rounded-lg font-semibold text-sm hover:bg-brand-orange-dark transition-all"
                     >
-                      Get Assessment
+                      Schedule Call
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   )}
@@ -406,798 +403,37 @@ export default function AuditPage() {
         {/* Results Section */}
         {showResults && (
           <section id="results" className={`py-16 px-6 ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="text-center mb-12"
-              >
-                <h2 className={`text-3xl md:text-4xl font-bold mb-3 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                  Your Revenue Leak Assessment
-                </h2>
-                <p className={`text-sm max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                  Based on your inputs, here's what we found and how CoreShift can help
-                </p>
-              </motion.div>
-
-              {/* Health Score */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className={`p-8 rounded-xl mb-8 text-center ${
+                className={`text-center p-12 rounded-2xl ${
                   isDark
                     ? 'bg-gray-900 border border-gray-800'
                     : 'bg-white border border-gray-200 shadow-xl'
                 }`}
               >
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  {healthScore >= 60 ? (
-                    <CheckCircle2 className={`w-8 h-8 ${health.color}`} />
-                  ) : (
-                    <AlertCircle className={`w-8 h-8 ${health.color}`} />
-                  )}
-                  <h3 className={`text-2xl font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                    Post-Sales Health Score
-                  </h3>
+                <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle2 className="w-10 h-10 text-green-500" />
                 </div>
 
-                <div className={`text-6xl font-bold mb-3 ${health.color}`}>
-                  {healthScore.toFixed(0)}/100
-                </div>
-                <div className={`text-lg font-semibold mb-2 ${health.color}`}>
-                  {health.level}
-                </div>
-                <p className={`text-sm mb-6 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                  {health.desc}
+                <h2 className={`text-2xl md:text-3xl font-bold mb-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
+                  Thank You!
+                </h2>
+                <p className={`text-base max-w-2xl mx-auto mb-6 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  We've received your assessment. Our team will review your information and reach out within 24 hours to schedule your discovery call.
                 </p>
-
-                <div className={`h-4 rounded-full overflow-hidden ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`}>
-                  <motion.div
-                    className={`h-full ${health.bg}`}
-                    initial={{ width: 0 }}
-                    animate={{ width: `${healthScore}%` }}
-                    transition={{ duration: 1, delay: 0.3 }}
-                  />
-                </div>
-              </motion.div>
-
-              {/* Score Breakdown & Industry Benchmarks */}
-              <div className="grid lg:grid-cols-2 gap-6 mb-8">
-                {/* Score Transparency */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.15 }}
-                  className={`p-6 rounded-xl ${
-                    isDark
-                      ? 'bg-gray-900 border border-gray-800'
-                      : 'bg-white border border-gray-200 shadow-lg'
-                  }`}
+                <p className={`text-sm mb-8 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
+                  We'll use this information to prepare a customized transformation strategy tailored to your business needs.
+                </p>
+                <a
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-orange text-white rounded-lg font-semibold hover:bg-brand-orange-dark transition-all hover:scale-105 shadow-lg"
                 >
-                  <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                    How We Calculated Your Score
-                  </h3>
-
-                  <div className="space-y-3">
-                    {/* Churn Management */}
-                    <div>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Churn Management
-                        </span>
-                        <span className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                          {healthScoreBreakdown.churn}/30
-                        </span>
-                      </div>
-                      <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`}>
-                        <div
-                          className="h-full bg-gradient-to-r from-orange-500 to-orange-600"
-                          style={{ width: `${(healthScoreBreakdown.churn / 30) * 100}%` }}
-                        />
-                      </div>
-                      <p className={`text-[10px] mt-0.5 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                        Your churn rate: {churnRate}% (Lower is better)
-                      </p>
-                    </div>
-
-                    {/* Expansion Performance */}
-                    <div>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Expansion Performance
-                        </span>
-                        <span className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                          {healthScoreBreakdown.expansion}/25
-                        </span>
-                      </div>
-                      <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`}>
-                        <div
-                          className="h-full bg-gradient-to-r from-green-500 to-green-600"
-                          style={{ width: `${(healthScoreBreakdown.expansion / 25) * 100}%` }}
-                        />
-                      </div>
-                      <p className={`text-[10px] mt-0.5 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                        Your expansion rate: {expansionRate}% (Target: 35%)
-                      </p>
-                    </div>
-
-                    {/* Team Efficiency */}
-                    <div>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Team Efficiency
-                        </span>
-                        <span className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                          {healthScoreBreakdown.efficiency}/20
-                        </span>
-                      </div>
-                      <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`}>
-                        <div
-                          className="h-full bg-gradient-to-r from-blue-500 to-blue-600"
-                          style={{ width: `${(healthScoreBreakdown.efficiency / 20) * 100}%` }}
-                        />
-                      </div>
-                      <p className={`text-[10px] mt-0.5 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                        Accounts per CSM: {avgCSMLoad} (Optimal: ≤30)
-                      </p>
-                    </div>
-
-                    {/* Tech Stack */}
-                    <div>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Tech Stack Maturity
-                        </span>
-                        <span className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                          {healthScoreBreakdown.tooling}/15
-                        </span>
-                      </div>
-                      <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`}>
-                        <div
-                          className="h-full bg-gradient-to-r from-purple-500 to-purple-600"
-                          style={{ width: `${(healthScoreBreakdown.tooling / 15) * 100}%` }}
-                        />
-                      </div>
-                      <p className={`text-[10px] mt-0.5 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                        Tools integrated: {[formData.crmTool, formData.csPlatform, formData.analyticsTool, formData.supportTool].filter(t => t && t !== 'none').length}/4
-                      </p>
-                    </div>
-
-                    {/* Data Quality */}
-                    <div>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Data Infrastructure
-                        </span>
-                        <span className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                          {healthScoreBreakdown.data}/10
-                        </span>
-                      </div>
-                      <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`}>
-                        <div
-                          className="h-full bg-gradient-to-r from-teal-500 to-teal-600"
-                          style={{ width: `${(healthScoreBreakdown.data / 10) * 100}%` }}
-                        />
-                      </div>
-                      <p className={`text-[10px] mt-0.5 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                        Data quality rating: {formData.dataQuality}/5
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Industry Benchmarks */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className={`p-6 rounded-xl ${
-                    isDark
-                      ? 'bg-gray-900 border border-gray-800'
-                      : 'bg-white border border-gray-200 shadow-lg'
-                  }`}
-                >
-                  <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                    Industry Benchmarks: {maturity.level}
-                  </h3>
-
-                  <div className="space-y-4">
-                    {/* Churn Benchmark */}
-                    <div className={`p-4 rounded-lg ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Annual Churn Rate
-                        </span>
-                        <div className="flex gap-3 items-center">
-                          <span className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>You: {churnRate}%</span>
-                          <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                            Benchmark: {maturity.level === 'Advanced' ? '5-8%' : maturity.level === 'Growing' ? '10-15%' : '15-25%'}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="relative h-2 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800">
-                        <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-green-500/30 to-yellow-500/30" style={{ width: '50%' }} />
-                        <div
-                          className="absolute top-0 bottom-0 w-1 bg-brand-orange"
-                          style={{ left: `${Math.min(churnRate * 2, 100)}%` }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Expansion Benchmark */}
-                    <div className={`p-4 rounded-lg ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Expansion Revenue
-                        </span>
-                        <div className="flex gap-3 items-center">
-                          <span className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>You: {expansionRate}%</span>
-                          <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                            Benchmark: {maturity.level === 'Advanced' ? '30-40%' : maturity.level === 'Growing' ? '20-30%' : '10-20%'}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="relative h-2 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800">
-                        <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-yellow-500/30 to-green-500/30" style={{ width: '100%' }} />
-                        <div
-                          className="absolute top-0 bottom-0 w-1 bg-brand-orange"
-                          style={{ left: `${Math.min((expansionRate / 50) * 100, 100)}%` }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* CSM Load Benchmark */}
-                    <div className={`p-4 rounded-lg ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Accounts per CSM
-                        </span>
-                        <div className="flex gap-3 items-center">
-                          <span className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>You: {avgCSMLoad}</span>
-                          <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                            Optimal: 20-30
-                          </span>
-                        </div>
-                      </div>
-                      <div className="relative h-2 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800">
-                        <div className="absolute inset-y-0 bg-gradient-to-r from-green-500/30 via-yellow-500/30 to-red-500/30" style={{ left: '20%', right: '0' }} />
-                        <div
-                          className="absolute top-0 bottom-0 w-1 bg-brand-orange"
-                          style={{ left: `${Math.min((avgCSMLoad / 100) * 100, 100)}%` }}
-                        />
-                      </div>
-                    </div>
-
-                    <p className={`text-[10px] text-center pt-2 ${isDark ? 'text-gray-600' : 'text-gray-500'}`}>
-                      Benchmarks based on SaaS companies at {maturity.level} maturity
-                    </p>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Revenue Leak Breakdown */}
-              <div className="grid md:grid-cols-4 gap-6 mb-8">
-                {/* Total Leak */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className={`p-6 rounded-xl ${
-                    isDark
-                      ? 'bg-red-950/30 border border-red-900/50'
-                      : 'bg-red-50 border border-red-200'
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <LeakIcon className="w-5 h-5 text-red-500" />
-                    <h4 className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Total Annual Leak
-                    </h4>
-                  </div>
-                  <div className="text-3xl font-bold text-red-500 mb-2">
-                    {formatCurrency(totalLeak)}
-                  </div>
-                  <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>
-                    Revenue at risk each year
-                  </p>
-                </motion.div>
-
-                {/* Preventable Churn */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className={`p-6 rounded-xl ${
-                    isDark
-                      ? 'bg-gray-900 border border-gray-800'
-                      : 'bg-white border border-gray-200 shadow-lg'
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <TrendingDown className="w-5 h-5 text-orange-500" />
-                    <h4 className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Preventable Churn
-                    </h4>
-                  </div>
-                  <div className={`text-3xl font-bold mb-2 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                    {formatCurrency(preventableChurn)}
-                  </div>
-                  <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>
-                    67% of churn is preventable
-                  </p>
-                </motion.div>
-
-                {/* Missed Expansion */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  className={`p-6 rounded-xl ${
-                    isDark
-                      ? 'bg-gray-900 border border-gray-800'
-                      : 'bg-white border border-gray-200 shadow-lg'
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <TrendingUp className="w-5 h-5 text-green-500" />
-                    <h4 className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Missed Expansion
-                    </h4>
-                  </div>
-                  <div className={`text-3xl font-bold mb-2 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                    {formatCurrency(missedExpansion)}
-                  </div>
-                  <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>
-                    Gap to 35% industry benchmark
-                  </p>
-                </motion.div>
-
-                {/* Efficiency Loss */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                  className={`p-6 rounded-xl ${
-                    isDark
-                      ? 'bg-gray-900 border border-gray-800'
-                      : 'bg-white border border-gray-200 shadow-lg'
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <Activity className="w-5 h-5 text-blue-500" />
-                    <h4 className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Efficiency Loss
-                    </h4>
-                  </div>
-                  <div className={`text-3xl font-bold mb-2 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                    {formatCurrency(wastedCSMCost)}
-                  </div>
-                  <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>
-                    Wasted in manual CSM work
-                  </p>
-                </motion.div>
-              </div>
-
-              {/* Why This Matters Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className={`p-8 rounded-xl mb-8 ${
-                  isDark
-                    ? 'bg-gray-900 border border-gray-800'
-                    : 'bg-white border border-gray-200 shadow-lg'
-                }`}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <Lightbulb className="w-6 h-6 text-brand-orange" />
-                  <h3 className={`text-xl font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                    Why This Matters
-                  </h3>
-                </div>
-
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className={`p-5 rounded-lg ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-                    <TrendingDown className="w-8 h-8 text-orange-500 mb-3" />
-                    <h4 className={`text-sm font-bold mb-2 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                      Churn Impact
-                    </h4>
-                    <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Research shows 67% of churn is preventable with early warning systems and proactive interventions.
-                      You're losing <strong>{formatCurrency(preventableChurn)}</strong> that could be saved with predictive analytics
-                      and automated health monitoring.
-                    </p>
-                  </div>
-
-                  <div className={`p-5 rounded-lg ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-                    <TrendingUp className="w-8 h-8 text-green-500 mb-3" />
-                    <h4 className={`text-sm font-bold mb-2 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                      Expansion Opportunity
-                    </h4>
-                    <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Best-in-class companies achieve 35% expansion rates through systematic identification of upsell
-                      opportunities. You have <strong>{formatCurrency(missedExpansion)}</strong> in untapped expansion
-                      potential that automated signals could unlock.
-                    </p>
-                  </div>
-
-                  <div className={`p-5 rounded-lg ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-                    <Activity className="w-8 h-8 text-blue-500 mb-3" />
-                    <h4 className={`text-sm font-bold mb-2 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                      Efficiency Gains
-                    </h4>
-                    <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      CSMs spend ~50% of their time on manual tasks that could be automated. That's
-                      <strong> {formatCurrency(wastedCSMCost)}</strong> in wasted capacity annually. Automation frees
-                      them to focus on strategic customer relationships that drive retention and growth.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Maturity Assessment */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-                className={`p-8 rounded-xl mb-8 ${
-                  isDark
-                    ? 'bg-gray-900 border border-gray-800'
-                    : 'bg-white border border-gray-200 shadow-lg'
-                }`}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <Award className="w-6 h-6 text-brand-orange" />
-                  <h3 className={`text-xl font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                    Your CS Maturity Level: {maturity.level}
-                  </h3>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className={`text-sm font-bold mb-3 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                      What This Means
-                    </h4>
-                    <div className="space-y-2">
-                      {maturity.level === 'Early Stage' && (
-                        <>
-                          <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <strong>Current State:</strong> You're building CS foundations with limited tooling and data infrastructure.
-                          </p>
-                          <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <strong>Primary Challenge:</strong> Reactive firefighting without visibility into what's driving churn or expansion.
-                          </p>
-                          <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <strong>Next Evolution:</strong> Build systematic processes and infrastructure before scaling.
-                          </p>
-                        </>
-                      )}
-                      {maturity.level === 'Growing' && (
-                        <>
-                          <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <strong>Current State:</strong> You have basic CS operations but lack automation and predictive capabilities.
-                          </p>
-                          <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <strong>Primary Challenge:</strong> Data exists but isn't actionable; manual processes limit scale.
-                          </p>
-                          <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <strong>Next Evolution:</strong> Automate workflows and implement predictive analytics to scale efficiently.
-                          </p>
-                        </>
-                      )}
-                      {maturity.level === 'Advanced' && (
-                        <>
-                          <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <strong>Current State:</strong> Solid CS infrastructure with good data practices and tooling.
-                          </p>
-                          <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <strong>Primary Challenge:</strong> Optimize existing processes and unlock incremental gains.
-                          </p>
-                          <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <strong>Next Evolution:</strong> Deploy advanced ML models and automation to maximize efficiency.
-                          </p>
-                        </>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className={`text-sm font-bold mb-3 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                      Recovery Potential
-                    </h4>
-                    <div className="space-y-3">
-                      <div className={`p-4 rounded-lg ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-                        <div className="flex justify-between items-center mb-1">
-                          <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Reduced Churn
-                          </span>
-                          <span className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                            {formatCurrency(recoveryPotential.churn)}
-                          </span>
-                        </div>
-                        <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                          Conservative 12-month impact
-                        </p>
-                      </div>
-
-                      <div className={`p-4 rounded-lg ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-                        <div className="flex justify-between items-center mb-1">
-                          <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Expansion Growth
-                          </span>
-                          <span className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                            {formatCurrency(recoveryPotential.expansion)}
-                          </span>
-                        </div>
-                        <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                          New revenue from signals
-                        </p>
-                      </div>
-
-                      <div className={`p-4 rounded-lg ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-                        <div className="flex justify-between items-center mb-1">
-                          <span className={`text-xs font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Efficiency Savings
-                          </span>
-                          <span className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                            {formatCurrency(recoveryPotential.efficiency)}
-                          </span>
-                        </div>
-                        <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                          Reclaimed CSM capacity
-                        </p>
-                      </div>
-
-                      <div className={`p-4 rounded-lg border-2 ${isDark ? 'bg-brand-orange/10 border-brand-orange/30' : 'bg-brand-orange/5 border-brand-orange/20'}`}>
-                        <div className="flex justify-between items-center">
-                          <span className={`text-xs font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                            Total Impact
-                          </span>
-                          <span className="text-lg font-bold text-brand-orange">
-                            {formatCurrency(recoveryPotential.total)}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* CoreShift Solution Mapping */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className={`p-8 rounded-xl mb-8 ${
-                  isDark
-                    ? 'bg-gradient-to-br from-brand-orange/20 to-orange-600/20 border border-brand-orange/30'
-                    : 'bg-gradient-to-br from-brand-orange/10 to-orange-100 border border-brand-orange/30'
-                }`}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <Rocket className="w-6 h-6 text-brand-orange" />
-                  <h3 className={`text-xl font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                    Your Recommended Path: {maturity.modules.join(' + ')}
-                  </h3>
-                </div>
-
-                <div className="grid md:grid-cols-3 gap-6 mb-6">
-                  {/* Blueprint Module */}
-                  {maturity.modules.includes('Blueprint') && (
-                    <div className={`p-6 rounded-lg ${isDark ? 'bg-gray-900/80' : 'bg-white/80'}`}>
-                      <div className="flex items-center gap-2 mb-3">
-                        <Target className="w-5 h-5 text-brand-orange" />
-                        <h4 className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                          Transformation Blueprint
-                        </h4>
-                      </div>
-                      <p className={`text-xs mb-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Custom 90-day roadmap for your CS transformation
-                      </p>
-                      <ul className={`space-y-2 text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Deep-dive audit of your current state</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Prioritized module recommendations</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Implementation timeline & milestones</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Data integration strategy</span>
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Advisory Module */}
-                  {maturity.modules.includes('Advisory') && (
-                    <div className={`p-6 rounded-lg ${isDark ? 'bg-gray-900/80' : 'bg-white/80'}`}>
-                      <div className="flex items-center gap-2 mb-3">
-                        <Users className="w-5 h-5 text-brand-orange" />
-                        <h4 className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                          Strategic Advisory
-                        </h4>
-                      </div>
-                      <p className={`text-xs mb-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Hands-on guidance to build CS foundations
-                      </p>
-                      <ul className={`space-y-2 text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Bi-weekly strategy sessions</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Playbook development support</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Team training & enablement</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Data quality improvement</span>
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Platform Module */}
-                  {maturity.modules.includes('Platform') && (
-                    <div className={`p-6 rounded-lg ${isDark ? 'bg-gray-900/80' : 'bg-white/80'}`}>
-                      <div className="flex items-center gap-2 mb-3">
-                        <Zap className="w-5 h-5 text-brand-orange" />
-                        <h4 className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                          CoreShift Platform
-                        </h4>
-                      </div>
-                      <p className={`text-xs mb-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        AI-powered automation for your CS operations
-                      </p>
-                      <ul className={`space-y-2 text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Churn prediction & early warnings</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Expansion opportunity identification</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Automated workflows & playbooks</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span>Real-time health monitoring</span>
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-                </div>
-
-                <div className={`p-6 rounded-lg mb-6 ${isDark ? 'bg-gray-900/80' : 'bg-white/80'}`}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Clock className="w-5 h-5 text-brand-orange" />
-                    <h4 className={`text-sm font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                      Implementation Timeline
-                    </h4>
-                  </div>
-                  <div className="grid md:grid-cols-3 gap-4">
-                    <div>
-                      <div className={`text-xs font-semibold mb-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Weeks 1-4
-                      </div>
-                      <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                        Discovery, data audit, blueprint delivery
-                      </p>
-                    </div>
-                    <div>
-                      <div className={`text-xs font-semibold mb-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Weeks 5-8
-                      </div>
-                      <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                        Data integration, model training, playbook setup
-                      </p>
-                    </div>
-                    <div>
-                      <div className={`text-xs font-semibold mb-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Weeks 9+
-                      </div>
-                      <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                        Platform deployment, team training, optimization
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <a
-                    href="/contact"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-orange text-white rounded-lg font-semibold text-sm hover:bg-brand-orange-dark transition-all hover:scale-105 shadow-lg"
-                  >
-                    Schedule Strategy Call
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                  <a
-                    href="/product"
-                    className={`inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all hover:scale-105 ${
-                      isDark
-                        ? 'bg-gray-800 text-white border border-gray-700 hover:border-brand-orange'
-                        : 'bg-white text-brand-charcoal border border-gray-200 hover:border-brand-orange shadow-lg'
-                    }`}
-                  >
-                    Explore Platform Modules
-                  </a>
-                </div>
-              </motion.div>
-
-              {/* What You'll Get Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.9 }}
-                className={`p-8 rounded-xl ${
-                  isDark
-                    ? 'bg-gray-900 border border-gray-800'
-                    : 'bg-white border border-gray-200 shadow-lg'
-                }`}
-              >
-                <h3 className={`text-xl font-bold mb-6 text-center ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                  Expected Outcomes (12 Months)
-                </h3>
-
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="text-center">
-                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full mb-3 ${
-                      isDark ? 'bg-green-950/30 text-green-500' : 'bg-green-50 text-green-600'
-                    }`}>
-                      <TrendingDown className="w-6 h-6" />
-                    </div>
-                    <div className="text-3xl font-bold text-green-500 mb-1">
-                      -35%
-                    </div>
-                    <div className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Reduction in preventable churn through early warnings
-                    </div>
-                  </div>
-
-                  <div className="text-center">
-                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full mb-3 ${
-                      isDark ? 'bg-blue-950/30 text-blue-500' : 'bg-blue-50 text-blue-600'
-                    }`}>
-                      <TrendingUp className="w-6 h-6" />
-                    </div>
-                    <div className="text-3xl font-bold text-blue-500 mb-1">
-                      +40%
-                    </div>
-                    <div className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Increase in expansion revenue from automated signals
-                    </div>
-                  </div>
-
-                  <div className="text-center">
-                    <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full mb-3 ${
-                      isDark ? 'bg-orange-950/30 text-brand-orange' : 'bg-orange-50 text-brand-orange'
-                    }`}>
-                      <Activity className="w-6 h-6" />
-                    </div>
-                    <div className="text-3xl font-bold text-brand-orange mb-1">
-                      60%
-                    </div>
-                    <div className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Time saved on manual tasks, reclaimed for strategic work
-                    </div>
-                  </div>
-                </div>
+                  Return to Contact
+                  <ArrowRight className="w-5 h-5" />
+                </a>
               </motion.div>
             </div>
           </section>

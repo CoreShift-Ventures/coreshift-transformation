@@ -1,12 +1,14 @@
 import React from 'react';
+import type { FormIntent } from '@/lib/supabase';
 
 interface AuditFormStepsProps {
   currentStep: number;
   formData: any;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleMultiSelect: (field: 'toolsUsed' | 'topChallenges', value: string) => void;
+  handleMultiSelect: (field: 'currentTools' | 'biggestChallenges' | 'transformationGoals', value: string) => void;
   isDark: boolean;
+  intent?: FormIntent;
 }
 
 export const AuditFormSteps: React.FC<AuditFormStepsProps> = ({
@@ -15,7 +17,8 @@ export const AuditFormSteps: React.FC<AuditFormStepsProps> = ({
   handleInputChange,
   handleCheckboxChange,
   handleMultiSelect,
-  isDark
+  isDark,
+  intent = 'blueprint'
 }) => {
   const inputClass = `w-full px-4 py-3 rounded-lg text-sm ${
     isDark
@@ -91,10 +94,10 @@ export const AuditFormSteps: React.FC<AuditFormStepsProps> = ({
           >
             <option value="">Select your role</option>
             <option value="founder">Founder / CEO</option>
-            <option value="vp-cs">VP of Customer Success</option>
-            <option value="director-cs">Director of CS</option>
-            <option value="csm">CSM / Account Manager</option>
-            <option value="operations">Operations</option>
+            <option value="cxo">C-Level Executive (COO, CTO, etc.)</option>
+            <option value="vp">VP / Head of Operations</option>
+            <option value="director">Director / Manager</option>
+            <option value="operations">Operations Team</option>
             <option value="other">Other</option>
           </select>
         </div>
@@ -102,270 +105,249 @@ export const AuditFormSteps: React.FC<AuditFormStepsProps> = ({
     );
   }
 
-  // Step 2: Business Metrics
+  // Step 2: Business Overview
   if (currentStep === 2) {
     return (
       <div className="space-y-6">
         <div>
-          <label className={labelClass}>Annual Recurring Revenue (ARR) *</label>
-          <input
-            type="number"
-            name="arr"
-            required
-            min="0"
-            step="100000"
-            value={formData.arr}
-            onChange={handleInputChange}
-            className={inputClass}
-            placeholder="5000000"
-          />
-          <p className={`text-xs mt-1 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-            Enter in dollars (e.g., 5000000 for $5M)
-          </p>
-        </div>
-
-        <div>
-          <label className={labelClass}>Number of Customers *</label>
-          <input
-            type="number"
-            name="customerCount"
-            required
-            min="0"
-            step="1"
-            value={formData.customerCount}
-            onChange={handleInputChange}
-            className={inputClass}
-            placeholder="150"
-          />
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <label className={labelClass}>Annual Churn Rate *</label>
-            <input
-              type="number"
-              name="churnRate"
-              required
-              min="0"
-              max="100"
-              step="0.1"
-              value={formData.churnRate}
-              onChange={handleInputChange}
-              className={inputClass}
-              placeholder="15"
-            />
-            <p className={`text-xs mt-1 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-              Enter as % (e.g., 15 for 15%)
-            </p>
-          </div>
-
-          <div>
-            <label className={labelClass}>Current Expansion Rate *</label>
-            <input
-              type="number"
-              name="expansionRate"
-              required
-              min="0"
-              max="100"
-              step="0.1"
-              value={formData.expansionRate}
-              onChange={handleInputChange}
-              className={inputClass}
-              placeholder="20"
-            />
-            <p className={`text-xs mt-1 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-              Upsell/expansion as % of ARR
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Step 3: Infrastructure & Operations
-  if (currentStep === 3) {
-    return (
-      <div className="space-y-6">
-        {/* Team Info */}
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <label className={labelClass}>CS Team Size *</label>
-            <input
-              type="number"
-              name="teamSize"
-              required
-              min="0"
-              step="1"
-              value={formData.teamSize}
-              onChange={handleInputChange}
-              className={inputClass}
-              placeholder="5"
-            />
-            <p className={`text-xs mt-1 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-              Number of CSMs or account managers
-            </p>
-          </div>
-
-          <div>
-            <label className={labelClass}>Avg Accounts per CSM *</label>
-            <input
-              type="number"
-              name="avgCSMLoad"
-              required
-              min="0"
-              step="1"
-              value={formData.avgCSMLoad}
-              onChange={handleInputChange}
-              className={inputClass}
-              placeholder="30"
-            />
-            <p className={`text-xs mt-1 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-              Customer portfolio per CSM
-            </p>
-          </div>
-        </div>
-
-        {/* Tech Stack */}
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <label className={labelClass}>CRM System</label>
-            <select
-              name="crmTool"
-              value={formData.crmTool}
-              onChange={handleInputChange}
-              className={inputClass}
-            >
-              <option value="">Select CRM</option>
-              <option value="salesforce">Salesforce</option>
-              <option value="hubspot">HubSpot</option>
-              <option value="pipedrive">Pipedrive</option>
-              <option value="other">Other CRM</option>
-              <option value="none">No CRM</option>
-            </select>
-          </div>
-
-          <div>
-            <label className={labelClass}>CS Platform</label>
-            <select
-              name="csPlatform"
-              value={formData.csPlatform}
-              onChange={handleInputChange}
-              className={inputClass}
-            >
-              <option value="">Select CS Platform</option>
-              <option value="gainsight">Gainsight</option>
-              <option value="churnzero">ChurnZero</option>
-              <option value="totango">Totango</option>
-              <option value="planhat">Planhat</option>
-              <option value="other">Other Platform</option>
-              <option value="none">No CS Platform</option>
-            </select>
-          </div>
-
-          <div>
-            <label className={labelClass}>Product Analytics</label>
-            <select
-              name="analyticsTool"
-              value={formData.analyticsTool}
-              onChange={handleInputChange}
-              className={inputClass}
-            >
-              <option value="">Select Analytics Tool</option>
-              <option value="pendo">Pendo</option>
-              <option value="mixpanel">Mixpanel</option>
-              <option value="amplitude">Amplitude</option>
-              <option value="heap">Heap</option>
-              <option value="other">Other Analytics</option>
-              <option value="none">No Analytics</option>
-            </select>
-          </div>
-
-          <div>
-            <label className={labelClass}>Support Tool</label>
-            <select
-              name="supportTool"
-              value={formData.supportTool}
-              onChange={handleInputChange}
-              className={inputClass}
-            >
-              <option value="">Select Support Tool</option>
-              <option value="zendesk">Zendesk</option>
-              <option value="intercom">Intercom</option>
-              <option value="freshdesk">Freshdesk</option>
-              <option value="other">Other Support Tool</option>
-              <option value="none">No Support Tool</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Data Quality */}
-        <div>
-          <label className={labelClass}>Data Quality Rating *</label>
+          <label className={labelClass}>Industry *</label>
           <select
-            name="dataQuality"
+            name="industry"
             required
-            value={formData.dataQuality}
+            value={formData.industry}
             onChange={handleInputChange}
             className={inputClass}
           >
-            <option value="">Rate your data quality</option>
-            <option value="5">Excellent - Clean, centralized, automated</option>
-            <option value="4">Good - Mostly accurate, some manual work</option>
-            <option value="3">Fair - Fragmented across systems</option>
-            <option value="2">Poor - Inconsistent and outdated</option>
-            <option value="1">Very Poor - Little to no reliable data</option>
+            <option value="">Select your industry</option>
+            <option value="saas">SaaS / Software</option>
+            <option value="services">Professional Services</option>
+            <option value="ecommerce">E-commerce / Retail</option>
+            <option value="finance">Financial Services</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="education">Education</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label className={labelClass}>Company Size *</label>
+          <select
+            name="teamSize"
+            required
+            value={formData.teamSize}
+            onChange={handleInputChange}
+            className={inputClass}
+          >
+            <option value="">Select team size</option>
+            <option value="1-10">1-10 employees</option>
+            <option value="11-50">11-50 employees</option>
+            <option value="51-150">51-150 employees</option>
+            <option value="151-500">151-500 employees</option>
+            <option value="500+">500+ employees</option>
+          </select>
+        </div>
+
+        <div>
+          <label className={labelClass}>Business Stage *</label>
+          <select
+            name="businessStage"
+            required
+            value={formData.businessStage}
+            onChange={handleInputChange}
+            className={inputClass}
+          >
+            <option value="">Select business stage</option>
+            <option value="startup">Early Stage / Startup</option>
+            <option value="growth">Growth Stage</option>
+            <option value="scale">Scaling</option>
+            <option value="established">Established</option>
           </select>
         </div>
       </div>
     );
   }
 
-  // Step 4: Pain Points
-  if (currentStep === 4) {
-    const challenges = [
-      'High churn rate',
-      'Low expansion revenue',
-      'Cannot predict which customers will churn',
-      'Manual workflows and reporting',
-      'CSMs spending too much time on admin',
-      'No visibility into customer health',
-      'Reactive firefighting mode',
-      'Poor data quality',
-      'No automation or playbooks'
+  // Step 3: Current State
+  if (currentStep === 3) {
+    const tools = [
+      'Spreadsheets (Excel, Google Sheets)',
+      'CRM (Salesforce, HubSpot)',
+      'Project Management (Asana, Monday)',
+      'Communication (Slack, Teams)',
+      'Custom databases',
+      'ERP system',
+      'Automation tools (Zapier, Make)',
+      'No formal tools'
+    ];
+
+    // Different challenges based on intent
+    const challenges = intent === 'advisory' ? [
+      'Need strategic operational guidance',
+      'Leadership gap in operations function',
+      'Scaling challenges without adding overhead',
+      'Cross-functional team alignment issues',
+      'Need executive-level process oversight',
+      'Quarterly planning and OKR execution',
+      'Building operational infrastructure',
+      'Managing operational initiatives'
+    ] : [
+      'Processes are manual and time-consuming',
+      'Work gets lost between teams',
+      'No single source of truth',
+      'Inconsistent workflows across team',
+      'Too much firefighting, not enough strategy',
+      'Scaling is difficult without hiring',
+      'Reporting takes days, not hours',
+      'Customer experience is inconsistent'
     ];
 
     return (
       <div className="space-y-6">
         <div>
-          <label className={labelClass}>Top Challenges (Select your biggest pain points)</label>
+          <label className={labelClass}>Current Tools (Select all that apply)</label>
           <div className="grid md:grid-cols-2 gap-3 mt-2">
-            {challenges.map((challenge) => (
+            {tools.map((tool) => (
               <button
-                key={challenge}
+                key={tool}
                 type="button"
-                onClick={() => handleMultiSelect('topChallenges', challenge)}
-                className={checkboxButtonClass(formData.topChallenges.includes(challenge))}
+                onClick={() => handleMultiSelect('currentTools', tool)}
+                className={checkboxButtonClass(formData.currentTools?.includes(tool))}
               >
-                <span className="text-sm">{challenge}</span>
+                <span className="text-sm">{tool}</span>
               </button>
             ))}
           </div>
         </div>
 
         <div>
-          <label className={labelClass}>Urgency Level *</label>
+          <label className={labelClass}>Process Maturity *</label>
           <select
-            name="urgency"
+            name="processMaturity"
             required
-            value={formData.urgency}
+            value={formData.processMaturity}
             onChange={handleInputChange}
             className={inputClass}
           >
-            <option value="">How urgent is this problem?</option>
-            <option value="critical">Critical - Need solution ASAP (within 1 month)</option>
-            <option value="high">High - Planning to address this quarter</option>
-            <option value="medium">Medium - Exploring options for next 6 months</option>
-            <option value="low">Low - Just researching for now</option>
+            <option value="">How would you rate your current processes?</option>
+            <option value="5">Excellent - Fully documented, automated, and optimized</option>
+            <option value="4">Good - Documented with some automation</option>
+            <option value="3">Fair - Some documentation, mostly manual</option>
+            <option value="2">Poor - Ad-hoc with little documentation</option>
+            <option value="1">Very Poor - Chaotic, no clear processes</option>
+          </select>
+        </div>
+
+        <div>
+          <label className={labelClass}>Biggest Challenges (Select your top pain points)</label>
+          <div className="grid md:grid-cols-2 gap-3 mt-2">
+            {challenges.map((challenge) => (
+              <button
+                key={challenge}
+                type="button"
+                onClick={() => handleMultiSelect('biggestChallenges', challenge)}
+                className={checkboxButtonClass(formData.biggestChallenges?.includes(challenge))}
+              >
+                <span className="text-sm">{challenge}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Other challenge text input */}
+          <div className="mt-4">
+            <input
+              type="text"
+              name="otherChallenge"
+              value={formData.otherChallenge}
+              onChange={handleInputChange}
+              className={inputClass}
+              placeholder="Other challenge (optional)"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Step 4: Goals & Timeline
+  if (currentStep === 4) {
+    // Different goals based on intent
+    const goals = intent === 'advisory' ? [
+      'Strategic operational leadership',
+      'Team enablement and coaching',
+      'Quarterly planning and OKRs',
+      'Operational KPI frameworks',
+      'Growth infrastructure support',
+      'Executive-level decision support',
+      'Organizational structure optimization',
+      'Long-term operational strategy'
+    ] : [
+      'Automate repetitive tasks',
+      'Improve team efficiency',
+      'Scale without hiring',
+      'Better customer experience',
+      'Reduce errors and rework',
+      'Gain visibility into operations',
+      'Streamline cross-team collaboration',
+      'Build AI-powered workflows'
+    ];
+
+    return (
+      <div className="space-y-6">
+        <div>
+          <label className={labelClass}>Transformation Goals (Select all that apply)</label>
+          <div className="grid md:grid-cols-2 gap-3 mt-2">
+            {goals.map((goal) => (
+              <button
+                key={goal}
+                type="button"
+                onClick={() => handleMultiSelect('transformationGoals', goal)}
+                className={checkboxButtonClass(formData.transformationGoals?.includes(goal))}
+              >
+                <span className="text-sm">{goal}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Other goal text input */}
+          <div className="mt-4">
+            <input
+              type="text"
+              name="otherGoal"
+              value={formData.otherGoal}
+              onChange={handleInputChange}
+              className={inputClass}
+              placeholder="Other goal (optional)"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className={labelClass}>Timeline *</label>
+          <select
+            name="timeline"
+            required
+            value={formData.timeline}
+            onChange={handleInputChange}
+            className={inputClass}
+          >
+            {intent === 'advisory' ? (
+              <>
+                <option value="">Preferred engagement duration?</option>
+                <option value="3-months">3-month engagement</option>
+                <option value="6-months">6-month engagement</option>
+                <option value="12-months">12+ month engagement</option>
+                <option value="flexible">Flexible / Exploring options</option>
+              </>
+            ) : (
+              <>
+                <option value="">When do you need this implemented?</option>
+                <option value="urgent">Urgent - Within 1 month</option>
+                <option value="this-quarter">This quarter (3 months)</option>
+                <option value="next-quarter">Next quarter (6 months)</option>
+                <option value="exploring">Exploring for future planning</option>
+              </>
+            )}
           </select>
         </div>
       </div>

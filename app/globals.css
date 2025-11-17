@@ -110,6 +110,16 @@ textarea:focus-visible {
   background: var(--gray-400);
 }
 
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Enterprise-level animations */
 @keyframes fadeIn {
   from {

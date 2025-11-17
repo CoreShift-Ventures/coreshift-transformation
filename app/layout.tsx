@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import { Navigation } from "@/components/shared/Navigation";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -34,7 +33,6 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <Navigation />
           {children}
         </ThemeProvider>
       </body>
