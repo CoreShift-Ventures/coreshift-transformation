@@ -67,6 +67,15 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Disable hyphenation globally */
+* {
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  word-wrap: normal;
+  overflow-wrap: normal;
+}
+
 /* Typography refinements */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;

@@ -2,25 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { Users, Code, Zap, Award, Shield, Target } from 'lucide-react';
-
-const coreShiftDifference = [
-  {
-    icon: Award,
-    title: 'Strategy + Execution',
-    description: "We don't just consult, we build & deliver"
-  },
-  {
-    icon: Shield,
-    title: 'Process First, Then Tech',
-    description: 'Transform the process, then automate with AI'
-  },
-  {
-    icon: Target,
-    title: 'You Own Everything',
-    description: 'Your infrastructure, zero vendor lock-in'
-  }
-];
+import { Users, Code, Zap } from 'lucide-react';
 
 export default function EveryOtherOptionSection() {
   const { theme } = useTheme();
@@ -63,7 +45,7 @@ export default function EveryOtherOptionSection() {
   ];
 
   return (
-    <section className={`py-16 px-6 ${isDark ? 'bg-black' : 'bg-white'}`}>
+    <section className={`py-12 md:py-16 px-4 md:px-6 ${isDark ? 'bg-black' : 'bg-white'}`}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10">
           <motion.h2
@@ -89,7 +71,7 @@ export default function EveryOtherOptionSection() {
 
         {/* 3-Panel Competitor Comparison */}
         <motion.div
-          className="grid md:grid-cols-3 gap-5 mb-10"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-10"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -110,7 +92,7 @@ export default function EveryOtherOptionSection() {
             return (
               <motion.div
                 key={index}
-                className={`rounded-2xl p-6 border flex flex-col ${
+                className={`rounded-2xl p-5 md:p-6 border flex flex-col ${
                   isDark ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'
                 } shadow-lg`}
                 variants={{
@@ -149,59 +131,6 @@ export default function EveryOtherOptionSection() {
               </motion.div>
             );
           })}
-        </motion.div>
-
-        {/* CoreShift Difference */}
-        <motion.div
-          className={`p-8 rounded-2xl ${
-            isDark
-              ? 'bg-gradient-to-br from-gray-900 to-gray-800 border border-[#ec5f2b]/30 shadow-xl shadow-black/20'
-              : 'bg-white/80 border border-[#ec5f2b]/30 shadow-xl shadow-gray-500/5'
-          }`}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <h3 className={`text-xl md:text-2xl font-bold text-center mb-8 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-            The <span className={isDark ? 'text-white' : 'text-brand-charcoal'}>Core</span><span className="text-[#ec5f2b]">Shift</span> Difference
-          </h3>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {coreShiftDifference.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
-                className="text-center"
-              >
-                <div className="mb-4 flex justify-center">
-                  <item.icon className="w-12 h-12 text-[#ec5f2b]" strokeWidth={1.5} />
-                </div>
-                <h4 className={`font-bold text-lg mb-2 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                  {item.title}
-                </h4>
-                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Closing Statement */}
-        <motion.div
-          className="text-center mt-10"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-        >
-          <p className={`text-xl md:text-2xl font-bold ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
-            Stop renting solutions. <span className="text-[#ec5f2b]">Start owning transformation.</span>
-          </p>
         </motion.div>
       </div>
     </section>

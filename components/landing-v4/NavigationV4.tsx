@@ -32,15 +32,17 @@ export function NavigationV4() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setMobileMenuOpen(false);
+    } else {
+      // If element not found, navigate to home page with hash
+      window.location.href = `/#${id}`;
     }
   };
 
   const menuItems = [
-    { label: 'What We Do', id: 'what-we-do', isScroll: true },
-    { label: 'Showcase', href: '/showcase', isScroll: false },
-    { label: 'Why CoreShift', id: 'why-coreshift', isScroll: true },
-    { label: 'About', href: '/about', isScroll: false },
-    { label: 'FAQ', id: 'faq', isScroll: true }
+    { label: 'The Process', id: 'how-we-work', isScroll: true },
+    { label: 'The Proof', id: 'case-studies', isScroll: true },
+    { label: 'The Difference', id: 'why-coreshift', isScroll: true },
+    { label: 'The Team', href: '/about', isScroll: false }
   ];
 
   return (
@@ -133,6 +135,7 @@ export function NavigationV4() {
               isDark ? 'hover:bg-gray-800 focus-visible:ring-offset-black' : 'hover:bg-gray-100 focus-visible:ring-offset-white'
             }`}
             aria-label="Toggle theme"
+            title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {isDark ? (
               <Sun className="w-4 h-4 text-gray-300" />
@@ -148,15 +151,16 @@ export function NavigationV4() {
               isDark ? 'hover:bg-gray-800 focus-visible:ring-offset-black' : 'hover:bg-gray-100 focus-visible:ring-offset-white'
             }`}
             aria-label="Send quick message"
+            title="Send us a quick message"
           >
             <Mail className={`w-4 h-4 ${isDark ? 'text-gray-300' : 'text-gray-700'}`} />
           </button>
 
           <a
-            href="/contact"
+            href="/contact?intent=blueprint"
             className="px-5 py-2.5 bg-brand-orange text-white rounded-lg text-sm font-semibold hover:bg-brand-orange-dark transition-all shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-white whitespace-nowrap hover:scale-105 inline-block"
           >
-            Book Strategy Session
+            Book a Free Consult
           </a>
         </div>
 
@@ -182,15 +186,15 @@ export function NavigationV4() {
             transition={{ duration: 0.2 }}
             className={`md:hidden overflow-hidden ${isDark ? 'bg-black/95 backdrop-blur-xl border-t border-gray-800' : 'bg-white/95 backdrop-blur-xl border-t border-gray-200'}`}
           >
-            <div className="px-6 py-4 space-y-3">
+            <div className="px-4 py-4 space-y-1">
               {menuItems.map((item) => {
                 if (item.isScroll) {
                   return (
                     <button
                       key={item.id}
                       onClick={() => scrollToSection(item.id!)}
-                      className={`block w-full text-left py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 rounded-md px-2 ${
-                        isDark ? 'text-gray-300 hover:text-white focus-visible:ring-offset-black' : 'text-gray-700 hover:text-brand-charcoal focus-visible:ring-offset-white'
+                      className={`block w-full text-left py-3.5 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 rounded-lg px-4 min-h-[48px] ${
+                        isDark ? 'text-gray-300 hover:text-white hover:bg-gray-800/50 focus-visible:ring-offset-black' : 'text-gray-700 hover:text-brand-charcoal hover:bg-gray-50 focus-visible:ring-offset-white'
                       }`}
                     >
                       {item.label}
@@ -201,8 +205,8 @@ export function NavigationV4() {
                     <Link
                       key={item.label}
                       href={item.href!}
-                      className={`block w-full text-left py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 rounded-md px-2 ${
-                        isDark ? 'text-gray-300 hover:text-white focus-visible:ring-offset-black' : 'text-gray-700 hover:text-brand-charcoal focus-visible:ring-offset-white'
+                      className={`block w-full text-left py-3.5 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 rounded-lg px-4 min-h-[48px] ${
+                        isDark ? 'text-gray-300 hover:text-white hover:bg-gray-800/50 focus-visible:ring-offset-black' : 'text-gray-700 hover:text-brand-charcoal hover:bg-gray-50 focus-visible:ring-offset-white'
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -215,8 +219,8 @@ export function NavigationV4() {
               {/* Mobile Theme Toggle */}
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className={`flex items-center gap-2 w-full text-left py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 rounded-md px-2 ${
-                  isDark ? 'text-gray-300 hover:text-white focus-visible:ring-offset-black' : 'text-gray-700 hover:text-brand-charcoal focus-visible:ring-offset-white'
+                className={`flex items-center gap-3 w-full text-left py-3.5 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 rounded-lg px-4 min-h-[48px] ${
+                  isDark ? 'text-gray-300 hover:text-white hover:bg-gray-800/50 focus-visible:ring-offset-black' : 'text-gray-700 hover:text-brand-charcoal hover:bg-gray-50 focus-visible:ring-offset-white'
                 }`}
               >
                 {isDark ? (
@@ -238,8 +242,8 @@ export function NavigationV4() {
                   setIsEmailModalOpen(true);
                   setMobileMenuOpen(false);
                 }}
-                className={`flex items-center gap-2 w-full text-left py-2 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 rounded-md px-2 ${
-                  isDark ? 'text-gray-300 hover:text-white focus-visible:ring-offset-black' : 'text-gray-700 hover:text-brand-charcoal focus-visible:ring-offset-white'
+                className={`flex items-center gap-3 w-full text-left py-3.5 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 rounded-lg px-4 min-h-[48px] ${
+                  isDark ? 'text-gray-300 hover:text-white hover:bg-gray-800/50 focus-visible:ring-offset-black' : 'text-gray-700 hover:text-brand-charcoal hover:bg-gray-50 focus-visible:ring-offset-white'
                 }`}
               >
                 <Mail className="w-4 h-4" />
@@ -247,10 +251,10 @@ export function NavigationV4() {
               </button>
 
               <a
-                href="/contact"
-                className="w-full px-6 py-2.5 bg-brand-orange text-white rounded-lg font-semibold hover:bg-brand-orange-dark transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-black mt-2 inline-block text-center"
+                href="/contact?intent=blueprint"
+                className="w-full px-6 py-4 bg-brand-orange text-white rounded-xl font-semibold text-base hover:bg-brand-orange-dark transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-black mt-4 inline-block text-center min-h-[52px]"
               >
-                Book Strategy Session
+                Book a Free Consult
               </a>
             </div>
           </motion.div>

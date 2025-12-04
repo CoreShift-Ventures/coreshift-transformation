@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import SmoothScroll from "@/components/SmoothScroll";
+import { Analytics } from "@/components/Analytics";
 import "./globals.css";
 
 const inter = Inter({
@@ -18,8 +20,38 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CoreShift - Post-Sales Driven by Goals + NRR",
-  description: "The only platform built on dual pole stars: Customer Goals + Net Revenue Retention. From firefighting to world-class post-sales.",
+  title: "CoreShift | Modern Business Systems for Scaling Companies",
+  description: "We transform your operations into modern web applications. Enterprise-grade systems, deployed in weeks not months.",
+  keywords: ["business systems", "digital transformation", "custom software", "web applications", "automation", "enterprise software"],
+  authors: [{ name: "CoreShift" }],
+  creator: "CoreShift",
+  metadataBase: new URL("https://cshift.io"),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://cshift.io",
+    siteName: "CoreShift",
+    title: "CoreShift | Modern Business Systems for Scaling Companies",
+    description: "We transform your operations into modern web applications. Enterprise-grade systems, deployed in weeks not months.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "CoreShift - Modern Business Systems for Scaling Companies",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CoreShift | Modern Business Systems for Scaling Companies",
+    description: "We transform your operations into modern web applications. Enterprise-grade systems, deployed in weeks not months.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -32,8 +64,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
+        <Analytics />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          {children}
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

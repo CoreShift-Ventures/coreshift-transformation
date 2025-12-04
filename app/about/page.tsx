@@ -36,7 +36,7 @@ export default function AboutPage() {
   return (
     <>
       <NavigationV4 />
-      <main className="min-h-screen">
+      <main className="min-h-screen" style={{ hyphens: 'none', WebkitHyphens: 'none', msHyphens: 'none' }}>
         {/* Hero Block */}
         <section className={`relative pt-32 pb-16 px-6 overflow-hidden ${isDark ? 'bg-black' : 'bg-white'}`}>
           {/* Background decoration */}
@@ -88,9 +88,8 @@ export default function AboutPage() {
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
               <div className="mb-10">
                 <h2 className={`text-2xl md:text-3xl font-bold mb-2 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
@@ -148,9 +147,8 @@ export default function AboutPage() {
                 {/* Principles */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
                   className={`p-6 rounded-2xl border ${
                     isDark
                       ? 'bg-gradient-to-br from-gray-900 to-gray-800 border-gray-800'
@@ -165,9 +163,8 @@ export default function AboutPage() {
                       <motion.li
                         key={index}
                         initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.6 + index * 0.1 }}
                         className="flex items-start gap-3"
                       >
                         <div className="relative flex-shrink-0 w-6 h-6 mt-0.5">
@@ -185,9 +182,8 @@ export default function AboutPage() {
                 {/* Who We Work With */}
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
                   className={`p-6 rounded-2xl border ${
                     isDark
                       ? 'bg-gradient-to-br from-gray-900 to-gray-800 border-gray-800'
@@ -202,9 +198,8 @@ export default function AboutPage() {
                       <motion.li
                         key={index}
                         initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.6 + index * 0.1 }}
                         className="flex items-start gap-3"
                       >
                         <div className="relative flex-shrink-0 w-6 h-6 mt-0.5">
@@ -357,7 +352,7 @@ export default function AboutPage() {
               </h2>
 
               <a
-                href="/contact"
+                href="/contact?intent=blueprint"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#ec5f2b] to-orange-500 text-white rounded-lg font-semibold text-base hover:shadow-2xl transition-all hover:scale-105 shadow-xl"
               >
                 Book a Strategy Session

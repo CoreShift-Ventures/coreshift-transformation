@@ -6,9 +6,9 @@ import { useTheme } from 'next-themes'
 import { ArrowRight, Calendar } from 'lucide-react'
 
 const rotatingStats = [
-  "The right process blueprint pays for itself in 90 days",
-  "Scaling without systems always becomes firefighting",
-  "Operational chaos costs scaling businesses 6–7 figures annually"
+  "Your business runs on spreadsheets. It should run on systems.",
+  "Enterprise-grade operations. Without the enterprise timeline.",
+  "Stop scaling chaos. Start scaling systems."
 ]
 
 export default function HeroV4() {
@@ -27,6 +27,8 @@ export default function HeroV4() {
   // Typing effect
   useEffect(() => {
     const currentStat = rotatingStats[rotatingIndex]
+    if (!currentStat) return
+
     let currentIndex = 0
     setDisplayedText('')
     setIsTyping(true)
@@ -48,7 +50,7 @@ export default function HeroV4() {
   useEffect(() => {
     const rotateInterval = setInterval(() => {
       setRotatingIndex((prev) => (prev + 1) % rotatingStats.length)
-    }, 5000) // 5 seconds total (typing + pause)
+    }, 7000) // 7 seconds total (typing + pause)
     return () => clearInterval(rotateInterval)
   }, [])
 
@@ -60,7 +62,7 @@ export default function HeroV4() {
   }
 
   return (
-    <section className={`relative flex items-center justify-center overflow-hidden pt-48 pb-4 md:pt-56 md:pb-6 ${isDark ? 'bg-black' : 'bg-white'}`}>
+    <section className={`relative flex items-center justify-center overflow-hidden pt-28 pb-4 md:pt-48 md:pb-6 ${isDark ? 'bg-black' : 'bg-white'}`}>
       {/* Subtle grid pattern background */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div
@@ -98,17 +100,63 @@ export default function HeroV4() {
       </div>
 
       <div className="relative max-w-5xl mx-auto z-10 text-center">
+        {/* Hero Badge - Hidden on mobile for cleaner look */}
+        <motion.div
+          initial={{ opacity: 0, y: -20, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0, ease: [0.16, 1, 0.3, 1] }}
+          className="hidden md:block mb-4 -mt-4"
+        >
+          <motion.span
+            className={`relative inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-medium tracking-wide border backdrop-blur-md ${
+              isDark
+                ? 'bg-gray-900/70 border-[#ec5f2b]/20 text-gray-300'
+                : 'bg-white/90 border-[#ec5f2b]/20 text-gray-600'
+            }`}
+            style={{
+              boxShadow: isDark
+                ? '0 0 20px rgba(236, 95, 43, 0.15), 0 0 40px rgba(236, 95, 43, 0.05), inset 0 1px 0 rgba(255,255,255,0.05)'
+                : '0 0 20px rgba(236, 95, 43, 0.1), 0 0 40px rgba(236, 95, 43, 0.05), 0 4px 12px rgba(0,0,0,0.05)'
+            }}
+            whileHover={{
+              scale: 1.03,
+              boxShadow: isDark
+                ? '0 0 30px rgba(236, 95, 43, 0.25), 0 0 60px rgba(236, 95, 43, 0.1)'
+                : '0 0 30px rgba(236, 95, 43, 0.2), 0 0 60px rgba(236, 95, 43, 0.08)'
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.span
+              className="relative w-2 h-2 rounded-full bg-[#ec5f2b]"
+              animate={{
+                scale: [1, 1.3, 1],
+                boxShadow: [
+                  '0 0 0 0 rgba(236, 95, 43, 0.4)',
+                  '0 0 0 6px rgba(236, 95, 43, 0)',
+                  '0 0 0 0 rgba(236, 95, 43, 0)'
+                ]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            Modern Business Systems for Scaling Companies
+          </motion.span>
+        </motion.div>
+
         {/* Main Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className={`text-3xl sm:text-4xl lg:text-4xl xl:text-5xl leading-tight font-bold tracking-tight mb-6 px-4 ${
+          className={`text-[2rem] sm:text-4xl lg:text-4xl xl:text-5xl leading-[1.15] sm:leading-tight font-bold tracking-tight mb-5 px-5 ${
             isDark ? 'text-gray-100' : 'text-brand-charcoal'
           }`}
         >
-          We turn chaotic operations into<br />
-          <span className="bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x">revenue engines</span>
+          We transform your operations into{' '}
+          <span className="bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x">modern, intelligent systems</span>
         </motion.h1>
 
         {/* Rotating hook with typing effect */}
@@ -116,11 +164,11 @@ export default function HeroV4() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="mb-10 px-4 min-h-[90px] md:min-h-[85px] flex items-center justify-center"
+          className="mb-6 sm:mb-10 px-5 min-h-[72px] sm:min-h-[70px] flex items-center justify-center"
         >
-          <div className="text-xl md:text-2xl xl:text-3xl font-semibold text-[#ec5f2b] leading-[1.3] tracking-tight text-center">
+          <div className="text-[1.125rem] sm:text-xl md:text-2xl xl:text-3xl font-semibold text-[#ec5f2b] leading-[1.4] tracking-tight text-center">
             {displayedText}
-            <span className={`inline-block w-0.5 h-6 md:h-7 xl:h-8 ml-1 ${isDark ? 'bg-white' : 'bg-black'} ${isTyping ? 'animate-blink' : 'opacity-0'}`} />
+            <span className={`inline-block w-0.5 h-5 sm:h-6 md:h-7 xl:h-8 ml-1 ${isDark ? 'bg-white' : 'bg-black'} ${isTyping ? 'animate-blink' : 'opacity-0'}`} />
           </div>
         </motion.div>
 
@@ -129,11 +177,11 @@ export default function HeroV4() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className={`text-sm sm:text-base max-w-3xl mx-auto mb-10 font-light leading-relaxed px-4 ${
+          className={`text-[0.9375rem] sm:text-base max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-5 ${
             isDark ? 'text-gray-400' : 'text-brand-gray'
           }`}
         >
-          Strategy-first transformation for scaling businesses. Your fractional operations brain + execution team. Clear roadmap in 2 weeks, live system in 8 weeks.
+          Too big for spreadsheets. Too unique for off-the-shelf. We build AI-powered systems around <span className="font-semibold text-[#ec5f2b]">your process</span>. Live in weeks, not months.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -141,11 +189,11 @@ export default function HeroV4() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-3xl mx-auto px-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-lg sm:max-w-3xl mx-auto px-5"
         >
           <a
             href="/contact?intent=blueprint"
-            className="group relative inline-flex items-center gap-2 px-8 py-4 bg-brand-orange text-white rounded-lg font-semibold text-base transition-all duration-300 hover:scale-105 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-white overflow-hidden"
+            className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-orange text-white rounded-xl font-semibold text-base transition-all duration-300 hover:scale-105 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-white overflow-hidden min-h-[52px]"
             style={{
               boxShadow: '0 4px 14px 0 rgba(236, 95, 43, 0.25)',
             }}
@@ -160,11 +208,11 @@ export default function HeroV4() {
             <svg className="w-5 h-5 flex-shrink-0 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
-            <span className="relative z-10">Book Free Process Audit</span>
+            <span className="relative z-10">Book a Free Consult</span>
           </a>
           <button
-            onClick={() => scrollToSection('how-we-work')}
-            className={`group relative inline-flex items-center gap-2 px-8 py-4 rounded-lg font-semibold text-base transition-all duration-300 hover:scale-105 border whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 overflow-hidden ${
+            onClick={() => scrollToSection('what-we-do')}
+            className={`group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300 hover:scale-105 border whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 overflow-hidden min-h-[52px] ${
               isDark
                 ? 'bg-gray-900 border-gray-700 text-gray-100 focus-visible:ring-offset-black hover:border-gray-600'
                 : 'bg-white border-gray-200 text-gray-900 focus-visible:ring-offset-white hover:border-gray-300'
@@ -188,11 +236,40 @@ export default function HeroV4() {
             <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
               isDark ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-gray-50 to-white'
             }`} />
-            <svg className="w-5 h-5 flex-shrink-0 relative z-10 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            <svg className="w-5 h-5 flex-shrink-0 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
-            <span className="relative z-10">See How We Work</span>
+            <span className="relative z-10">See Our Work</span>
           </button>
+        </motion.div>
+
+        {/* Scroll Indicator - Hidden on mobile for cleaner look */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="hidden md:flex mt-12 flex-col items-center gap-2"
+        >
+          <span className={`text-xs font-medium tracking-wide ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+            Scroll to explore
+          </span>
+          <motion.div
+            className={`w-6 h-10 rounded-full border-2 flex justify-center pt-2 ${
+              isDark ? 'border-gray-700' : 'border-gray-300'
+            }`}
+            animate={{ y: [0, 4, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <motion.div
+              className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-gray-500' : 'bg-gray-400'}`}
+              animate={{
+                y: [0, 12, 0],
+                opacity: [1, 0.3, 1]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.div>
         </motion.div>
       </div>
 

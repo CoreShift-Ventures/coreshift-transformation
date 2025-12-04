@@ -1,7 +1,7 @@
 'use server'
 
 import { Resend } from 'resend'
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -31,7 +31,7 @@ export async function sendQuickMessage(data: QuickMessageData) {
     }
 
     // Save to Supabase first
-    const { data: savedMessage, error: dbError } = await supabase
+    const { data: savedMessage, error: dbError } = await supabaseAdmin
       .from('quick_messages')
       .insert([{
         name: data.name,
@@ -50,10 +50,13 @@ export async function sendQuickMessage(data: QuickMessageData) {
       }
     }
 
-    // Send email notification via Resend
+    // Send emails (admin notification + user confirmation)
     try {
-      const emailResult = await resend.emails.send({
-        from: 'CoreShift Notifications <notifications@cshift.io>',
+      console.log('Attempting to send emails via Resend...')
+
+      // 1. Send notification to admin
+      await resend.emails.send({
+        from: 'CoreShift <noreply@cshift.io>',
         to: 'contact@cshift.io',
         replyTo: data.email,
         subject: `Quick Message from ${data.name}`,
@@ -81,8 +84,22 @@ export async function sendQuickMessage(data: QuickMessageData) {
         `
       })
 
+      console.log('✅ Admin notification sent')
+
+      // 2. Send confirmation email to sender
+      const { getQuickMessageConfirmationEmail } = await import('@/lib/email-templates')
+      await resend.emails.send({
+        from: 'CoreShift <noreply@cshift.io>',
+        to: data.email,
+        replyTo: 'contact@cshift.io',
+        subject: 'We received your message',
+        html: getQuickMessageConfirmationEmail(data.name, data.email)
+      })
+
+      console.log('✅ Confirmation email sent to:', data.email)
+
       // Update Supabase record to mark email as sent
-      await supabase
+      await supabaseAdmin
         .from('quick_messages')
         .update({
           email_sent: true,

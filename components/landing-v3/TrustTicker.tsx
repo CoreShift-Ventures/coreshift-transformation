@@ -16,16 +16,17 @@ export function TrustTicker() {
   const isDark = mounted && theme === 'dark'
 
   const logos = [
-    { src: '/logos/Companies/SAP.png', width: 80, height: 30 },
-    { src: '/logos/Companies/IBM.svg', width: 80, height: 30 },
-    { src: '/logos/Companies/Talend.png', width: 120, height: 40 },
-    { src: '/logos/Companies/Algonomy.png', width: 120, height: 40 },
-    { src: '/logos/Companies/HP .svg', width: 50, height: 20 },
+    { src: '/logos/Companies/SAP.png', width: 80, height: 30, className: '' },
+    { src: '/logos/Companies/IBM.svg', width: 80, height: 30, className: '' },
+    { src: '/logos/Companies/hcltech-new-logo.svg', width: 100, height: 35, className: '' },
+    { src: '/logos/Companies/HP .svg', width: 50, height: 20, className: '' },
+    { src: '/logos/Companies/Algonomy.png', width: 120, height: 40, className: '' },
+    { src: '/logos/Companies/Talend.png', width: 120, height: 40, className: '-ml-6 md:-ml-8' },
   ]
 
   return (
-    <section className={`py-16 relative ${isDark ? 'bg-black' : 'bg-white'}`}>
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
+    <section className={`py-10 md:py-16 relative ${isDark ? 'bg-black' : 'bg-white'}`}>
+      <div className="max-w-7xl mx-auto px-4 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,7 +41,7 @@ export function TrustTicker() {
           </p>
 
           {/* Static Logo Grid - Screen Studio Style */}
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-10">
             {logos.map((logo, index) => (
               <motion.div
                 key={index}
@@ -48,9 +49,9 @@ export function TrustTicker() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className={`flex-shrink-0 h-12 relative flex items-center justify-center ${
+                className={`flex-shrink-0 h-10 md:h-12 relative flex items-center justify-center ${
                   isDark ? 'opacity-50 grayscale' : 'opacity-40 grayscale'
-                } hover:opacity-100 hover:grayscale-0 transition-all duration-300`}
+                } hover:opacity-100 hover:grayscale-0 transition-all duration-300 ${logo.className}`}
               >
                 <Image
                   src={logo.src}

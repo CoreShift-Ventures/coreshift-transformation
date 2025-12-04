@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import { Calendar, Linkedin, Mail, ArrowRight } from 'lucide-react'
+import { Calendar, Mail, ArrowRight } from 'lucide-react'
 
 export default function FinalCTAV4() {
   const { theme } = useTheme()
@@ -16,14 +16,14 @@ export default function FinalCTAV4() {
   const isDark = mounted && theme === 'dark'
 
   return (
-    <section id="contact" className={`py-16 md:py-20 ${isDark ? 'bg-black' : 'bg-white'}`}>
-      <div className="max-w-5xl mx-auto px-6 md:px-10">
+    <section id="contact" className={`py-14 md:py-20 ${isDark ? 'bg-black' : 'bg-white'}`}>
+      <div className="max-w-5xl mx-auto px-4 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className={`rounded-2xl p-12 md:p-16 text-center relative overflow-hidden ${
+          className={`rounded-2xl p-8 md:p-12 lg:p-16 text-center relative overflow-hidden ${
             isDark
               ? 'bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700'
               : 'bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200'
@@ -36,69 +36,36 @@ export default function FinalCTAV4() {
           {/* Content */}
           <div className="relative z-10">
             <h2 className={`text-2xl md:text-3xl font-bold mb-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-              Ready to transform your Business?
+              Ready to replace chaos with systems?
             </h2>
-            <p className={`text-lg mb-10 max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-              Start with a free process audit. We'll identify your biggest opportunities and show you exactly how to fix them.
+            <p className={`text-base md:text-lg mb-10 max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
+              Book a free process audit. We'll diagnose where you're bleeding operationally and show you what's possible.
             </p>
 
             {/* CTA Options */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              {/* Primary CTA - Contact Page */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+              {/* Primary CTA */}
               <a
-                href="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#ec5f2b] text-white font-semibold rounded-lg hover:bg-[#d94f1f] transition-all hover:scale-105 shadow-lg group"
+                href="/contact?intent=blueprint"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-4 bg-[#ec5f2b] text-white font-semibold rounded-xl text-base hover:bg-[#d94f1f] transition-all hover:scale-105 shadow-lg group min-h-[52px]"
               >
-                <Calendar className="w-5 h-5 mr-2" />
-                Book Strategy Session
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                <Calendar className="w-5 h-5 mr-2 flex-shrink-0" />
+                <span>Book a Free Consult</span>
+                <ArrowRight className="w-5 h-5 ml-2 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
               </a>
 
               {/* Secondary CTA - Email */}
               <a
                 href="mailto:contact@cshift.io"
-                className={`inline-flex items-center justify-center px-8 py-4 font-semibold rounded-lg border-2 transition-all hover:scale-105 ${
+                className={`w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-4 font-semibold rounded-xl text-base border-2 transition-all hover:scale-105 min-h-[52px] ${
                   isDark
                     ? 'border-gray-700 text-gray-300 hover:border-gray-600 hover:bg-gray-800'
                     : 'border-gray-300 text-brand-charcoal hover:border-gray-400 hover:bg-white'
                 }`}
               >
-                <Mail className="w-5 h-5 mr-2" />
-                Email Us
+                <Mail className="w-5 h-5 mr-2 flex-shrink-0" />
+                <span>contact@cshift.io</span>
               </a>
-            </div>
-
-            {/* Social Connect */}
-            <div className="pt-8 border-t border-gray-300/20">
-              <p className={`text-sm mb-4 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                Connect with us
-              </p>
-              <div className="flex gap-4 justify-center">
-                <a
-                  href="https://www.linkedin.com/company/coreshift"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110 ${
-                    isDark
-                      ? 'bg-gray-800 hover:bg-gray-700 text-gray-400'
-                      : 'bg-white hover:bg-gray-50 text-gray-600 border border-gray-200'
-                  }`}
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                <a
-                  href="mailto:contact@cshift.io"
-                  className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110 ${
-                    isDark
-                      ? 'bg-gray-800 hover:bg-gray-700 text-gray-400'
-                      : 'bg-white hover:bg-gray-50 text-gray-600 border border-gray-200'
-                  }`}
-                  aria-label="Email"
-                >
-                  <Mail className="w-5 h-5" />
-                </a>
-              </div>
             </div>
           </div>
         </motion.div>

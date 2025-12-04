@@ -3,68 +3,44 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import { Compass, Zap, Clock, Shield, DollarSign, Sparkles, Check } from 'lucide-react'
+import { Building2, Zap, Target, Code2, Handshake, DollarSign, Bot } from 'lucide-react'
 
 const differentiators = [
   {
-    icon: Compass,
-    title: 'Strategy First',
-    points: [
-      'Blueprint before building',
-      'No wasted development',
-      'No expensive pivots',
-      'Clear roadmap from day one'
-    ]
+    icon: Building2,
+    title: 'Enterprise DNA',
+    description: '20+ years building operations at SAP, IBM, HCL, HP, and Talend. We have seen what works at scale and what does not.',
+    highlight: '20+ years'
   },
   {
     icon: Zap,
-    title: 'AI-Native',
-    points: [
-      'Intelligence built-in, not bolted-on',
-      'ShiftIQ automation at the core',
-      'CompassAI insights everywhere',
-      'Smart automation from the start'
-    ]
+    title: 'Startup Speed',
+    description: 'Working POC in 2 weeks. Production systems in 8 weeks, not 8 months. No enterprise bloat.',
+    highlight: '2 weeks'
   },
   {
-    icon: Clock,
-    title: 'Speed',
-    points: [
-      'Working POC in 2 weeks',
-      'Production system in 8 weeks',
-      'Not 6-12 months',
-      'Fast iteration, faster time-to-value'
-    ]
+    icon: Target,
+    title: 'Strategy First',
+    description: 'We do not start building until we understand your business. Blueprint before code so you never waste money on the wrong thing.',
+    highlight: 'Blueprint before code'
   },
   {
-    icon: Shield,
-    title: 'Ownership',
-    points: [
-      'You own everything',
-      'Code, data, infrastructure',
-      'No vendor lock-in',
-      'Complete control and portability'
-    ]
+    icon: Code2,
+    title: 'Modern Stack',
+    description: 'React, Postgres, AI native architecture. Enterprise grade without enterprise bloat. Built to scale from 10 to 10,000 users.',
+    highlight: 'Enterprise grade'
+  },
+  {
+    icon: Handshake,
+    title: 'True Partnership',
+    description: 'Your data stays yours. Full documentation. Training included. Long term support as your ops partner, not just a vendor.',
+    highlight: 'Long term support'
   },
   {
     icon: DollarSign,
-    title: 'Fractional Expertise',
-    points: [
-      'CXO-level guidance',
-      'Without full-time cost',
-      'No long-term commitment',
-      'Access experts when you need them'
-    ]
-  },
-  {
-    icon: Sparkles,
-    title: 'Built for Scale, Powered by AI',
-    points: [
-      'Scales from 10 to 10,000 users',
-      'Enterprise-grade architecture',
-      'AI-powered automation throughout',
-      'Performance that grows with you'
-    ]
+    title: 'Right-Sized Investment',
+    description: 'CXO level guidance without full time cost. Fractional expertise that grows with you. Pay for what you need, when you need it.',
+    highlight: 'CXO level guidance'
   }
 ]
 
@@ -79,29 +55,85 @@ export default function WhyCoreShiftSection() {
   const isDark = mounted && theme === 'dark'
 
   return (
-    <section id="why-coreshift" className={`py-16 md:py-20 ${isDark ? 'bg-black' : 'bg-white'}`}>
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
+    <section id="why-coreshift" className={`relative py-16 md:py-20 overflow-hidden ${isDark ? 'bg-gradient-to-b from-black via-gray-950 to-black' : 'bg-gradient-to-b from-white via-gray-50 to-white'}`}>
+      {/* Animated background elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Gradient orbs */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className={`absolute -top-48 -right-48 w-96 h-96 rounded-full blur-3xl ${isDark ? 'bg-[#ec5f2b]/15' : 'bg-[#ec5f2b]/8'}`}
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className={`absolute -bottom-48 -left-48 w-96 h-96 rounded-full blur-3xl ${isDark ? 'bg-purple-500/15' : 'bg-purple-500/8'}`}
+        />
+
+        {/* Grid pattern */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: isDark
+              ? 'radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.02) 1px, transparent 0)'
+              : 'radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.01) 1px, transparent 0)',
+            backgroundSize: '48px 48px'
+          }}
+        />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 md:px-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-16"
         >
-          <h2 className={`text-2xl md:text-3xl font-bold mb-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-            Why{' '}
-            <span className={isDark ? 'text-white' : 'text-black'}>Core</span>
-            <span className="text-[#ec5f2b]">Shift</span>
-          </h2>
-          <p className={`text-sm max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            Your fractional operations brain + execution team
-          </p>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-block mb-4"
+          >
+            <span className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide ${
+              isDark ? 'bg-gray-900 text-gray-400 border border-gray-800' : 'bg-gray-100 text-gray-600 border border-gray-200'
+            }`}>
+              WHY CORESHIFT
+            </span>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className={`text-2xl md:text-3xl font-bold mb-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}
+          >
+            Not a dev shop.{' '}
+            <span className="text-[#ec5f2b]">Transformation architects.</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className={`text-sm md:text-base max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}
+          >
+            Dev shops give you code. We give you systems that change how your business operates.
+          </motion.p>
         </motion.div>
 
-        {/* Differentiators Grid */}
+        {/* Differentiators Grid - Premium */}
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -110,8 +142,8 @@ export default function WhyCoreShiftSection() {
             visible: {
               opacity: 1,
               transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.1
+                staggerChildren: 0.12,
+                delayChildren: 0.15
               }
             }
           }}
@@ -122,50 +154,135 @@ export default function WhyCoreShiftSection() {
             return (
               <motion.div
                 key={index}
-                className={`rounded-2xl p-6 border flex flex-col ${
-                  isDark ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'
-                } shadow-lg`}
+                className="group/card relative"
                 variants={{
-                  hidden: { opacity: 0, y: 40, scale: 0.95 },
+                  hidden: { opacity: 0, y: 50, scale: 0.9 },
                   visible: {
                     opacity: 1,
                     y: 0,
                     scale: 1,
-                    transition: { type: 'spring', stiffness: 100, damping: 20 }
+                    transition: { type: 'spring', stiffness: 80, damping: 18 }
                   }
                 }}
+                whileHover={{
+                  y: -8,
+                  transition: { duration: 0.3 }
+                }}
               >
-                <div className="mb-4">
-                  <Icon className="w-10 h-10 text-[#ec5f2b]" strokeWidth={1.5} />
-                </div>
-                <h3 className={`text-lg font-bold mb-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                  {item.title}
-                </h3>
-                <ul className="space-y-2.5 mb-6 flex-grow">
-                  {item.points.map((point, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <svg className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        {point}
+                {/* Glow effect on hover */}
+                <div className={`absolute -inset-1 rounded-2xl blur-xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 ${
+                  isDark ? 'bg-[#ec5f2b]/20' : 'bg-[#ec5f2b]/15'
+                }`} />
+
+                <div className={`relative rounded-2xl p-5 md:p-6 border-2 flex flex-col h-full ${
+                  isDark
+                    ? 'bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 border-gray-700 hover:border-[#ec5f2b]/50'
+                    : 'bg-gradient-to-br from-white via-white to-gray-50 border-gray-200 hover:border-[#ec5f2b]/30'
+                } shadow-xl hover:shadow-2xl transition-all duration-300`}>
+
+                  {/* Top accent line - animated */}
+                  <motion.div
+                    className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ec5f2b] to-[#ff6b35] rounded-t-2xl"
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                  />
+
+                  {/* Side accent */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#ec5f2b] to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 rounded-l-2xl" />
+
+                  {/* Icon with animation */}
+                  <motion.div
+                    className="mb-4"
+                    whileHover={{ scale: 1.1, rotate: [0, -5, 5, -5, 0] }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <div className="relative">
+                      <div className={`absolute inset-0 rounded-xl blur-md opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 ${
+                        isDark ? 'bg-[#ec5f2b]/30' : 'bg-[#ec5f2b]/20'
+                      }`} />
+                      <div className={`relative w-12 h-12 rounded-xl flex items-center justify-center ${
+                        isDark ? 'bg-[#ec5f2b]/10' : 'bg-[#ec5f2b]/10'
+                      } group-hover/card:bg-[#ec5f2b]/20 transition-colors duration-300`}>
+                        <Icon className="w-6 h-6 text-[#ec5f2b]" strokeWidth={2} />
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Title */}
+                  <h3 className={`text-lg font-bold mb-3 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
+                    {item.title}
+                  </h3>
+
+                  {/* Description with highlighted text */}
+                  <p className={`text-sm leading-relaxed flex-grow ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {item.description.split(item.highlight).map((part, idx, arr) => (
+                      <span key={idx}>
+                        {part}
+                        {idx < arr.length - 1 && (
+                          <span className="text-[#ec5f2b] font-semibold">{item.highlight}</span>
+                        )}
                       </span>
-                    </li>
-                  ))}
-                </ul>
-                <div className={`pt-4 mt-auto border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
-                  <p className={`text-sm font-semibold ${isDark ? 'text-[#ec5f2b]' : 'text-[#ec5f2b]'}`}>
-                    ✓ {item.title === 'Strategy First' ? 'Blueprint before building' :
-                        item.title === 'AI-Native' ? 'Intelligence built-in, not bolted-on' :
-                        item.title === 'Speed' ? 'Production ready in 8 weeks' :
-                        item.title === 'Ownership' ? 'You own everything' :
-                        item.title === 'Fractional Expertise' ? 'CXO-level guidance without the cost' :
-                        'Enterprise-grade, AI-powered'}
+                    ))}
                   </p>
                 </div>
               </motion.div>
             )
           })}
+        </motion.div>
+
+        {/* AI Premium Card - Full Width Dark Theme */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-8"
+        >
+          <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800">
+            {/* Gradient overlay - right side glow */}
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#ec5f2b]/15 to-transparent pointer-events-none" />
+
+            {/* Grid pattern overlay */}
+            <div
+              className="absolute inset-0 opacity-[0.03]"
+              style={{
+                backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                backgroundSize: '20px 20px'
+              }}
+            />
+
+            <div className="relative p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6">
+              {/* Icon */}
+              <div className="flex-shrink-0">
+                <div className="w-14 h-14 rounded-xl bg-[#ec5f2b]/10 border border-[#ec5f2b]/20 flex items-center justify-center">
+                  <Bot className="w-7 h-7 text-[#ec5f2b]" strokeWidth={1.5} />
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="flex-grow">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
+                  AI That Actually Works
+                </h3>
+                <p className="text-sm md:text-base text-gray-400 leading-relaxed max-w-2xl">
+                  We do not bolt ChatGPT onto your spreadsheet. We architect AI into your workflows, <span className="text-[#ec5f2b] font-semibold">purpose built for your process</span>.
+                </p>
+              </div>
+
+              {/* Badge */}
+              <div className="flex-shrink-0">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#ec5f2b] text-white text-xs font-bold uppercase tracking-wide">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                  </span>
+                  <span>AI Native</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

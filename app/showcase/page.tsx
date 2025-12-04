@@ -19,7 +19,7 @@ export default function PlatformPage() {
   const isDark = mounted && theme === 'dark';
 
   const scrollToContact = () => {
-    window.location.href = '/landing-v4#contact';
+    window.location.href = '/contact?intent=blueprint';
   };
 
   return (
@@ -41,15 +41,22 @@ export default function PlatformPage() {
               transition={{ duration: 0.6 }}
               className="text-center mb-10"
             >
+              {/* Badge */}
+              <div className="inline-block mb-4">
+                <span className="px-3 py-1.5 rounded-full text-xs font-bold bg-[#ec5f2b] text-white">
+                  Flagship Domain Solution
+                </span>
+              </div>
+
               {/* Headline */}
               <h1 className={`text-3xl md:text-4xl font-bold mb-4 leading-tight ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                See What Your Blueprint<br />
-                Could Become
+                CoreShift CS Engine<br />
+                <span className={`text-2xl md:text-3xl ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Production-Ready Customer Success Platform</span>
               </h1>
 
               {/* Subheadline */}
               <p className={`text-base max-w-3xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                Modern, AI powered systems that eliminate operational friction and automate critical workflows. From strategy to execution in 8 weeks.
+                Built on the <span className="font-semibold text-[#ec5f2b]">C-OS Framework</span>. Our battle-tested Customer Success platform customized to your exact workflows. See what 80% proven + 20% custom looks like in action.
               </p>
             </motion.div>
 

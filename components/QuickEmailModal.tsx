@@ -22,6 +22,23 @@ export function QuickEmailModal({ isOpen, onClose }: QuickEmailModalProps) {
     setMounted(true)
   }, [])
 
+  // Lock body scroll when modal is open and scroll to top
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      document.body.style.position = 'fixed'
+      document.body.style.width = '100%'
+      document.body.style.top = `-${window.scrollY}px`
+    } else {
+      const scrollY = document.body.style.top
+      document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+      document.body.style.top = ''
+      window.scrollTo(0, parseInt(scrollY || '0') * -1)
+    }
+  }, [isOpen])
+
   const isDark = mounted && theme === 'dark'
 
   const [formData, setFormData] = useState<QuickMessageData>({
@@ -77,17 +94,17 @@ export function QuickEmailModal({ isOpen, onClose }: QuickEmailModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998]"
           />
 
-          {/* Modal */}
-          <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
+          {/* Modal Container */}
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.2 }}
-              className={`relative w-full max-w-md rounded-2xl p-6 shadow-2xl ${
+              className={`w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl p-6 shadow-2xl pointer-events-auto ${
                 isDark
                   ? 'bg-gray-900 border border-gray-800'
                   : 'bg-white border border-gray-200'

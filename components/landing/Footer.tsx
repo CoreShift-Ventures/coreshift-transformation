@@ -17,7 +17,7 @@ const navigation = {
     { name: 'FAQ', href: '/#faq' }
   ],
   connect: [
-    { name: 'Book Strategy Session', href: '/contact' },
+    { name: 'Book a Free Consult', href: '/contact' },
     { name: 'LinkedIn', href: 'https://www.linkedin.com/in/srisridh/', target: '_blank' }
   ],
   legal: [
@@ -258,7 +258,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className={`pt-8 border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
           <p className={`text-sm text-center ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            © {new Date().getFullYear()} <span className={isDark ? 'text-white' : 'text-brand-charcoal'}>Coreshift Ventures LLP</span>. All rights reserved.
+            © {new Date().getFullYear()} <span className={isDark ? 'text-white' : 'text-brand-charcoal'}>Core</span><span className="text-brand-orange">Shift</span> Ventures LLP. All rights reserved.
           </p>
         </div>
       </div>

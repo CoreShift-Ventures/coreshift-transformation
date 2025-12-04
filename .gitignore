@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# internal docs & scripts (not for production)
+*.sql
+*Checklist.md
+*checklist.md
+*Recommendations.md
+*GUIDE.md
+*NEXT-STEPS.md
+PitchDeck.md
+ProjectProposal.md
+*.csv
+scripts/
+GTMStrategy*
+coreshift-homepage*.html
+*BluePrint*.html

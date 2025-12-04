@@ -13,51 +13,51 @@ interface FAQItem {
 const faqs: FAQItem[] = [
   {
     question: "Who are you? Why should we trust you?",
-    answer: "I'm an operator first. I've spent more than two decades leading Customer Success, Revenue Operations, and transformation initiatives across enterprise and growth stage environments. CoreShift is my independent practice, built on real operational experience, not theories or playbooks. I don't run ads or cold outreach. Every client I work with comes through referrals or from following my work over the years. You can review my track record, background, and recommendations directly on [LinkedIn](https://www.linkedin.com/in/srisridh/). I've helped teams fix broken processes, reduce churn, streamline customer delivery, and build the operational clarity they were missing. Today, I bring the same experience into designing modern systems, automation, and AI driven workflows, delivered with the speed and clarity founders expect. If you value depth, honesty, and hands on execution, you'll be in good hands."
+    answer: "CoreShift was founded by a transformation architect with 20+ years of enterprise experience at SAP, IBM, HCL, HP, and Talend. We've seen what breaks when companies scale and built a team to help others escape the chaos. We're not a faceless agency. We're operators who deliver, not just advise."
   },
   {
     question: "How is the Blueprint different from a typical sales demo?",
-    answer: "We don't sell you a generic product. The Blueprint Sprint is a 2 week diagnostic where we map your actual processes, identify gaps, and build a working prototype customized to your business. You get a clear roadmap with realistic timelines before committing to anything."
+    answer: "A sales demo shows you their product. A Blueprint Sprint diagnoses your business. You walk away with a validated plan, not a pitch deck."
   },
   {
     question: "Who is this for?",
-    answer: "Growing B2B businesses (10 to 500 employees) with operational chaos that blocks scale. If you're managing critical workflows through spreadsheets, emails, and disconnected tools, or if scaling feels unsustainable, this is built for you."
+    answer: "Scaling companies who've outgrown spreadsheets but aren't ready for (or don't fit into) off the shelf enterprise software. Team size doesn't matter, operational complexity does."
   },
   {
     question: "How long does it take to go live?",
-    answer: "Blueprint Sprint takes 2 weeks. Build and Deploy takes 6 to 8 weeks depending on complexity. Most businesses are fully operational within 8 to 10 weeks total, not 6 to 12 months like traditional development."
+    answer: "Blueprint: 2 weeks. Systems build: 4 to 8 weeks to MVP."
   },
   {
     question: "Can we start with just one workflow?",
-    answer: "Absolutely. We recommend starting with your biggest pain point, usually customer operations, revenue workflows, or finance and billing. Once you see ROI, we can expand to other processes incrementally."
+    answer: "Absolutely. Start with your highest friction workflow, prove the value, then expand."
   },
   {
     question: "Do I need a technical team to work with you?",
-    answer: "We handle all development and technical execution. However, for integrations with your existing systems, we'll need your IT admin or technical team to provide API access and credentials. The Blueprint Sprint will clearly identify what technical support is needed, if any."
+    answer: "Not necessarily. We handle the build end-to-end. For integrations with your existing systems, we'll collaborate with your IT team as needed, but you don't need dedicated developers on your side."
   },
   {
     question: "What makes your AI different from tools that just added ChatGPT?",
-    answer: "We build AI native systems from the ground up using autonomous agents, not chatbots bolted onto legacy software. Our ShiftIQ and CompassAI frameworks handle complex workflows, make decisions, and automate end to end processes, not just answer questions."
+    answer: "We architect AI into your workflows from the ground up, purpose built for your processes."
   },
   {
     question: "What if my processes are unique to my business?",
-    answer: "That's exactly why we start with the Blueprint Sprint. We don't force you into a generic template. We map your unique workflows, understand your competitive advantage, and build systems that preserve what makes your business different."
+    answer: "That's exactly why we exist. Unique isn't a problem; it's our specialty."
   },
   {
     question: "Can you integrate with our existing tools?",
-    answer: "Yes. We integrate with your current stack including CRMs, ERPs, payment systems, communication tools, and databases. The goal is to automate workflows across your existing systems, not replace everything."
+    answer: "Yes. CRMs, ERPs, payment gateways, communication tools, and custom APIs."
   },
   {
     question: "What does Fractional COO mean?",
-    answer: "CXO level strategic guidance on operations, customer success, and revenue workflows on a part time basis. This includes quarterly planning, OKRs, metrics review, team coaching, and ongoing optimization without the full time executive cost."
+    answer: "C level operational leadership without the full time salary. 10 hours/month of strategic guidance with hands on execution."
   },
   {
     question: "What ongoing support do you provide after launch?",
-    answer: "We offer flexible ongoing support including monthly retainers for updates and optimization, Fractional COO advisory for strategic guidance, or project based work as needs evolve. You choose what makes sense for your business."
+    answer: "Hosting, AI usage, and support are available separately based on your needs. Your data, your decisions. No lock-in."
   },
   {
-    question: "What's your refund policy?",
-    answer: "We don't offer refunds, and here's why. The Blueprint Sprint is real work. We invest significant time understanding your business, mapping processes, designing systems, exploring AI opportunities, and building a working prototype. We charge a reasonable fee for this because it creates immediate value and gives you complete clarity before committing to a larger build. To de-risk your decision even further, the full Blueprint Sprint fee is credited toward your Build and Deploy phase if you move forward with implementation. This way, you're never paying twice for the same work. If you're exploring, unsure about timing, or unable to commit your team's bandwidth, it's better to wait. But if you're serious about transforming how your business operates, you'll get exceptional value from day one, and a clear roadmap that pays for itself long before your system goes live."
+    question: "What's your guarantee?",
+    answer: "We de-risk with the Blueprint Sprint. You see exactly what you're paying for before any major investment."
   }
 ]
 
@@ -77,8 +77,8 @@ export default function FAQSectionV4() {
   }
 
   return (
-    <section id="faq" className={`py-16 md:py-20 ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-      <div className="max-w-4xl mx-auto px-6 md:px-10">
+    <section id="faq" className={`py-14 md:py-20 ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
+      <div className="max-w-4xl mx-auto px-4 md:px-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -115,7 +115,7 @@ export default function FAQSectionV4() {
               >
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className={`w-full text-left px-6 py-4 flex items-center justify-between transition-colors ${
+                  className={`w-full text-left px-4 md:px-6 py-4 md:py-5 flex items-center justify-between transition-colors min-h-[56px] ${
                     isOpen
                       ? isDark
                         ? 'bg-gray-900'
@@ -125,7 +125,7 @@ export default function FAQSectionV4() {
                       : 'hover:bg-gray-50'
                   }`}
                 >
-                  <span className={`text-base font-semibold pr-8 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
+                  <span className={`text-sm md:text-base font-semibold pr-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
                     {faq.question}
                   </span>
                   <ChevronDown
@@ -144,7 +144,7 @@ export default function FAQSectionV4() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className={`px-6 py-4 border-t ${
+                      <div className={`px-4 md:px-6 py-4 border-t ${
                         isDark ? 'border-gray-800' : 'border-gray-200'
                       }`}>
                         <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -175,28 +175,6 @@ export default function FAQSectionV4() {
           })}
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className={`mt-12 text-center p-6 rounded-lg border ${
-            isDark
-              ? 'border-gray-800 bg-gray-900/50'
-              : 'border-gray-200 bg-gray-50'
-          }`}
-        >
-          <p className={`text-sm mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            Still have questions?
-          </p>
-          <a
-            href="mailto:contact@cshift.io"
-            className="text-sm font-semibold text-[#ec5f2b] hover:text-[#d94f1f] transition-colors"
-          >
-            Get in touch with our team →
-          </a>
-        </motion.div>
       </div>
     </section>
   )

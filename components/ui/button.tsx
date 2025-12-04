@@ -74,7 +74,7 @@ export function Button({
         className="inline-block"
       >
         <Link
-          ref={ref as any}
+          ref={ref as React.Ref<HTMLAnchorElement>}
           href={href}
           className={classes}
           target={target}
@@ -97,7 +97,7 @@ export function Button({
 
   return (
     <motion.button
-      ref={ref as any}
+      ref={ref as React.Ref<HTMLButtonElement>}
       onClick={onClick}
       className={classes}
       onMouseMove={handleMouseMove}

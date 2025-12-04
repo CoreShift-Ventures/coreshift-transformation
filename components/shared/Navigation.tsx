@@ -221,7 +221,7 @@ export function Navigation() {
                       <Target className={`w-4 h-4 ${isDark ? 'text-white' : 'text-black'}`} />
                     </div>
                     <div className="flex-1">
-                      <div className={`font-semibold mb-0.5 group-hover:text-brand-orange transition-colors ${isDark ? 'text-gray-200' : 'text-brand-charcoal'}`}>How We're Different</div>
+                      <div className={`font-semibold mb-0.5 group-hover:text-brand-orange transition-colors ${isDark ? 'text-gray-200' : 'text-brand-charcoal'}`}>How We&apos;re Different</div>
                       <div className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>vs SaaS, consultants, DIY</div>
                     </div>
                   </Link>
@@ -234,7 +234,7 @@ export function Navigation() {
                     </div>
                     <div className="flex-1">
                       <div className={`font-semibold mb-0.5 group-hover:text-brand-orange transition-colors ${isDark ? 'text-gray-200' : 'text-brand-charcoal'}`}>Our Engine</div>
-                      <div className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>The platform you'll own</div>
+                      <div className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>The platform you&apos;ll own</div>
                     </div>
                   </Link>
                 </div>
@@ -351,7 +351,7 @@ export function Navigation() {
                       <div className={`p-1.5 rounded-lg ${isDark ? 'bg-white/5' : 'bg-black/5'}`}>
                         <Target className={`w-3.5 h-3.5 ${isDark ? 'text-white' : 'text-black'}`} />
                       </div>
-                      <span>How We're Different</span>
+                      <span>How We&apos;re Different</span>
                     </Link>
                     <Link
                       href="/#approach"

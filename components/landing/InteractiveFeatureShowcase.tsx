@@ -271,10 +271,10 @@ export function InteractiveFeatureShowcase() {
         {sections.map((section, index) => (
           <motion.div
             key={section.id}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: index === 0 ? 1 : 0, y: index === 0 ? 0 : 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
+            viewport={{ once: true, margin: index === 0 ? "0px" : "-50px" }}
+            transition={{ duration: 0.6, delay: index === 0 ? 0 : index * 0.1 }}
           >
             <FeatureSectionComponent section={section} isDark={isDark} />
           </motion.div>
