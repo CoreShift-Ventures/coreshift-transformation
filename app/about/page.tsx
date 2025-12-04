@@ -118,7 +118,7 @@ export default function AboutPage() {
                     CoreShift is intentionally small.
                   </p>
                   <p className={`text-base ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                    We don't scale through headcount; we scale through depth.
+                    We don&apos;t scale through headcount; we scale through depth.
                     <br />
                     You work directly with a seasoned operations and growth leader. No layers, no junior handoffs.
                   </p>
@@ -291,7 +291,7 @@ export default function AboutPage() {
                 >
                   <div className={`space-y-4 text-base leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                     <p>
-                      I've spent more than two decades helping businesses navigate the messy middle between growth and chaos. From Customer Success to Revenue Operations to large scale transformation programs, I've seen one pattern repeat across every industry:
+                      I&apos;ve spent more than two decades helping businesses navigate the messy middle between growth and chaos. From Customer Success to Revenue Operations to large scale transformation programs, I&apos;ve seen one pattern repeat across every industry:
                     </p>
                     <p className={`text-xl font-bold ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
                       Great teams fail when their systems fail.
@@ -300,7 +300,7 @@ export default function AboutPage() {
                       CoreShift was born to solve that.
                     </p>
                     <p>
-                      I'm not a traditional consultant. I'm a hands on strategist who has spent years in the trenches running operations, fixing processes, calming escalations, understanding customer behavior, and building clarity where there was none.
+                      I&apos;m not a traditional consultant. I&apos;m a hands on strategist who has spent years in the trenches running operations, fixing processes, calming escalations, understanding customer behavior, and building clarity where there was none.
                     </p>
                     <p>
                       Today, I work directly with founders who feel their growth is outpacing their systems. Through a structured Blueprint Sprint, I help you uncover where work is breaking, where revenue is leaking, and what needs to change. Then, I design the systems and workflows, powered by automation and AI, that help you scale without chaos.
@@ -312,14 +312,14 @@ export default function AboutPage() {
                       isDark ? 'bg-gray-900/50' : 'bg-gray-50'
                     }`}>
                       <p className="font-semibold mb-2">
-                        If you're looking for theory, I'm not your partner.
+                        If you&apos;re looking for theory, I&apos;m not your partner.
                       </p>
                       <p>
-                        If you're looking for a practical, experienced partner who can think, design, and execute, we'll work well together.
+                        If you&apos;re looking for a practical, experienced partner who can think, design, and execute, we&apos;ll work well together.
                       </p>
                     </div>
                     <p className={`text-xl font-bold ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
-                      Let's build the systems your business deserves.
+                      Let&apos;s build the systems your business deserves.
                     </p>
                     <p className="text-lg italic text-[#ec5f2b]">Srinath</p>
                   </div>
@@ -348,7 +348,7 @@ export default function AboutPage() {
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ec5f2b] to-orange-500" />
 
               <h2 className={`text-xl md:text-2xl font-bold mb-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                If you're scaling and feel your operations aren't keeping up, let's talk.
+                If you&apos;re scaling and feel your operations aren&apos;t keeping up, let&apos;s talk.
               </h2>
 
               <a

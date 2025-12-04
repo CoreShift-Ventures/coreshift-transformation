@@ -76,7 +76,7 @@ export default function TermsPage() {
                 Disclaimer
               </h2>
               <p className={`mb-4 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                The information on this website is provided "as is" without any warranties, express or implied. We do not guarantee that the website will be error-free, secure, or continuously available. Case studies and results shown are examples and individual outcomes may vary.
+                The information on this website is provided &quot;as is&quot; without any warranties, express or implied. We do not guarantee that the website will be error-free, secure, or continuously available. Case studies and results shown are examples and individual outcomes may vary.
               </p>
             </section>
 

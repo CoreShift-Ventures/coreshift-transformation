@@ -4,19 +4,17 @@ import React, { useState, useEffect } from 'react';
 import { NavigationV4 } from '@/components/landing-v4/NavigationV4';
 import { Footer } from '@/components/landing/Footer';
 import { AuditFormSteps } from '@/components/audit/AuditFormSteps';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import {
-  ClipboardCheck, ArrowRight, ArrowLeft, TrendingDown, TrendingUp, AlertCircle,
-  CheckCircle2, DollarSign, Users, Database, Zap, Target, Clock, Lightbulb,
-  Shield, BarChart3, ChevronRight, Check, Activity, Award, Rocket, TrendingDown as LeakIcon
+  ClipboardCheck, ArrowRight, ArrowLeft,
+  Users, Database, Target, BarChart3, Check
 } from 'lucide-react';
 
 export default function AuditPage() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-  const [showResults, setShowResults] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -99,134 +97,6 @@ export default function AuditPage() {
       ...formData,
       [field]: newValues
     });
-  };
-
-  // Calculations
-  const arr = parseFloat(formData.arr) || 0;
-  const customerCount = parseInt(formData.customerCount) || 0;
-  const churnRate = parseFloat(formData.churnRate) || 0;
-  const teamSize = parseInt(formData.teamSize) || 0;
-  const expansionRate = parseFloat(formData.expansionRate) || 0;
-  const avgCSMLoad = parseInt(formData.avgCSMLoad) || 0;
-
-  const annualChurnLoss = arr * (churnRate / 100);
-  const preventableChurn = annualChurnLoss * 0.67;
-  const potentialExpansion = arr * 0.35;
-  const currentExpansion = arr * (expansionRate / 100);
-  const missedExpansion = Math.max(0, potentialExpansion - currentExpansion);
-  const wastedCSMCost = teamSize * 80000 * 0.5;
-  const totalLeak = preventableChurn + missedExpansion;
-
-  // Readiness score (0-1)
-  const readinessScore = (() => {
-    let score = 0;
-
-    // Score based on tools in place
-    if (formData.crmTool && formData.crmTool !== 'none') score += 0.2;
-    if (formData.csPlatform && formData.csPlatform !== 'none') score += 0.2;
-    if (formData.analyticsTool && formData.analyticsTool !== 'none') score += 0.2;
-    if (formData.supportTool && formData.supportTool !== 'none') score += 0.1;
-
-    // Data quality contributes 30%
-    const dataQuality = parseInt(formData.dataQuality) || 0;
-    score += (dataQuality / 5) * 0.3;
-
-    return Math.max(0.3, score); // Minimum 30% readiness
-  })();
-
-  // Health score calculation (0-100) with breakdown
-  // Start from 0 and build up based on positive indicators
-  const healthScoreBreakdown = (() => {
-    let churnScore = 0;
-    let expansionScore = 0;
-    let efficiencyScore = 0;
-    let toolingScore = 0;
-    let dataScore = 0;
-
-    // Churn impact (0-30 points): Lower churn is better
-    if (churnRate <= 5) churnScore = 30;
-    else if (churnRate <= 10) churnScore = 25;
-    else if (churnRate <= 15) churnScore = 18;
-    else if (churnRate <= 20) churnScore = 10;
-    else if (churnRate <= 30) churnScore = 5;
-
-    // Expansion impact (0-25 points): Higher expansion is better
-    if (expansionRate >= 35) expansionScore = 25;
-    else if (expansionRate >= 25) expansionScore = 20;
-    else if (expansionRate >= 15) expansionScore = 12;
-    else if (expansionRate >= 10) expansionScore = 7;
-    else if (expansionRate >= 5) expansionScore = 3;
-
-    // CSM efficiency (0-20 points): Lower load is better
-    if (avgCSMLoad <= 20) efficiencyScore = 20;
-    else if (avgCSMLoad <= 30) efficiencyScore = 15;
-    else if (avgCSMLoad <= 50) efficiencyScore = 10;
-    else if (avgCSMLoad <= 75) efficiencyScore = 5;
-
-    // Tooling maturity (0-15 points)
-    const toolCount = [formData.crmTool, formData.csPlatform, formData.analyticsTool, formData.supportTool]
-      .filter(tool => tool && tool !== 'none').length;
-    if (toolCount >= 4) toolingScore = 15;
-    else if (toolCount >= 3) toolingScore = 12;
-    else if (toolCount >= 2) toolingScore = 8;
-    else if (toolCount >= 1) toolingScore = 4;
-
-    // Data readiness (0-10 points)
-    dataScore = Math.round(readinessScore * 10);
-
-    return {
-      churn: churnScore,
-      expansion: expansionScore,
-      efficiency: efficiencyScore,
-      tooling: toolingScore,
-      data: dataScore,
-      total: churnScore + expansionScore + efficiencyScore + toolingScore + dataScore
-    };
-  })();
-
-  const healthScore = Math.max(0, Math.min(100, healthScoreBreakdown.total));
-
-  const getHealthLevel = (score: number) => {
-    if (score >= 80) return { level: 'Healthy', color: 'text-green-500', bg: 'bg-green-500', desc: 'Strong foundation with room for optimization' };
-    if (score >= 60) return { level: 'At Risk', color: 'text-yellow-500', bg: 'bg-yellow-500', desc: 'Performing but leaving significant value on the table' };
-    return { level: 'Critical', color: 'text-red-500', bg: 'bg-red-500', desc: 'Urgent intervention needed to stop revenue leak' };
-  };
-
-  const health = getHealthLevel(healthScore);
-
-  // Recovery potential (conservative)
-  const recoveryPotential = {
-    churn: preventableChurn * 0.35 * readinessScore,
-    expansion: missedExpansion * 0.4 * readinessScore,
-    efficiency: wastedCSMCost * 0.6 * readinessScore,
-    get total() { return this.churn + this.expansion + this.efficiency; }
-  };
-
-  // Maturity level
-  const getMaturityLevel = () => {
-    const toolCount = [formData.crmTool, formData.csPlatform, formData.analyticsTool, formData.supportTool]
-      .filter(tool => tool && tool !== 'none').length;
-
-    const score =
-      (toolCount * 15) +
-      (formData.crmTool && formData.crmTool !== 'none' ? 15 : 0) +
-      (formData.analyticsTool && formData.analyticsTool !== 'none' ? 15 : 0) +
-      (parseInt(formData.dataQuality || '0') * 8);
-
-    if (score >= 75) return { level: 'Advanced', modules: ['Platform'], timeline: '4-6 weeks' };
-    if (score >= 45) return { level: 'Growing', modules: ['Blueprint', 'Platform'], timeline: '8-12 weeks' };
-    return { level: 'Early Stage', modules: ['Blueprint', 'Advisory'], timeline: '12-16 weeks' };
-  };
-
-  const maturity = getMaturityLevel();
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
   };
 
   const stepTitles = [
@@ -399,45 +269,6 @@ export default function AuditPage() {
             </div>
           </div>
         </section>
-
-        {/* Results Section */}
-        {showResults && (
-          <section id="results" className={`py-16 px-6 ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
-            <div className="max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className={`text-center p-12 rounded-2xl ${
-                  isDark
-                    ? 'bg-gray-900 border border-gray-800'
-                    : 'bg-white border border-gray-200 shadow-xl'
-                }`}
-              >
-                <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle2 className="w-10 h-10 text-green-500" />
-                </div>
-
-                <h2 className={`text-2xl md:text-3xl font-bold mb-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                  Thank You!
-                </h2>
-                <p className={`text-base max-w-2xl mx-auto mb-6 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                  We've received your assessment. Our team will review your information and reach out within 24 hours to schedule your discovery call.
-                </p>
-                <p className={`text-sm mb-8 ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-                  We'll use this information to prepare a customized transformation strategy tailored to your business needs.
-                </p>
-                <a
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-orange text-white rounded-lg font-semibold hover:bg-brand-orange-dark transition-all hover:scale-105 shadow-lg"
-                >
-                  Return to Contact
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </motion.div>
-            </div>
-          </section>
-        )}
 
         <Footer />
       </main>

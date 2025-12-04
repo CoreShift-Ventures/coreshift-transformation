@@ -34,7 +34,7 @@ export default function PrivacyPage() {
                 Overview
               </h2>
               <p className={`mb-4 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                CoreShift Ventures LLP ("CoreShift", "we", "us", or "our") respects your privacy and is committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website or use our services.
+                CoreShift Ventures LLP (&quot;CoreShift&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) respects your privacy and is committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website or use our services.
               </p>
             </section>
 
@@ -129,7 +129,7 @@ export default function PrivacyPage() {
                 Changes to This Policy
               </h2>
               <p className={`leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the "Last updated" date.
+                We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the &quot;Last updated&quot; date.
               </p>
             </section>
           </div>

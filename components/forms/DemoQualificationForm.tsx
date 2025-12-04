@@ -108,7 +108,7 @@ export function DemoQualificationForm({ onClose }: { onClose: () => void }) {
     const selectedRole = roles.find(r => r.value === formData.role);
     const selectedInterest = interests.find(i => i.value === formData.interest);
 
-    const qualified = selectedRole?.isDecisionMaker && selectedInterest?.qualified;
+    const qualified = Boolean(selectedRole?.isDecisionMaker && selectedInterest?.qualified);
     setIsQualified(qualified);
 
     // Store form data (you can add API call here)
