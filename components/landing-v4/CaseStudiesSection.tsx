@@ -304,7 +304,7 @@ export default function CaseStudiesSection() {
           THE PORTFOLIO
         </span>
         <h2 className={`text-2xl md:text-3xl font-bold mb-3 tracking-tight ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-          We don&apos;t just talk. We ship.
+          What We Build
         </h2>
         <p className={`text-sm md:text-base max-w-2xl mx-auto leading-relaxed ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
           Real systems. Built to scale. Across industries.
