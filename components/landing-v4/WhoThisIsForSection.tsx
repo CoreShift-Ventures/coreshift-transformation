@@ -15,13 +15,13 @@ const audiences = [
   {
     icon: Flame,
     title: 'Lean Teams',
-    description: 'Small team, big ambitions. You need systems that multiply capacity — not another SaaS subscription that adds work.',
+    description: 'Small team, big ambitions. You need systems that multiply capacity, not another SaaS subscription that adds work.',
     highlight: 'multiply capacity'
   },
   {
     icon: RefreshCw,
     title: 'Unique Processes',
-    description: 'Off-the-shelf software doesn\'t fit. You\'ve tried the big platforms but your process is different — and that\'s your edge.',
+    description: 'Off-the-shelf software doesn\'t fit. You\'ve tried the big platforms but your process is different, and that\'s your edge.',
     highlight: 'your edge'
   }
 ]
