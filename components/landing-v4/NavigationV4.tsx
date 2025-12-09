@@ -40,7 +40,7 @@ export function NavigationV4() {
 
   const menuItems = [
     { label: 'The Process', id: 'how-we-work', isScroll: true },
-    { label: 'The Proof', id: 'case-studies', isScroll: true },
+    { label: 'The Portfolio', id: 'case-studies', isScroll: true },
     { label: 'The Difference', id: 'why-coreshift', isScroll: true },
     { label: 'The Team', href: '/about', isScroll: false }
   ];

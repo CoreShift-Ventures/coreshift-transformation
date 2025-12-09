@@ -8,12 +8,14 @@ import {
 } from 'lucide-react'
 
 const caseStudies = [
+  // LIVE PROJECTS
   {
     industry: 'Automotive',
     shortName: 'LeadIQ',
     productName: 'LeadIQ',
     tagline: 'Fleet compliance platform',
     outcomeHeadline: 'From data silos to real-time lead intelligence',
+    status: 'live',
     challenges: [
       'Fragmented compliance data across multiple sources',
       'Manual tracking of 7+ critical checkpoints',
@@ -43,43 +45,12 @@ const caseStudies = [
     screenshotLabel: 'Fleet Compliance Dashboard'
   },
   {
-    industry: 'Healthcare',
-    shortName: 'ClaimFlow',
-    productName: 'ClaimFlow',
-    tagline: 'Claims & collections platform',
-    outcomeHeadline: 'Real-time visibility into every claim, every payer, every dollar',
-    challenges: [
-      'Claims stuck in spreadsheets, no visibility',
-      'Manual follow-ups falling through cracks',
-      'Millions in revenue sitting uncollected'
-    ],
-    solutionBrief: 'Purpose-built platform that centralizes claim tracking, automates follow-up workflows, and provides real-time visibility into aging receivables.',
-    whatWeBuilt: [
-      'Centralized claims tracking',
-      'Automated follow-up workflows',
-      'Aging analytics dashboard',
-      'Role-based access & escalations'
-    ],
-    techStack: ['React', 'PostgreSQL', 'Workflow Engine', 'Analytics'],
-    outcomeMetrics: [
-      { value: '2,800+', label: 'Claims Tracked' },
-      { value: '$1.2M+', label: 'AR Managed' },
-      { value: '4', label: 'Workflow Stages' },
-      { value: '12', label: 'Agents Supported' }
-    ],
-    screenshots: [
-      '/screenshots/ClaimFlow/Healthcare_2.png',
-      '/screenshots/ClaimFlow/Healthcare_3.png',
-      '/screenshots/ClaimFlow/Healthcare_4.png'
-    ],
-    screenshotLabel: 'Claims Management Dashboard'
-  },
-  {
     industry: 'Financial Services',
     shortName: 'FundView',
     productName: 'FundView',
     tagline: 'Investor portal',
     outcomeHeadline: 'From 2-week reports to real-time investor visibility',
+    status: 'live',
     challenges: [
       'Investor statements taking 2+ weeks per quarter',
       'Investor inquiries stuck in email for 48-72 hours',
@@ -107,18 +78,53 @@ const caseStudies = [
     ],
     screenshotLabel: 'Fund Performance Dashboard'
   },
+  // IN PROGRESS PROJECTS
   {
-    industry: 'CX (HRMS)',
+    industry: 'Healthcare',
+    shortName: 'ClaimFlow',
+    productName: 'ClaimFlow',
+    tagline: 'Claims & collections platform',
+    outcomeHeadline: 'Real-time visibility into every claim, every payer, every dollar',
+    status: 'in-progress',
+    challenges: [
+      'Claims stuck in spreadsheets, no visibility',
+      'Manual follow-ups falling through cracks',
+      'Millions in revenue sitting uncollected'
+    ],
+    solutionBrief: 'Purpose-built platform that centralizes claim tracking, automates follow-up workflows, and provides real-time visibility into aging receivables.',
+    whatWeBuilt: [
+      'Centralized claims tracking',
+      'Automated follow-up workflows',
+      'Aging analytics dashboard',
+      'Role-based access & escalations'
+    ],
+    techStack: ['React', 'PostgreSQL', 'Workflow Engine', 'Analytics'],
+    outcomeMetrics: [
+      { value: '2,800+', label: 'Claims Tracked' },
+      { value: '$1.2M+', label: 'AR Managed' },
+      { value: '4', label: 'Workflow Stages' },
+      { value: '12', label: 'Agents Supported' }
+    ],
+    screenshots: [
+      '/screenshots/ClaimFlow/Healthcare_2.png',
+      '/screenshots/ClaimFlow/Healthcare_3.png',
+      '/screenshots/ClaimFlow/Healthcare_4.png'
+    ],
+    screenshotLabel: 'Claims Management Dashboard'
+  },
+  {
+    industry: 'B2B SaaS (HRMS)',
     shortName: 'WorkMate',
     productName: 'WorkMate',
-    tagline: 'CX platform for HRMS',
+    tagline: 'Ops platform for HRMS',
     outcomeHeadline: 'From reactive support to proactive customer success',
+    status: 'in-progress',
     challenges: [
       'No visibility into customer module adoption',
       'Renewal risks discovered too late to act',
       'Upsell conversations lack usage data'
     ],
-    solutionBrief: 'Customer success platform providing real-time adoption tracking, automated health scoring, and proactive renewal management for HRMS businesses.',
+    solutionBrief: 'B2B operations platform providing real-time adoption tracking, automated health scoring, and proactive renewal management for HRMS businesses.',
     whatWeBuilt: [
       'Adoption intelligence dashboard',
       'Automated health scoring',
@@ -136,31 +142,32 @@ const caseStudies = [
       '/screenshots/WorkMate/CX_HRMS_1.png',
       '/screenshots/WorkMate/CX_HRMS_2.png'
     ],
-    screenshotLabel: 'Customer Success Dashboard'
+    screenshotLabel: 'B2B Ops Dashboard'
   },
   {
     industry: 'B2B SaaS',
-    shortName: 'CS Engine',
-    productName: 'CS Engine',
-    tagline: 'Customer success operations platform',
-    outcomeHeadline: 'From spreadsheet chaos to NRR-driven customer success',
+    shortName: 'SaaS Ops',
+    productName: 'SaaS Ops Platform',
+    tagline: 'B2B SaaS operations platform',
+    outcomeHeadline: 'From spreadsheet chaos to NRR-driven operations',
+    status: 'in-progress',
     challenges: [
       'No visibility into customer health until renewal time',
-      'CSMs drowning in manual tracking across 5+ tools',
+      'Ops teams drowning in manual tracking across 5+ tools',
       'Expansion opportunities missed due to reactive workflows'
     ],
-    solutionBrief: 'Purpose-built customer success platform with predictive health scoring, automated playbooks, and revenue-tied metrics that transforms reactive support into proactive growth.',
+    solutionBrief: 'A purpose-built platform for B2B SaaS operations, health scoring, churn prediction, revenue analytics. Demonstrates our AI-native architecture approach.',
     whatWeBuilt: [
       'Predictive health scoring engine',
       'Automated playbook workflows',
       'NRR command center dashboard',
-      'CSM productivity workspace'
+      'Ops productivity workspace'
     ],
     techStack: ['React', 'PostgreSQL', 'AI/ML', 'Workflow Engine'],
     outcomeMetrics: [
       { value: '90-day', label: 'Churn Prediction' },
       { value: '100%', label: 'Health Visibility' },
-      { value: '3x', label: 'CSM Productivity' },
+      { value: '3x', label: 'Ops Productivity' },
       { value: 'Automated', label: 'Playbooks' }
     ],
     screenshots: [
@@ -173,7 +180,7 @@ const caseStudies = [
       '/screenshots/CS Engine/CS_Engine_7.png',
       '/screenshots/CS Engine/CS_Engine_8.png'
     ],
-    screenshotLabel: 'Customer Success Platform'
+    screenshotLabel: 'SaaS Operations Platform'
   }
 ]
 
@@ -294,10 +301,10 @@ export default function CaseStudiesSection() {
         <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide mb-4 ${
           isDark ? 'bg-[#ec5f2b]/10 text-[#ec5f2b] border border-[#ec5f2b]/20' : 'bg-[#ec5f2b]/10 text-[#ec5f2b] border border-[#ec5f2b]/20'
         }`}>
-          THE PROOF
+          THE PORTFOLIO
         </span>
         <h2 className={`text-2xl md:text-3xl font-bold mb-3 tracking-tight ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-          We don't just talk. We ship.
+          We don&apos;t just talk. We ship.
         </h2>
         <p className={`text-sm md:text-base max-w-2xl mx-auto leading-relaxed ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
           Real systems. Built to scale. Across industries.
@@ -329,6 +336,7 @@ export default function CaseStudiesSection() {
                 <div className="flex items-center gap-0.5 sm:gap-1">
                   {caseStudies.map((study, index) => {
                     const isActive = currentIndex === index
+                    const isInProgress = study.status === 'in-progress'
                     return (
                       <button
                         key={index}
@@ -340,7 +348,7 @@ export default function CaseStudiesSection() {
                         onMouseLeave={() => {
                           if (!hasInteracted) setIsPaused(false)
                         }}
-                        className={`relative px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap min-h-[36px] sm:min-h-[40px] flex items-center ${
+                        className={`relative px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap min-h-[36px] sm:min-h-[40px] flex items-center gap-1.5 ${
                           isActive
                             ? 'text-white'
                             : isDark
@@ -365,6 +373,18 @@ export default function CaseStudiesSection() {
                           </motion.div>
                         )}
                         <span className="relative z-10">{study.shortName}</span>
+                        {/* In Progress badge */}
+                        {isInProgress && (
+                          <span className={`relative z-10 px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase tracking-wide ${
+                            isActive
+                              ? 'bg-white/20 text-white'
+                              : isDark
+                                ? 'bg-yellow-500/20 text-yellow-400'
+                                : 'bg-yellow-100 text-yellow-700'
+                          }`}>
+                            WIP
+                          </span>
+                        )}
                       </button>
                     )
                   })}
