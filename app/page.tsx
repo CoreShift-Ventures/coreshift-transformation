@@ -31,8 +31,8 @@ export default function Home() {
         {/* Every Other Option - Problem/Cost (moved up) */}
         <EveryOtherOptionSection />
 
-        {/* Why This Matters - Problem/Impact */}
-        <WhyThisMattersSection />
+        {/* Why CoreShift - Credibility (moved up for early trust) */}
+        <WhyCoreShiftSection />
 
         {/* Case Studies Section */}
         <CaseStudiesSection />
@@ -40,8 +40,8 @@ export default function Home() {
         {/* What We Do - How We Work */}
         <WhatWeDoSection />
 
-        {/* Why CoreShift - Differentiators */}
-        <WhyCoreShiftSection />
+        {/* Why This Matters - Problem/Impact */}
+        <WhyThisMattersSection />
 
         {/* CoreShift Difference Panel */}
         <CoreShiftDifferenceSection />

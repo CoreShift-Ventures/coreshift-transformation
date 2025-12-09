@@ -8,20 +8,20 @@ import { TrendingUp, Flame, RefreshCw } from 'lucide-react'
 const audiences = [
   {
     icon: TrendingUp,
-    title: 'Scaling Companies',
-    description: 'Growth-stage companies hitting operational walls. The business is scaling but systems can\'t keep up.',
-    highlight: 'scaling'
+    title: 'Growing Companies',
+    description: 'Revenue is up but operations are holding you back. You\'ve outgrown spreadsheets but enterprise software is overkill.',
+    highlight: 'outgrown'
   },
   {
     icon: Flame,
-    title: 'Founder-Led Teams',
-    description: 'Founders drowning in operational details instead of building the business. You need systems that run without you.',
-    highlight: 'run without you'
+    title: 'Lean Teams',
+    description: 'Small team, big ambitions. You need systems that multiply capacity — not another SaaS subscription that adds work.',
+    highlight: 'multiply capacity'
   },
   {
     icon: RefreshCw,
     title: 'Unique Processes',
-    description: 'Off-the-shelf software doesn\'t fit. You\'ve tried the big platforms but your process is different and that\'s your edge.',
+    description: 'Off-the-shelf software doesn\'t fit. You\'ve tried the big platforms but your process is different — and that\'s your edge.',
     highlight: 'your edge'
   }
 ]
