@@ -16,13 +16,15 @@ export function TrustTicker() {
 
   const isDark = mounted && theme === 'dark'
 
+  // Logo sizes calibrated for visual consistency (similar visual weight)
+  // Heights are standardized, widths vary by aspect ratio
   const logos = [
-    { src: '/logos/Companies/SAP.png', width: 90, height: 34, className: '' },
-    { src: '/logos/Companies/IBM.svg', width: 110, height: 42, className: '' },
-    { src: '/logos/Companies/hcltech-new-logo.svg', width: 110, height: 40, className: '' },
-    { src: '/logos/Companies/HP .svg', width: 60, height: 24, className: '' },
-    { src: '/logos/Companies/Algonomy.png', width: 120, height: 42, className: '' },
-    { src: '/logos/Companies/Talend.png', width: 110, height: 36, className: '-ml-2' },
+    { src: '/logos/Companies/SAP.png', width: 90, height: 36 },
+    { src: '/logos/Companies/IBM.svg', width: 90, height: 36 },  // Square SVG, height controls visual size
+    { src: '/logos/Companies/hcltech-new-logo.svg', width: 120, height: 22 },  // Wide text logo
+    { src: '/logos/Companies/HP .svg', width: 44, height: 44 },  // Circular logo, needs height = width
+    { src: '/logos/Companies/Algonomy.png', width: 110, height: 36 },
+    { src: '/logos/Companies/Talend.png', width: 100, height: 32 },
   ]
 
   return (
@@ -42,7 +44,7 @@ export function TrustTicker() {
           </p>
 
           {/* Desktop: Static Logo Grid */}
-          <div className="hidden md:flex flex-wrap items-center justify-center gap-8 md:gap-12">
+          <div className="hidden md:flex flex-wrap items-center justify-center gap-10 lg:gap-14">
             {logos.map((logo, index) => (
               <motion.div
                 key={index}
@@ -50,7 +52,7 @@ export function TrustTicker() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className={`flex-shrink-0 h-10 md:h-12 relative flex items-center justify-center ${
+                className={`flex-shrink-0 h-10 relative flex items-center justify-center ${
                   isDark ? 'opacity-50 grayscale' : 'opacity-40 grayscale'
                 } hover:opacity-100 hover:grayscale-0 transition-all duration-300`}
               >
@@ -59,7 +61,7 @@ export function TrustTicker() {
                   alt="Company logo"
                   width={logo.width}
                   height={logo.height}
-                  className={`object-contain ${logo.className}`}
+                  className="object-contain"
                 />
               </motion.div>
             ))}
@@ -83,16 +85,16 @@ export function TrustTicker() {
                     {logos.map((logo, index) => (
                       <div
                         key={`${setIndex}-${index}`}
-                        className={`flex-shrink-0 h-9 flex items-center justify-center mx-6 ${
+                        className={`flex-shrink-0 h-8 flex items-center justify-center mx-5 ${
                           isDark ? 'opacity-60 grayscale' : 'opacity-50 grayscale'
                         }`}
                       >
                         <Image
                           src={logo.src}
                           alt="Company logo"
-                          width={logo.width * 0.75}
-                          height={logo.height * 0.75}
-                          className={`object-contain max-h-9 ${logo.className}`}
+                          width={logo.width * 0.7}
+                          height={logo.height * 0.7}
+                          className="object-contain max-h-8"
                         />
                       </div>
                     ))}
