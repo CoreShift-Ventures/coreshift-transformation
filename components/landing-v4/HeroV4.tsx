@@ -190,7 +190,7 @@ export default function HeroV4() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className={`text-[1.625rem] sm:text-4xl lg:text-4xl xl:text-5xl leading-[1.25] sm:leading-tight font-bold tracking-tight mb-6 px-4 sm:px-5 ${
+          className={`text-[1.875rem] sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl leading-[1.2] sm:leading-tight font-bold tracking-tight mb-6 px-4 sm:px-5 ${
             isDark ? 'text-gray-100' : 'text-brand-charcoal'
           }`}
         >
