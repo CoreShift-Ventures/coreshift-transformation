@@ -253,10 +253,10 @@ export default function AboutPage() {
                   }`}>
                     <div className="aspect-[3/4] relative">
                       <Image
-                        src="/founder-srinath.jpg"
+                        src="/Founder profile picture_CoreShift.png"
                         alt="Srinath Sridharan - Founder of CoreShift"
                         fill
-                        className="object-cover object-[center_15%] scale-[1.15]"
+                        className="object-cover object-center"
                       />
                     </div>
                   </div>
