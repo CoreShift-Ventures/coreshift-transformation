@@ -227,11 +227,12 @@ export default function WhyThisMattersSection() {
                   </div>
 
                   {/* CTA callout */}
-                  <motion.div
+                  <motion.a
+                    href="/contact?intent=blueprint"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className={`mt-4 p-4 rounded-xl relative overflow-hidden ${
+                    className={`block mt-4 p-4 rounded-xl relative overflow-hidden ${
                       isDark ? 'bg-gradient-to-r from-[#ec5f2b]/10 to-orange-500/5' : 'bg-gradient-to-r from-[#ec5f2b]/10 to-orange-50'
                     }`}
                   >
@@ -249,7 +250,7 @@ export default function WhyThisMattersSection() {
                       </div>
                       <ArrowRight className="w-4 h-4 text-[#ec5f2b]" />
                     </div>
-                  </motion.div>
+                  </motion.a>
                 </div>
               </motion.div>
             )}

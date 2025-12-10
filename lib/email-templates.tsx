@@ -85,8 +85,7 @@ const baseStyles = `
 const INTENT_LABELS: Record<string, string> = {
   blueprint: 'Blueprint Sprint',
   build: 'Systems & Automation',
-  advisory: 'Fractional COO',
-  'cs-engine': 'CS Engine Demo'
+  advisory: 'Fractional COO'
 }
 
 /**

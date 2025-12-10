@@ -12,8 +12,7 @@ import { ArrowRight, Mail, CheckCircle2 } from 'lucide-react';
 const intentToInterest: Record<string, string> = {
   'blueprint': 'Blueprint Sprint',
   'build': 'Systems & Automation',
-  'advisory': 'Fractional COO',
-  'cs-engine': 'CS Engine Demo'
+  'advisory': 'Fractional COO'
 };
 
 function ContactForm() {
@@ -82,13 +81,12 @@ function ContactForm() {
       const intentMap: Record<string, string> = {
         'Blueprint Sprint': 'blueprint',
         'Systems & Automation': 'build',
-        'Fractional COO': 'advisory',
-        'CS Engine Demo': 'cs-engine'
+        'Fractional COO': 'advisory'
       };
 
       // Submit to Supabase with simplified form data
       const result = await submitContactForm({
-        intent: (intentMap[formData.interest] || 'blueprint') as 'blueprint' | 'build' | 'advisory' | 'cs-engine',
+        intent: (intentMap[formData.interest] || 'blueprint') as 'blueprint' | 'build' | 'advisory',
         name: formData.name,
         email: formData.email,
         company: formData.company,
@@ -250,7 +248,6 @@ function ContactForm() {
                         <option value="Blueprint Sprint">Blueprint Sprint</option>
                         <option value="Systems & Automation">Systems & Automation</option>
                         <option value="Fractional COO">Fractional COO</option>
-                        <option value="CS Engine Demo">CS Engine Demo</option>
                       </select>
                     </div>
 

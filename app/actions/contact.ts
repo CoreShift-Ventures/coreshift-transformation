@@ -14,16 +14,14 @@ const ADMIN_EMAIL = 'srinath@cshift.io' // Your notification email
 const CALENDLY_LINKS: Record<string, string> = {
   blueprint: 'https://calendly.com/srinath-cshift/business-transformation-readiness',
   build: 'https://calendly.com/srinath-cshift/business-transformation-readiness',
-  advisory: 'https://calendly.com/srinath-cshift/fractional-coo-consultation',
-  'cs-engine': 'https://calendly.com/srinath-cshift/business-transformation-readiness'
+  advisory: 'https://calendly.com/srinath-cshift/fractional-coo-consultation'
 }
 
 // Intent display names for emails
 const INTENT_LABELS: Record<string, string> = {
   blueprint: 'Blueprint Sprint',
   build: 'Systems & Automation',
-  advisory: 'Fractional COO',
-  'cs-engine': 'CS Engine Demo'
+  advisory: 'Fractional COO'
 }
 
 export async function submitContactForm(formData: Omit<ContactFormSubmission, 'id' | 'created_at'>) {
