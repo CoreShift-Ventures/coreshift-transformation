@@ -164,16 +164,38 @@ export function NavigationV4() {
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className={`md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 rounded-md p-1 ${
-            isDark ? 'text-white focus-visible:ring-offset-black' : 'text-brand-charcoal focus-visible:ring-offset-white'
-          }`}
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* Mobile: Theme Toggle + Menu Button */}
+        <div className="md:hidden flex items-center gap-2">
+          {/* Theme Toggle - Always visible on mobile */}
+          <button
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className={`p-2.5 rounded-xl transition-all duration-200 ${
+              isDark
+                ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {isDark ? (
+              <Sun className="w-5 h-5" />
+            ) : (
+              <Moon className="w-5 h-5" />
+            )}
+          </button>
+
+          {/* Menu Button */}
+          <button
+            className={`p-2.5 rounded-xl transition-all duration-200 ${
+              isDark
+                ? 'bg-gray-800 text-white hover:bg-gray-700'
+                : 'bg-gray-100 text-brand-charcoal hover:bg-gray-200'
+            }`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
@@ -215,26 +237,6 @@ export function NavigationV4() {
                   )
                 }
               })}
-
-              {/* Mobile Theme Toggle */}
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className={`flex items-center gap-3 w-full text-left py-3.5 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 rounded-lg px-4 min-h-[48px] ${
-                  isDark ? 'text-gray-300 hover:text-white hover:bg-gray-800/50 focus-visible:ring-offset-black' : 'text-gray-700 hover:text-brand-charcoal hover:bg-gray-50 focus-visible:ring-offset-white'
-                }`}
-              >
-                {isDark ? (
-                  <>
-                    <Sun className="w-4 h-4" />
-                    <span>Light Mode</span>
-                  </>
-                ) : (
-                  <>
-                    <Moon className="w-4 h-4" />
-                    <span>Dark Mode</span>
-                  </>
-                )}
-              </button>
 
               {/* Mobile Quick Message Button */}
               <button
