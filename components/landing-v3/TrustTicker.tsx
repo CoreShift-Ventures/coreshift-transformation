@@ -16,14 +16,24 @@ export function TrustTicker() {
 
   const isDark = mounted && theme === 'dark'
 
-  // Logo sizes calibrated for visual consistency (similar visual weight)
-  const logos = [
+  // Desktop logo sizes
+  const desktopLogos = [
     { src: '/logos/Companies/SAP.png', width: 90, height: 36 },
-    { src: '/logos/Companies/IBM.svg', width: 220, height: 88 },  // Square SVG with text inside - needs much larger
+    { src: '/logos/Companies/IBM.svg', width: 80, height: 32 },
     { src: '/logos/Companies/hcltech-new-logo.svg', width: 120, height: 22 },
-    { src: '/logos/Companies/HP .svg', width: 64, height: 64 },  // Circular logo
-    { src: '/logos/Companies/Algonomy.png', width: 140, height: 48 },
-    { src: '/logos/Companies/Talend.png', width: 100, height: 32 },
+    { src: '/logos/Companies/HP .svg', width: 44, height: 44 },
+    { src: '/logos/Companies/Algonomy.png', width: 110, height: 38 },
+    { src: '/logos/Companies/Talend.png', width: 95, height: 30 },
+  ]
+
+  // Mobile logo sizes - individually tuned for visual balance in ticker
+  const mobileLogos = [
+    { src: '/logos/Companies/SAP.png', width: 70, height: 28 },
+    { src: '/logos/Companies/IBM.svg', width: 62, height: 25 },
+    { src: '/logos/Companies/hcltech-new-logo.svg', width: 90, height: 17 },
+    { src: '/logos/Companies/HP .svg', width: 34, height: 34 },
+    { src: '/logos/Companies/Algonomy.png', width: 85, height: 29 },
+    { src: '/logos/Companies/Talend.png', width: 75, height: 24 },
   ]
 
   return (
@@ -44,7 +54,7 @@ export function TrustTicker() {
 
           {/* Desktop: Static Logo Grid */}
           <div className="hidden md:flex flex-wrap items-center justify-center gap-10 lg:gap-14">
-            {logos.map((logo, index) => (
+            {desktopLogos.map((logo, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
@@ -81,19 +91,19 @@ export function TrustTicker() {
                 {/* Two sets of logos for seamless infinite loop */}
                 {[0, 1].map((setIndex) => (
                   <div key={setIndex} className="ticker-content">
-                    {logos.map((logo, index) => (
+                    {mobileLogos.map((logo, index) => (
                       <div
                         key={`${setIndex}-${index}`}
-                        className={`flex-shrink-0 h-8 flex items-center justify-center mx-5 ${
+                        className={`flex-shrink-0 flex items-center justify-center px-5 ${
                           isDark ? 'opacity-60 grayscale' : 'opacity-50 grayscale'
                         }`}
                       >
                         <Image
                           src={logo.src}
                           alt="Company logo"
-                          width={logo.width * 0.7}
-                          height={logo.height * 0.7}
-                          className="object-contain max-h-8"
+                          width={logo.width}
+                          height={logo.height}
+                          className="object-contain"
                         />
                       </div>
                     ))}
