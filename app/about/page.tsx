@@ -251,12 +251,12 @@ export default function AboutPage() {
                   <div className={`relative rounded-xl overflow-hidden border-3 shadow-xl max-w-[250px] mx-auto ${
                     isDark ? 'border-gray-800' : 'border-gray-100'
                   }`}>
-                    <div className="aspect-[3/4] relative">
+                    <div className="aspect-[3/4] relative overflow-hidden">
                       <Image
                         src="/Founder profile picture_CoreShift.png"
                         alt="Srinath Sridharan - Founder of CoreShift"
                         fill
-                        className="object-cover object-center"
+                        className="object-cover object-top scale-[2] translate-y-[25%]"
                       />
                     </div>
                   </div>
