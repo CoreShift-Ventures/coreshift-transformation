@@ -17,12 +17,12 @@ export function TrustTicker() {
   const isDark = mounted && theme === 'dark'
 
   const logos = [
-    { src: '/logos/Companies/SAP.png', width: 90, height: 34 },
-    { src: '/logos/Companies/IBM.svg', width: 90, height: 34 },
-    { src: '/logos/Companies/hcltech-new-logo.svg', width: 110, height: 40 },
-    { src: '/logos/Companies/HP .svg', width: 60, height: 24 },
-    { src: '/logos/Companies/Algonomy.png', width: 120, height: 42 },
-    { src: '/logos/Companies/Talend.png', width: 110, height: 36 },
+    { src: '/logos/Companies/SAP.png', width: 90, height: 34, className: '' },
+    { src: '/logos/Companies/IBM.svg', width: 110, height: 42, className: '' },
+    { src: '/logos/Companies/hcltech-new-logo.svg', width: 110, height: 40, className: '' },
+    { src: '/logos/Companies/HP .svg', width: 60, height: 24, className: '' },
+    { src: '/logos/Companies/Algonomy.png', width: 120, height: 42, className: '' },
+    { src: '/logos/Companies/Talend.png', width: 110, height: 36, className: '-ml-2' },
   ]
 
   return (
@@ -59,7 +59,7 @@ export function TrustTicker() {
                   alt="Company logo"
                   width={logo.width}
                   height={logo.height}
-                  className="object-contain"
+                  className={`object-contain ${logo.className}`}
                 />
               </motion.div>
             ))}
@@ -92,7 +92,7 @@ export function TrustTicker() {
                           alt="Company logo"
                           width={logo.width * 0.75}
                           height={logo.height * 0.75}
-                          className="object-contain max-h-9"
+                          className={`object-contain max-h-9 ${logo.className}`}
                         />
                       </div>
                     ))}
