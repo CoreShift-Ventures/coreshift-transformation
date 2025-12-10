@@ -146,23 +146,17 @@ export default function HeroV4() {
           </motion.span>
         </motion.div>
 
-        {/* Main Headline - Simplified for mobile */}
+        {/* Main Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className={`text-[1.75rem] sm:text-4xl lg:text-4xl xl:text-5xl leading-[1.2] sm:leading-tight font-bold tracking-tight mb-5 px-4 sm:px-5 ${
+          className={`text-[1.625rem] sm:text-4xl lg:text-4xl xl:text-5xl leading-[1.25] sm:leading-tight font-bold tracking-tight mb-6 px-4 sm:px-5 ${
             isDark ? 'text-gray-100' : 'text-brand-charcoal'
           }`}
         >
-          <span className="sm:hidden">
-            Operations that{' '}
-            <span className="bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x">scale</span>
-          </span>
-          <span className="hidden sm:inline">
-            We transform your operations into{' '}
-            <span className="bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x">modern, intelligent systems</span>
-          </span>
+          We transform your operations into{' '}
+          <span className="bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x">modern, intelligent systems</span>
         </motion.h1>
 
         {/* Rotating hook with typing effect */}
@@ -170,15 +164,15 @@ export default function HeroV4() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="mb-6 sm:mb-10 px-5 min-h-[72px] sm:min-h-[70px] flex items-center justify-center"
+          className="mb-6 sm:mb-10 px-4 sm:px-5 min-h-[56px] sm:min-h-[70px] flex items-center justify-center"
         >
-          <div className="text-[1.125rem] sm:text-xl md:text-2xl xl:text-3xl font-semibold text-[#ec5f2b] leading-[1.4] tracking-tight text-center">
+          <div className="text-base sm:text-xl md:text-2xl xl:text-3xl font-semibold text-[#ec5f2b] leading-[1.35] tracking-tight text-center">
             {displayedText}
-            <span className={`inline-block w-0.5 h-5 sm:h-6 md:h-7 xl:h-8 ml-1 ${isDark ? 'bg-white' : 'bg-black'} ${isTyping ? 'animate-blink' : 'opacity-0'}`} />
+            <span className={`inline-block w-0.5 h-4 sm:h-6 md:h-7 xl:h-8 ml-1 ${isDark ? 'bg-white' : 'bg-black'} ${isTyping ? 'animate-blink' : 'opacity-0'}`} />
           </div>
         </motion.div>
 
-        {/* Sub-headline - Shorter on mobile */}
+        {/* Sub-headline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -187,12 +181,7 @@ export default function HeroV4() {
             isDark ? 'text-gray-400' : 'text-brand-gray'
           }`}
         >
-          <span className="sm:hidden">
-            AI-powered systems built around <span className="font-semibold text-[#ec5f2b]">your process</span>. Live in weeks.
-          </span>
-          <span className="hidden sm:inline">
-            Too big for spreadsheets. Too unique for off-the-shelf. We build AI-powered systems around <span className="font-semibold text-[#ec5f2b]">your process</span>. Live in weeks, not months.
-          </span>
+          Too big for spreadsheets. Too unique for off-the-shelf. We build AI-powered systems around <span className="font-semibold text-[#ec5f2b]">your process</span>. Live in weeks, not months.
         </motion.p>
 
         {/* CTA Buttons */}

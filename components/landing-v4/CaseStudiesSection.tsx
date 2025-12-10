@@ -197,6 +197,7 @@ export default function CaseStudiesSection() {
   const [sectionInView, setSectionInView] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
   const [mobileFullscreen, setMobileFullscreen] = useState<number | null>(null)
+  const [fullscreenScreenshotIndex, setFullscreenScreenshotIndex] = useState(0)
   const mobileCarouselRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -334,11 +335,11 @@ export default function CaseStudiesSection() {
       </motion.div>
 
       {/* Mobile Swipeable Carousel */}
-      <div className="lg:hidden px-4">
+      <div className="lg:hidden">
         <div
           ref={mobileCarouselRef}
           onScroll={handleMobileScroll}
-          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
+          className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 px-4"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {caseStudies.map((study, index) => (
@@ -348,7 +349,7 @@ export default function CaseStudiesSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex-shrink-0 w-[85vw] snap-center"
+              className="flex-shrink-0 w-[92vw] snap-center"
             >
               <div className={`rounded-2xl border overflow-hidden ${
                 isDark
@@ -356,22 +357,35 @@ export default function CaseStudiesSection() {
                   : 'bg-white border-gray-200'
               } shadow-lg`}>
                 {/* Status Badge & Title */}
-                <div className={`p-4 border-b ${isDark ? 'border-gray-800' : 'border-gray-100'}`}>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[#ec5f2b] font-bold text-sm">{study.productName}</span>
-                    {study.status === 'in-progress' && (
-                      <span className={`px-2 py-0.5 rounded text-[9px] font-semibold uppercase ${
-                        isDark ? 'bg-yellow-500/20 text-yellow-400' : 'bg-yellow-100 text-yellow-700'
-                      }`}>
-                        WIP
+                <div className={`p-3 border-b ${isDark ? 'border-gray-800' : 'border-gray-100'}`}>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#ec5f2b] font-bold text-sm">{study.productName}</span>
+                      {study.status === 'in-progress' && (
+                        <span className={`px-2 py-0.5 rounded text-[9px] font-semibold uppercase ${
+                          isDark ? 'bg-yellow-500/20 text-yellow-400' : 'bg-yellow-100 text-yellow-700'
+                        }`}>
+                          WIP
+                        </span>
+                      )}
+                    </div>
+                    {study.screenshots.length > 1 && (
+                      <span className={`text-[10px] ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                        {study.screenshots.length} screens
                       </span>
                     )}
                   </div>
-                  <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{study.tagline}</p>
+                  <p className={`text-xs mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{study.tagline}</p>
                 </div>
 
-                {/* Screenshot with fullscreen button */}
-                <div className={`relative aspect-[16/10] ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
+                {/* Screenshot - Full width, tappable for fullscreen */}
+                <button
+                  onClick={() => {
+                    setMobileFullscreen(index)
+                    setFullscreenScreenshotIndex(0)
+                  }}
+                  className={`relative w-full aspect-[16/9] ${isDark ? 'bg-gray-950' : 'bg-gray-50'} group`}
+                >
                   {study.screenshots.length > 0 ? (
                     <>
                       <img
@@ -380,25 +394,29 @@ export default function CaseStudiesSection() {
                         className="w-full h-full object-cover object-top"
                         draggable={false}
                       />
-                      {/* Fullscreen button */}
-                      <button
-                        onClick={() => setMobileFullscreen(index)}
-                        className={`absolute bottom-2 right-2 w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
-                          isDark ? 'bg-black/60 text-white hover:bg-black/80' : 'bg-white/80 text-gray-700 hover:bg-white'
-                        } backdrop-blur-sm shadow-lg`}
-                      >
-                        <Maximize2 className="w-4 h-4" />
-                      </button>
+                      {/* Fullscreen indicator overlay */}
+                      <div className="absolute inset-0 bg-black/0 group-active:bg-black/20 transition-colors flex items-center justify-center">
+                        <div className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 opacity-0 group-active:opacity-100 transition-opacity ${
+                          isDark ? 'bg-black/70' : 'bg-white/90'
+                        } backdrop-blur-sm`}>
+                          <Maximize2 className={`w-3.5 h-3.5 ${isDark ? 'text-white' : 'text-gray-700'}`} />
+                          <span className={`text-xs font-medium ${isDark ? 'text-white' : 'text-gray-700'}`}>
+                            View {study.screenshots.length > 1 ? `all ${study.screenshots.length}` : 'full'}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Bottom gradient for better text readability */}
+                      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/30 to-transparent" />
                     </>
                   ) : (
                     <div className="flex items-center justify-center h-full">
                       <Monitor className={`w-10 h-10 ${isDark ? 'text-gray-700' : 'text-gray-300'}`} strokeWidth={1} />
                     </div>
                   )}
-                </div>
+                </button>
 
-                {/* Outcome Headline */}
-                <div className={`p-4 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+                {/* Outcome Headline & Metrics */}
+                <div className={`p-3 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
                   <p className={`text-sm font-semibold leading-snug mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     "{study.outcomeHeadline}"
                   </p>
@@ -478,44 +496,57 @@ export default function CaseStudiesSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 lg:hidden"
-            onClick={() => setMobileFullscreen(null)}
+            className="fixed inset-0 z-50 lg:hidden bg-black"
           >
-            {/* Backdrop */}
-            <div className={`absolute inset-0 ${isDark ? 'bg-black/95' : 'bg-black/90'}`} />
-
-            {/* Content */}
-            <div className="relative h-full flex flex-col">
-              {/* Header */}
-              <div className="flex items-center justify-between p-4 relative z-10">
-                <div>
-                  <h3 className="text-white font-bold text-sm">{caseStudies[mobileFullscreen].productName}</h3>
-                  <p className="text-gray-400 text-xs">{caseStudies[mobileFullscreen].tagline}</p>
-                </div>
-                <button
-                  onClick={() => setMobileFullscreen(null)}
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+            {/* Header */}
+            <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4 z-20 bg-gradient-to-b from-black/80 to-transparent">
+              <div className="flex-1 min-w-0">
+                <h3 className="text-white font-bold text-sm truncate">{caseStudies[mobileFullscreen].productName}</h3>
+                <p className="text-gray-400 text-xs truncate">{caseStudies[mobileFullscreen].tagline}</p>
               </div>
+              <button
+                onClick={() => setMobileFullscreen(null)}
+                className="ml-3 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors flex-shrink-0"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-              {/* Screenshot - Full width, scrollable */}
-              <div className="flex-1 overflow-auto p-4">
-                <img
-                  src={caseStudies[mobileFullscreen].screenshots[0]}
-                  alt={caseStudies[mobileFullscreen].screenshotLabel}
-                  className="w-full rounded-lg shadow-2xl"
-                  style={{ maxWidth: 'none', width: '100%' }}
-                />
+            {/* Screenshot Gallery - Vertical scroll */}
+            <div className="h-full overflow-y-auto pt-20 pb-24">
+              <div className="space-y-4 px-4">
+                {caseStudies[mobileFullscreen].screenshots.map((screenshot, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="relative"
+                  >
+                    {/* Screen number badge */}
+                    <div className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm">
+                      <span className="text-white text-xs font-medium">
+                        {idx + 1} / {caseStudies[mobileFullscreen].screenshots.length}
+                      </span>
+                    </div>
+                    <img
+                      src={screenshot}
+                      alt={`${caseStudies[mobileFullscreen].screenshotLabel} - Screen ${idx + 1}`}
+                      className="w-full rounded-xl shadow-2xl"
+                    />
+                  </motion.div>
+                ))}
               </div>
+            </div>
 
-              {/* Bottom info */}
-              <div className="p-4 relative z-10">
-                <p className="text-white text-sm font-medium text-center">
-                  "{caseStudies[mobileFullscreen].outcomeHeadline}"
-                </p>
-              </div>
+            {/* Bottom info bar */}
+            <div className="absolute bottom-0 left-0 right-0 p-4 z-20 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+              <p className="text-white text-sm font-medium text-center mb-2">
+                "{caseStudies[mobileFullscreen].outcomeHeadline}"
+              </p>
+              <p className="text-gray-400 text-xs text-center">
+                Scroll to see all {caseStudies[mobileFullscreen].screenshots.length} screens
+              </p>
             </div>
           </motion.div>
         )}
