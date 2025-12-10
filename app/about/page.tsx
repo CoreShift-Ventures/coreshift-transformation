@@ -234,7 +234,7 @@ export default function AboutPage() {
             >
               <div className="text-center mb-10">
                 <h2 className={`text-2xl md:text-3xl font-bold mb-2 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                  Meet the Founder
+                  About the Founder
                 </h2>
                 <div className="w-20 h-1 bg-gradient-to-r from-[#ec5f2b] to-orange-500 rounded-full mx-auto" />
               </div>
@@ -253,10 +253,10 @@ export default function AboutPage() {
                   }`}>
                     <div className="aspect-[3/4] relative overflow-hidden">
                       <Image
-                        src="/Founder profile picture_CoreShift.png"
+                        src="/founder Cshift (750 x 1000 px).png"
                         alt="Srinath Sridharan - Founder of CoreShift"
                         fill
-                        className="object-cover object-top scale-[1.5] translate-y-[15%]"
+                        className="object-cover object-center"
                       />
                     </div>
                   </div>
