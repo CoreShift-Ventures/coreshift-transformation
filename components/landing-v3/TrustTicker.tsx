@@ -17,13 +17,12 @@ export function TrustTicker() {
   const isDark = mounted && theme === 'dark'
 
   // Logo sizes calibrated for visual consistency (similar visual weight)
-  // Heights are standardized, widths vary by aspect ratio
   const logos = [
     { src: '/logos/Companies/SAP.png', width: 90, height: 36 },
-    { src: '/logos/Companies/IBM.svg', width: 90, height: 36 },  // Square SVG, height controls visual size
+    { src: '/logos/Companies/IBM.svg', width: 140, height: 56 },  // Square SVG - needs larger dimensions
     { src: '/logos/Companies/hcltech-new-logo.svg', width: 120, height: 22 },  // Wide text logo
-    { src: '/logos/Companies/HP .svg', width: 44, height: 44 },  // Circular logo, needs height = width
-    { src: '/logos/Companies/Algonomy.png', width: 110, height: 36 },
+    { src: '/logos/Companies/HP .svg', width: 56, height: 56 },  // Circular logo
+    { src: '/logos/Companies/Algonomy.png', width: 130, height: 44 },
     { src: '/logos/Companies/Talend.png', width: 100, height: 32 },
   ]
 
