@@ -19,10 +19,10 @@ export function TrustTicker() {
   // Logo sizes calibrated for visual consistency (similar visual weight)
   const logos = [
     { src: '/logos/Companies/SAP.png', width: 90, height: 36 },
-    { src: '/logos/Companies/IBM.svg', width: 140, height: 56 },  // Square SVG - needs larger dimensions
-    { src: '/logos/Companies/hcltech-new-logo.svg', width: 120, height: 22 },  // Wide text logo
-    { src: '/logos/Companies/HP .svg', width: 56, height: 56 },  // Circular logo
-    { src: '/logos/Companies/Algonomy.png', width: 130, height: 44 },
+    { src: '/logos/Companies/IBM.svg', width: 220, height: 88 },  // Square SVG with text inside - needs much larger
+    { src: '/logos/Companies/hcltech-new-logo.svg', width: 120, height: 22 },
+    { src: '/logos/Companies/HP .svg', width: 64, height: 64 },  // Circular logo
+    { src: '/logos/Companies/Algonomy.png', width: 140, height: 48 },
     { src: '/logos/Companies/Talend.png', width: 100, height: 32 },
   ]
 
