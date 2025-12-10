@@ -196,6 +196,7 @@ export default function CaseStudiesSection() {
   const [hasInteracted, setHasInteracted] = useState(false)
   const [sectionInView, setSectionInView] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
+  const [mobileFullscreen, setMobileFullscreen] = useState<number | null>(null)
   const mobileCarouselRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -369,15 +370,26 @@ export default function CaseStudiesSection() {
                   <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{study.tagline}</p>
                 </div>
 
-                {/* Screenshot */}
+                {/* Screenshot with fullscreen button */}
                 <div className={`relative aspect-[16/10] ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
                   {study.screenshots.length > 0 ? (
-                    <img
-                      src={study.screenshots[0]}
-                      alt={study.screenshotLabel}
-                      className="w-full h-full object-cover object-top"
-                      draggable={false}
-                    />
+                    <>
+                      <img
+                        src={study.screenshots[0]}
+                        alt={study.screenshotLabel}
+                        className="w-full h-full object-cover object-top"
+                        draggable={false}
+                      />
+                      {/* Fullscreen button */}
+                      <button
+                        onClick={() => setMobileFullscreen(index)}
+                        className={`absolute bottom-2 right-2 w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
+                          isDark ? 'bg-black/60 text-white hover:bg-black/80' : 'bg-white/80 text-gray-700 hover:bg-white'
+                        } backdrop-blur-sm shadow-lg`}
+                      >
+                        <Maximize2 className="w-4 h-4" />
+                      </button>
+                    </>
                   ) : (
                     <div className="flex items-center justify-center h-full">
                       <Monitor className={`w-10 h-10 ${isDark ? 'text-gray-700' : 'text-gray-300'}`} strokeWidth={1} />
@@ -458,6 +470,56 @@ export default function CaseStudiesSection() {
           </button>
         </div>
       </div>
+
+      {/* Mobile Fullscreen Screenshot Modal */}
+      <AnimatePresence>
+        {mobileFullscreen !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 lg:hidden"
+            onClick={() => setMobileFullscreen(null)}
+          >
+            {/* Backdrop */}
+            <div className={`absolute inset-0 ${isDark ? 'bg-black/95' : 'bg-black/90'}`} />
+
+            {/* Content */}
+            <div className="relative h-full flex flex-col">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 relative z-10">
+                <div>
+                  <h3 className="text-white font-bold text-sm">{caseStudies[mobileFullscreen].productName}</h3>
+                  <p className="text-gray-400 text-xs">{caseStudies[mobileFullscreen].tagline}</p>
+                </div>
+                <button
+                  onClick={() => setMobileFullscreen(null)}
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Screenshot - Full width, scrollable */}
+              <div className="flex-1 overflow-auto p-4">
+                <img
+                  src={caseStudies[mobileFullscreen].screenshots[0]}
+                  alt={caseStudies[mobileFullscreen].screenshotLabel}
+                  className="w-full rounded-lg shadow-2xl"
+                  style={{ maxWidth: 'none', width: '100%' }}
+                />
+              </div>
+
+              {/* Bottom info */}
+              <div className="p-4 relative z-10">
+                <p className="text-white text-sm font-medium text-center">
+                  "{caseStudies[mobileFullscreen].outcomeHeadline}"
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Desktop: Integrated Card with Tabs */}
       <div className="hidden lg:block relative w-full px-4 md:px-8 lg:px-12">

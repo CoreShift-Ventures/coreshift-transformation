@@ -146,17 +146,23 @@ export default function HeroV4() {
           </motion.span>
         </motion.div>
 
-        {/* Main Headline */}
+        {/* Main Headline - Simplified for mobile */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className={`text-[2rem] sm:text-4xl lg:text-4xl xl:text-5xl leading-[1.15] sm:leading-tight font-bold tracking-tight mb-5 px-5 ${
+          className={`text-[1.75rem] sm:text-4xl lg:text-4xl xl:text-5xl leading-[1.2] sm:leading-tight font-bold tracking-tight mb-5 px-4 sm:px-5 ${
             isDark ? 'text-gray-100' : 'text-brand-charcoal'
           }`}
         >
-          We transform your operations into{' '}
-          <span className="bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x">modern, intelligent systems</span>
+          <span className="sm:hidden">
+            Operations that{' '}
+            <span className="bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x">scale</span>
+          </span>
+          <span className="hidden sm:inline">
+            We transform your operations into{' '}
+            <span className="bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x">modern, intelligent systems</span>
+          </span>
         </motion.h1>
 
         {/* Rotating hook with typing effect */}
@@ -172,16 +178,21 @@ export default function HeroV4() {
           </div>
         </motion.div>
 
-        {/* Sub-headline */}
+        {/* Sub-headline - Shorter on mobile */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className={`text-[0.9375rem] sm:text-base max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-5 ${
+          className={`text-sm sm:text-base max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-4 sm:px-5 ${
             isDark ? 'text-gray-400' : 'text-brand-gray'
           }`}
         >
-          Too big for spreadsheets. Too unique for off-the-shelf. We build AI-powered systems around <span className="font-semibold text-[#ec5f2b]">your process</span>. Live in weeks, not months.
+          <span className="sm:hidden">
+            AI-powered systems built around <span className="font-semibold text-[#ec5f2b]">your process</span>. Live in weeks.
+          </span>
+          <span className="hidden sm:inline">
+            Too big for spreadsheets. Too unique for off-the-shelf. We build AI-powered systems around <span className="font-semibold text-[#ec5f2b]">your process</span>. Live in weeks, not months.
+          </span>
         </motion.p>
 
         {/* CTA Buttons */}
@@ -211,7 +222,7 @@ export default function HeroV4() {
             <span className="relative z-10">Book a Free Consult</span>
           </a>
           <button
-            onClick={() => scrollToSection('what-we-do')}
+            onClick={() => scrollToSection('case-studies')}
             className={`group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300 hover:scale-105 border whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 overflow-hidden min-h-[52px] ${
               isDark
                 ? 'bg-gray-900 border-gray-700 text-gray-100 focus-visible:ring-offset-black hover:border-gray-600'

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import { AlertTriangle, Sparkles, X, Check, Clock, Users, TrendingUp, BarChart3 } from 'lucide-react'
 
@@ -24,6 +24,7 @@ const impacts = [
 export default function WhyThisMattersSection() {
   const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [mobileTab, setMobileTab] = useState<'chaos' | 'systems'>('chaos')
 
   useEffect(() => {
     setMounted(true)
@@ -70,8 +71,128 @@ export default function WhyThisMattersSection() {
           </p>
         </motion.div>
 
-        {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6 lg:gap-10">
+        {/* Mobile: Tabbed Toggle View */}
+        <div className="lg:hidden mb-8">
+          {/* Tab Toggle */}
+          <div className={`flex rounded-xl p-1 mb-6 ${isDark ? 'bg-gray-900' : 'bg-gray-100'}`}>
+            <button
+              onClick={() => setMobileTab('chaos')}
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all ${
+                mobileTab === 'chaos'
+                  ? 'bg-red-500 text-white shadow-lg'
+                  : isDark ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <span className="flex items-center justify-center gap-2">
+                <AlertTriangle className="w-4 h-4" />
+                Without Systems
+              </span>
+            </button>
+            <button
+              onClick={() => setMobileTab('systems')}
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all ${
+                mobileTab === 'systems'
+                  ? 'bg-[#ec5f2b] text-white shadow-lg'
+                  : isDark ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <span className="flex items-center justify-center gap-2">
+                <Sparkles className="w-4 h-4" />
+                With CoreShift
+              </span>
+            </button>
+          </div>
+
+          {/* Tab Content */}
+          <AnimatePresence mode="wait">
+            {mobileTab === 'chaos' ? (
+              <motion.div
+                key="chaos"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className={`rounded-2xl p-5 border-t-4 border-t-red-500 ${
+                  isDark ? 'bg-gray-900' : 'bg-white'
+                } shadow-lg`}
+              >
+                <p className={`text-xs font-medium uppercase tracking-wide mb-4 ${isDark ? 'text-red-400' : 'text-red-600'}`}>
+                  The chaos you&apos;re living with
+                </p>
+                <ul className="space-y-3">
+                  {problems.slice(0, 4).map((problem, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
+                        isDark ? 'bg-red-500/20' : 'bg-red-100'
+                      }`}>
+                        <X className="w-3 h-3 text-red-500" strokeWidth={3} />
+                      </div>
+                      <span className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{problem}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className={`mt-5 p-3 rounded-lg border-l-4 border-l-red-500 ${isDark ? 'bg-red-500/5' : 'bg-red-50'}`}>
+                  <p className={`text-xs font-medium ${isDark ? 'text-red-400' : 'text-red-700'}`}>
+                    Without strategy and systems, scaling becomes chaos.
+                  </p>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="systems"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                className={`rounded-2xl p-5 border-t-4 border-t-[#ec5f2b] ${
+                  isDark ? 'bg-gray-900' : 'bg-white'
+                } shadow-lg`}
+              >
+                <p className={`text-xs font-medium uppercase tracking-wide mb-4 ${isDark ? 'text-[#ec5f2b]' : 'text-[#ec5f2b]'}`}>
+                  Typical client outcomes
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  {impacts.map((impact, index) => {
+                    const Icon = impact.icon
+                    return (
+                      <div
+                        key={index}
+                        className={`rounded-xl p-3 ${
+                          isDark ? 'bg-gray-800/60' : 'bg-gray-50 border border-gray-100'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${
+                            isDark ? 'bg-[#ec5f2b]/15' : 'bg-[#ec5f2b]/10'
+                          }`}>
+                            <Icon className="w-3.5 h-3.5 text-[#ec5f2b]" />
+                          </div>
+                          <span className={`text-[10px] font-medium uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                            {impact.prefix}
+                          </span>
+                        </div>
+                        <div className={`text-2xl font-bold mb-1 ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
+                          {impact.metric}
+                        </div>
+                        <p className={`text-[10px] leading-tight ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                          {impact.description}
+                        </p>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className={`mt-5 p-3 rounded-lg border-l-4 border-l-[#ec5f2b] ${isDark ? 'bg-[#ec5f2b]/5' : 'bg-[#ec5f2b]/5'}`}>
+                  <p className={`text-xs font-medium ${isDark ? 'text-[#ec5f2b]' : 'text-[#d54f20]'}`}>
+                    We calculate your exact ROI during the Blueprint Sprint.
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Desktop: Two Column Layout */}
+        <div className="hidden lg:grid lg:grid-cols-2 gap-5 md:gap-6 lg:gap-10">
           {/* LEFT: Without Systems */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
