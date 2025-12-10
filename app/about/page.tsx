@@ -256,7 +256,7 @@ export default function AboutPage() {
                         src="/Founder profile picture_CoreShift.png"
                         alt="Srinath Sridharan - Founder of CoreShift"
                         fill
-                        className="object-cover object-top scale-[2] translate-y-[25%]"
+                        className="object-cover object-top scale-[1.5] translate-y-[15%]"
                       />
                     </div>
                   </div>
