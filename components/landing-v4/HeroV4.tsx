@@ -11,6 +11,45 @@ const rotatingStats = [
   "Stop scaling chaos. Start scaling systems."
 ]
 
+// Headline split into parts for staggered animation
+const headlineParts = [
+  { text: "We transform", type: "normal" },
+  { text: "your operations", type: "normal" },
+  { text: "into", type: "normal" },
+  { text: "modern,", type: "gradient" },
+  { text: "intelligent", type: "gradient" },
+  { text: "systems", type: "gradient" },
+]
+
+// Animation variants for staggered reveal
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+const wordVariants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+    filter: "blur(10px)",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+    },
+  },
+}
+
 export default function HeroV4() {
   const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -146,24 +185,37 @@ export default function HeroV4() {
           </motion.span>
         </motion.div>
 
-        {/* Main Headline */}
+        {/* Main Headline with Staggered Word Reveal */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
           className={`text-[1.625rem] sm:text-4xl lg:text-4xl xl:text-5xl leading-[1.25] sm:leading-tight font-bold tracking-tight mb-6 px-4 sm:px-5 ${
             isDark ? 'text-gray-100' : 'text-brand-charcoal'
           }`}
         >
-          We transform your operations into{' '}
-          <span className="bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x">modern, intelligent systems</span>
+          {headlineParts.map((part, index) => (
+            <motion.span
+              key={index}
+              variants={wordVariants}
+              className={`inline-block ${
+                part.type === 'gradient'
+                  ? 'bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x'
+                  : ''
+              }`}
+              style={{ willChange: 'opacity, transform, filter' }}
+            >
+              {part.text}
+              {index < headlineParts.length - 1 && <span>&nbsp;</span>}
+            </motion.span>
+          ))}
         </motion.h1>
 
         {/* Rotating hook with typing effect */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
           className="mb-6 sm:mb-10 px-4 sm:px-5 min-h-[56px] sm:min-h-[70px] flex items-center justify-center"
         >
           <div className="text-base sm:text-xl md:text-2xl xl:text-3xl font-semibold text-[#ec5f2b] leading-[1.35] tracking-tight text-center">
@@ -176,7 +228,7 @@ export default function HeroV4() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
           className={`text-sm sm:text-base max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-4 sm:px-5 ${
             isDark ? 'text-gray-400' : 'text-brand-gray'
           }`}
@@ -188,7 +240,7 @@ export default function HeroV4() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-lg sm:max-w-3xl mx-auto px-5"
         >
           <a
@@ -248,7 +300,7 @@ export default function HeroV4() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 1.3 }}
           className="hidden md:flex mt-12 flex-col items-center gap-2"
         >
           <span className={`text-xs font-medium tracking-wide ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
