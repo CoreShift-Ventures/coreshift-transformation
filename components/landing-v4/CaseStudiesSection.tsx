@@ -1,10 +1,10 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import {
-  ArrowRight, Monitor, Sparkles, AlertCircle, TrendingUp, Clock, Bell, CheckCircle2, X, Maximize2
+  ArrowRight, Monitor, Sparkles, AlertCircle, TrendingUp, Clock, Bell, CheckCircle2, X, Maximize2, ChevronLeft, ChevronRight
 } from 'lucide-react'
 
 const caseStudies = [
@@ -196,10 +196,31 @@ export default function CaseStudiesSection() {
   const [hasInteracted, setHasInteracted] = useState(false)
   const [sectionInView, setSectionInView] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
+  const mobileCarouselRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  const scrollToMobileCard = (index: number) => {
+    if (mobileCarouselRef.current) {
+      const cardWidth = mobileCarouselRef.current.scrollWidth / caseStudies.length
+      mobileCarouselRef.current.scrollTo({ left: cardWidth * index, behavior: 'smooth' })
+      setCurrentIndex(index)
+    }
+  }
+
+  const handleMobileScroll = () => {
+    if (mobileCarouselRef.current) {
+      const scrollLeft = mobileCarouselRef.current.scrollLeft
+      const cardWidth = mobileCarouselRef.current.scrollWidth / caseStudies.length
+      const newIndex = Math.round(scrollLeft / cardWidth)
+      if (newIndex !== currentIndex) {
+        setCurrentIndex(newIndex)
+        setProgress(0)
+      }
+    }
+  }
 
   // Lock body scroll when expanded
   useEffect(() => {
@@ -311,8 +332,135 @@ export default function CaseStudiesSection() {
         </p>
       </motion.div>
 
-      {/* Integrated Card with Tabs */}
-      <div className="relative w-full px-4 md:px-8 lg:px-12">
+      {/* Mobile Swipeable Carousel */}
+      <div className="lg:hidden px-4">
+        <div
+          ref={mobileCarouselRef}
+          onScroll={handleMobileScroll}
+          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {caseStudies.map((study, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="flex-shrink-0 w-[85vw] snap-center"
+            >
+              <div className={`rounded-2xl border overflow-hidden ${
+                isDark
+                  ? 'bg-gray-900 border-gray-800'
+                  : 'bg-white border-gray-200'
+              } shadow-lg`}>
+                {/* Status Badge & Title */}
+                <div className={`p-4 border-b ${isDark ? 'border-gray-800' : 'border-gray-100'}`}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[#ec5f2b] font-bold text-sm">{study.productName}</span>
+                    {study.status === 'in-progress' && (
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-semibold uppercase ${
+                        isDark ? 'bg-yellow-500/20 text-yellow-400' : 'bg-yellow-100 text-yellow-700'
+                      }`}>
+                        WIP
+                      </span>
+                    )}
+                  </div>
+                  <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{study.tagline}</p>
+                </div>
+
+                {/* Screenshot */}
+                <div className={`relative aspect-[16/10] ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
+                  {study.screenshots.length > 0 ? (
+                    <img
+                      src={study.screenshots[0]}
+                      alt={study.screenshotLabel}
+                      className="w-full h-full object-cover object-top"
+                      draggable={false}
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full">
+                      <Monitor className={`w-10 h-10 ${isDark ? 'text-gray-700' : 'text-gray-300'}`} strokeWidth={1} />
+                    </div>
+                  )}
+                </div>
+
+                {/* Outcome Headline */}
+                <div className={`p-4 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+                  <p className={`text-sm font-semibold leading-snug mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                    "{study.outcomeHeadline}"
+                  </p>
+
+                  {/* Key Metrics - 2x2 Grid */}
+                  {study.outcomeMetrics && study.outcomeMetrics.length > 0 && (
+                    <div className="grid grid-cols-2 gap-2">
+                      {study.outcomeMetrics.slice(0, 4).map((metric, idx) => (
+                        <div
+                          key={idx}
+                          className={`pl-2 border-l-2 border-[#ec5f2b] py-1.5 ${
+                            isDark ? 'bg-gray-800/40' : 'bg-gray-50'
+                          } rounded-r`}
+                        >
+                          <div className="text-lg font-bold text-[#ec5f2b] leading-none">
+                            {metric.value}
+                          </div>
+                          <div className={`text-[9px] font-medium uppercase tracking-wide ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                            {metric.label}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Mobile Carousel Indicators & Navigation */}
+        <div className="flex items-center justify-center gap-4 mt-4">
+          <button
+            onClick={() => scrollToMobileCard(Math.max(0, currentIndex - 1))}
+            disabled={currentIndex === 0}
+            className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+              currentIndex === 0
+                ? isDark ? 'bg-gray-800 text-gray-600' : 'bg-gray-100 text-gray-300'
+                : isDark ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <div className="flex gap-1.5">
+            {caseStudies.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => scrollToMobileCard(idx)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  idx === currentIndex
+                    ? 'bg-[#ec5f2b] w-5'
+                    : isDark ? 'bg-gray-700 w-2 hover:bg-gray-600' : 'bg-gray-300 w-2 hover:bg-gray-400'
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={() => scrollToMobileCard(Math.min(caseStudies.length - 1, currentIndex + 1))}
+            disabled={currentIndex === caseStudies.length - 1}
+            className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+              currentIndex === caseStudies.length - 1
+                ? isDark ? 'bg-gray-800 text-gray-600' : 'bg-gray-100 text-gray-300'
+                : isDark ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+
+      {/* Desktop: Integrated Card with Tabs */}
+      <div className="hidden lg:block relative w-full px-4 md:px-8 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
