@@ -384,14 +384,14 @@ export default function CaseStudiesSection() {
                     setMobileFullscreen(index)
                     setFullscreenScreenshotIndex(0)
                   }}
-                  className={`relative w-full aspect-[16/9] ${isDark ? 'bg-gray-950' : 'bg-gray-50'} group`}
+                  className={`relative w-full aspect-[16/10] ${isDark ? 'bg-gray-950' : 'bg-gray-50'} group`}
                 >
                   {study.screenshots.length > 0 ? (
                     <>
                       <img
                         src={study.screenshots[0]}
                         alt={study.screenshotLabel}
-                        className="w-full h-full object-cover object-top"
+                        className="w-full h-full object-contain"
                         draggable={false}
                       />
                       {/* Fullscreen indicator overlay */}

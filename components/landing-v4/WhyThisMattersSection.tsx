@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import { AlertTriangle, Sparkles, X, Check, Clock, Users, TrendingUp, BarChart3 } from 'lucide-react'
+import { AlertTriangle, Sparkles, X, Check, Clock, Users, TrendingUp, BarChart3, Zap, ArrowRight } from 'lucide-react'
 
 const problems = [
   'Spreadsheet driven operations blocking scale',
@@ -15,10 +15,10 @@ const problems = [
 ]
 
 const impacts = [
-  { metric: '50%', prefix: 'Up to', description: 'productivity gains from automated workflows', icon: Clock },
-  { metric: '30%', prefix: 'Up to', description: 'revenue leakage recovered', icon: TrendingUp },
-  { metric: '5%', prefix: 'Up to', description: 'churn reduction via consistent delivery', icon: Users },
-  { metric: '25%', prefix: 'Up to', description: 'operational cost savings', icon: BarChart3 }
+  { metric: '50%', prefix: 'Up to', description: 'productivity gains from automated workflows', icon: Clock, color: 'from-blue-500 to-cyan-400' },
+  { metric: '30%', prefix: 'Up to', description: 'revenue leakage recovered', icon: TrendingUp, color: 'from-green-500 to-emerald-400' },
+  { metric: '5%', prefix: 'Up to', description: 'churn reduction via consistent delivery', icon: Users, color: 'from-purple-500 to-violet-400' },
+  { metric: '25%', prefix: 'Up to', description: 'operational cost savings', icon: BarChart3, color: 'from-[#ec5f2b] to-orange-400' }
 ]
 
 export default function WhyThisMattersSection() {
@@ -144,47 +144,112 @@ export default function WhyThisMattersSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                className={`rounded-2xl p-5 border-t-4 border-t-[#ec5f2b] ${
+                className={`rounded-2xl overflow-hidden ${
                   isDark ? 'bg-gray-900' : 'bg-white'
-                } shadow-lg`}
+                } shadow-xl`}
               >
-                <p className={`text-xs font-medium uppercase tracking-wide mb-4 ${isDark ? 'text-[#ec5f2b]' : 'text-[#ec5f2b]'}`}>
-                  Typical client outcomes
-                </p>
-                <div className="grid grid-cols-2 gap-3">
-                  {impacts.map((impact, index) => {
-                    const Icon = impact.icon
-                    return (
-                      <div
-                        key={index}
-                        className={`rounded-xl p-3 ${
-                          isDark ? 'bg-gray-800/60' : 'bg-gray-50 border border-gray-100'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2 mb-2">
-                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${
-                            isDark ? 'bg-[#ec5f2b]/15' : 'bg-[#ec5f2b]/10'
-                          }`}>
-                            <Icon className="w-3.5 h-3.5 text-[#ec5f2b]" />
+                {/* Animated gradient header */}
+                <div className="relative h-2 overflow-hidden">
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-[#ec5f2b] via-orange-400 to-[#ec5f2b]"
+                    animate={{ x: ['-100%', '100%'] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                    style={{ width: '200%' }}
+                  />
+                </div>
+
+                <div className="p-5">
+                  {/* Header with sparkle animation */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <motion.div
+                      animate={{ rotate: [0, 15, -15, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                    >
+                      <Sparkles className="w-4 h-4 text-[#ec5f2b]" />
+                    </motion.div>
+                    <p className="text-xs font-bold uppercase tracking-wide text-[#ec5f2b]">
+                      Typical Client Outcomes
+                    </p>
+                  </div>
+
+                  {/* Metric cards with gradient accents */}
+                  <div className="grid grid-cols-2 gap-3">
+                    {impacts.map((impact, index) => {
+                      const Icon = impact.icon
+                      return (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: index * 0.1 }}
+                          className={`relative rounded-xl overflow-hidden ${
+                            isDark ? 'bg-gray-800/80' : 'bg-gradient-to-br from-gray-50 to-white border border-gray-100'
+                          }`}
+                        >
+                          {/* Gradient accent bar */}
+                          <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${impact.color}`} />
+
+                          <div className="p-3 pt-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <div className={`w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br ${impact.color}`}>
+                                <Icon className="w-4 h-4 text-white" />
+                              </div>
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ delay: 0.3 + index * 0.1, type: 'spring' }}
+                                className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                                  isDark ? 'bg-green-500/20' : 'bg-green-100'
+                                }`}
+                              >
+                                <Check className="w-3 h-3 text-green-500" strokeWidth={3} />
+                              </motion.div>
+                            </div>
+
+                            <span className={`text-[9px] font-semibold uppercase tracking-wider ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                              {impact.prefix}
+                            </span>
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.2 + index * 0.1 }}
+                              className={`text-2xl font-black tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}
+                            >
+                              {impact.metric}
+                            </motion.div>
+                            <p className={`text-[10px] leading-tight mt-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                              {impact.description}
+                            </p>
                           </div>
-                          <span className={`text-[10px] font-medium uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                            {impact.prefix}
-                          </span>
-                        </div>
-                        <div className={`text-2xl font-bold mb-1 ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
-                          {impact.metric}
-                        </div>
-                        <p className={`text-[10px] leading-tight ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          {impact.description}
+                        </motion.div>
+                      )
+                    })}
+                  </div>
+
+                  {/* CTA callout */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className={`mt-4 p-4 rounded-xl relative overflow-hidden ${
+                      isDark ? 'bg-gradient-to-r from-[#ec5f2b]/10 to-orange-500/5' : 'bg-gradient-to-r from-[#ec5f2b]/10 to-orange-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-[#ec5f2b] flex items-center justify-center flex-shrink-0">
+                        <Zap className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <p className={`text-xs font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                          Ready to transform?
+                        </p>
+                        <p className={`text-[10px] ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                          We calculate your exact ROI in the Blueprint Sprint
                         </p>
                       </div>
-                    )
-                  })}
-                </div>
-                <div className={`mt-5 p-3 rounded-lg border-l-4 border-l-[#ec5f2b] ${isDark ? 'bg-[#ec5f2b]/5' : 'bg-[#ec5f2b]/5'}`}>
-                  <p className={`text-xs font-medium ${isDark ? 'text-[#ec5f2b]' : 'text-[#d54f20]'}`}>
-                    We calculate your exact ROI during the Blueprint Sprint.
-                  </p>
+                      <ArrowRight className="w-4 h-4 text-[#ec5f2b]" />
+                    </div>
+                  </motion.div>
                 </div>
               </motion.div>
             )}
@@ -283,31 +348,52 @@ export default function WhyThisMattersSection() {
                 : 'bg-white'
             } shadow-2xl`}>
 
-              {/* Top accent bar */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ec5f2b] via-[#ff7849] to-[#ec5f2b]" />
+              {/* Animated top accent bar */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 overflow-hidden">
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-[#ec5f2b] via-orange-400 via-50% to-[#ec5f2b]"
+                  animate={{ x: ['-50%', '0%'] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                  style={{ width: '200%' }}
+                />
+              </div>
 
               {/* Subtle pattern overlay */}
               <div className={`absolute inset-0 opacity-[0.02] ${isDark ? 'bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)]' : 'bg-[radial-gradient(circle_at_1px_1px,black_1px,transparent_0)]'} bg-[length:24px_24px]`} />
 
+              {/* Floating glow effect */}
+              <motion.div
+                className="absolute -top-20 -right-20 w-60 h-60 rounded-full blur-3xl bg-[#ec5f2b]/10 pointer-events-none"
+                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              />
+
               <div className="relative p-6 md:p-8 lg:p-10">
                 {/* Header */}
                 <div className="flex items-center gap-4 mb-8">
-                  <div className={`relative w-14 h-14 rounded-2xl flex items-center justify-center ${
-                    isDark ? 'bg-[#ec5f2b]/10' : 'bg-[#ec5f2b]/10'
-                  }`}>
-                    <Sparkles className="w-7 h-7 text-[#ec5f2b]" strokeWidth={1.5} />
-                  </div>
+                  <motion.div
+                    className={`relative w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#ec5f2b] to-orange-500`}
+                    whileHover={{ scale: 1.05, rotate: 5 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                  >
+                    <Sparkles className="w-7 h-7 text-white" strokeWidth={1.5} />
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl bg-white/20"
+                      animate={{ opacity: [0, 0.5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                  </motion.div>
                   <div>
                     <h3 className={`text-xl md:text-2xl font-bold ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
                       With <span className={isDark ? 'text-white' : 'text-brand-charcoal'}>Core</span><span className="text-[#ec5f2b]">Shift</span>
                     </h3>
-                    <p className={`text-sm ${isDark ? 'text-[#ec5f2b]/80' : 'text-[#ec5f2b]/80'}`}>
+                    <p className={`text-sm font-medium ${isDark ? 'text-[#ec5f2b]' : 'text-[#ec5f2b]'}`}>
                       Typical client outcomes
                     </p>
                   </div>
                 </div>
 
-                {/* Metrics Grid */}
+                {/* Metrics Grid - Enhanced */}
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   {impacts.map((impact, index) => {
                     const Icon = impact.icon
@@ -318,53 +404,94 @@ export default function WhyThisMattersSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                        className={`relative rounded-2xl p-5 transition-all duration-300 ${
+                        whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                        className={`relative rounded-2xl overflow-hidden transition-shadow duration-300 hover:shadow-xl ${
                           isDark
-                            ? 'bg-gradient-to-br from-gray-800/80 to-gray-800/40 hover:from-gray-800 hover:to-gray-800/60'
-                            : 'bg-gradient-to-br from-[#faf8f5] to-white hover:from-[#fff5f0] hover:to-white border border-gray-100'
+                            ? 'bg-gradient-to-br from-gray-800/80 to-gray-800/40'
+                            : 'bg-white border border-gray-100 hover:border-gray-200'
                         }`}
                       >
-                        {/* Icon badge */}
-                        <div className="flex items-center justify-between mb-3">
-                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                            isDark ? 'bg-[#ec5f2b]/15' : 'bg-[#ec5f2b]/10'
-                          }`}>
-                            <Icon className="w-5 h-5 text-[#ec5f2b]" strokeWidth={1.5} />
-                          </div>
-                          <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                            isDark ? 'bg-green-500/20' : 'bg-green-100'
-                          }`}>
-                            <Check className="w-3.5 h-3.5 text-green-500" strokeWidth={3} />
-                          </div>
-                        </div>
+                        {/* Gradient accent bar */}
+                        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${impact.color}`} />
 
-                        {/* Metric */}
-                        <div className="mb-1.5">
-                          <span className={`text-xs font-medium uppercase tracking-wide ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                            {impact.prefix}
-                          </span>
-                          <div className={`text-3xl md:text-4xl font-bold tracking-tight ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-                            {impact.metric}
+                        <div className="p-5 pt-6">
+                          {/* Icon badge */}
+                          <div className="flex items-center justify-between mb-4">
+                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br ${impact.color} shadow-lg`}>
+                              <Icon className="w-6 h-6 text-white" strokeWidth={1.5} />
+                            </div>
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              whileInView={{ scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: 0.5 + index * 0.1, type: 'spring', stiffness: 200 }}
+                              className={`w-7 h-7 rounded-full flex items-center justify-center ${
+                                isDark ? 'bg-green-500/20' : 'bg-green-100'
+                              }`}
+                            >
+                              <Check className="w-4 h-4 text-green-500" strokeWidth={3} />
+                            </motion.div>
                           </div>
-                        </div>
 
-                        {/* Description */}
-                        <p className={`text-xs leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                          {impact.description}
-                        </p>
+                          {/* Metric */}
+                          <div className="mb-2">
+                            <span className={`text-xs font-semibold uppercase tracking-wider ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                              {impact.prefix}
+                            </span>
+                            <motion.div
+                              initial={{ opacity: 0, scale: 0.5 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: 0.4 + index * 0.1, type: 'spring' }}
+                              className={`text-4xl md:text-5xl font-black tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}
+                            >
+                              {impact.metric}
+                            </motion.div>
+                          </div>
+
+                          {/* Description */}
+                          <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                            {impact.description}
+                          </p>
+                        </div>
                       </motion.div>
                     )
                   })}
                 </div>
 
-                {/* Bottom callout */}
-                <div className={`rounded-xl p-4 border-l-4 border-l-[#ec5f2b] ${
-                  isDark ? 'bg-[#ec5f2b]/5' : 'bg-[#ec5f2b]/5'
-                }`}>
-                  <p className={`text-sm font-medium ${isDark ? 'text-[#ec5f2b]' : 'text-[#d54f20]'}`}>
-                    We calculate your exact ROI during the Blueprint Sprint.
-                  </p>
-                </div>
+                {/* Bottom callout - Enhanced */}
+                <motion.a
+                  href="/contact?intent=blueprint"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`block rounded-xl p-5 relative overflow-hidden group/cta cursor-pointer ${
+                    isDark ? 'bg-gradient-to-r from-[#ec5f2b]/20 to-orange-500/10' : 'bg-gradient-to-r from-[#ec5f2b]/10 to-orange-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-[#ec5f2b] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#ec5f2b]/30">
+                      <Zap className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <p className={`text-base font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                        Ready to transform your operations?
+                      </p>
+                      <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                        We calculate your exact ROI during the Blueprint Sprint
+                      </p>
+                    </div>
+                    <motion.div
+                      className="w-10 h-10 rounded-full bg-[#ec5f2b] flex items-center justify-center"
+                      whileHover={{ x: 4 }}
+                    >
+                      <ArrowRight className="w-5 h-5 text-white" />
+                    </motion.div>
+                  </div>
+                  {/* Hover shine effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/cta:translate-x-full transition-transform duration-700"
+                  />
+                </motion.a>
               </div>
             </div>
           </motion.div>

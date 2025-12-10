@@ -17,12 +17,12 @@ export function TrustTicker() {
   const isDark = mounted && theme === 'dark'
 
   const logos = [
-    { src: '/logos/Companies/SAP.png', width: 70, height: 26 },
-    { src: '/logos/Companies/IBM.svg', width: 70, height: 26 },
-    { src: '/logos/Companies/hcltech-new-logo.svg', width: 90, height: 32 },
-    { src: '/logos/Companies/HP .svg', width: 45, height: 18 },
-    { src: '/logos/Companies/Algonomy.png', width: 100, height: 34 },
-    { src: '/logos/Companies/Talend.png', width: 90, height: 28 },
+    { src: '/logos/Companies/SAP.png', width: 90, height: 34 },
+    { src: '/logos/Companies/IBM.svg', width: 90, height: 34 },
+    { src: '/logos/Companies/hcltech-new-logo.svg', width: 110, height: 40 },
+    { src: '/logos/Companies/HP .svg', width: 60, height: 24 },
+    { src: '/logos/Companies/Algonomy.png', width: 120, height: 42 },
+    { src: '/logos/Companies/Talend.png', width: 110, height: 36 },
   ]
 
   return (
@@ -83,16 +83,16 @@ export function TrustTicker() {
                     {logos.map((logo, index) => (
                       <div
                         key={`${setIndex}-${index}`}
-                        className={`flex-shrink-0 h-7 flex items-center justify-center mx-6 ${
+                        className={`flex-shrink-0 h-9 flex items-center justify-center mx-6 ${
                           isDark ? 'opacity-60 grayscale' : 'opacity-50 grayscale'
                         }`}
                       >
                         <Image
                           src={logo.src}
                           alt="Company logo"
-                          width={logo.width * 0.65}
-                          height={logo.height * 0.65}
-                          className="object-contain max-h-7"
+                          width={logo.width * 0.75}
+                          height={logo.height * 0.75}
+                          className="object-contain max-h-9"
                         />
                       </div>
                     ))}
