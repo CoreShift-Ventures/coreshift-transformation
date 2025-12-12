@@ -63,10 +63,11 @@ export async function submitContactForm(formData: Omit<ContactFormSubmission, 'i
     const calendlyLink = CALENDLY_LINKS[savedSubmission.intent] || CALENDLY_LINKS.blueprint
 
     try {
-      // 1. Send confirmation email to the lead
+      // 1. Send confirmation email to the lead (BCC admin to track)
       await resend.emails.send({
         from: FROM_EMAIL,
         to: savedSubmission.email,
+        bcc: ADMIN_EMAIL,
         replyTo: 'contact@cshift.io',
         subject: `We received your ${intentLabel} inquiry`,
         html: getLeadConfirmationEmail(savedSubmission, calendlyLink)
