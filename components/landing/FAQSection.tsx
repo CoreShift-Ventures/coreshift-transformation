@@ -11,24 +11,28 @@ const faqs = [
     answer: 'CoreShift is built on a unique dual pole star framework combining Customer Goals and NRR. Unlike traditional platforms that give you 100+ features on Day 1, we provide a maturity-based approach that grows with your organization.'
   },
   {
+    question: 'What\'s the difference between Essential and Professional?',
+    answer: 'Essential gives you the core CS tools (Levels 1-2) to stop churn and organize your team. Professional adds expansion capabilities (Level 3) including AI Copilot, advanced analytics, and integrations to drive growth.'
+  },
+  {
+    question: 'When should I upgrade to Professional?',
+    answer: 'When you\'re ready to move from pure retention to proactive expansion. If you\'re hitting your Essential tier limits (500 accounts, 5 users) or need advanced analytics and integrations, it\'s time.'
+  },
+  {
+    question: 'What makes Enterprise different?',
+    answer: 'Enterprise includes AI-powered insights (Levels 4-5), unlimited scale, white-label branding, and dedicated support. It\'s built for teams managing complex portfolios and requiring world-class CS operations.'
+  },
+  {
+    question: 'Can I try before I buy?',
+    answer: 'Yes! Essential tier includes a 14-day free trial. Professional and Enterprise include custom proof-of-value engagements.'
+  },
+  {
     question: 'Do I need to deploy and manage the platform myself?',
     answer: 'We offer two paths: Build & Own (you deploy and manage) or Managed Service (we handle everything). Your choice depends on your team\'s technical capability and maturity level.'
   },
   {
-    question: 'How long does implementation take?',
-    answer: 'Build & Own deployments typically take 3 days. Managed Service implementations are completed in 2-4 weeks, compared to 6-12 months with traditional enterprise CS platforms.'
-  },
-  {
     question: 'What about data ownership and security?',
     answer: '100% of your data stays in YOUR cloud accounts. Even with Managed Service, we deploy to your Vercel and Supabase accounts. You own the infrastructure, database, and all customer data.'
-  },
-  {
-    question: 'Can I see the platform before buying?',
-    answer: 'Yes! We have fully functional demo modules you can explore. These aren\'t mockups—they\'re the actual platform you\'ll deploy.'
-  },
-  {
-    question: 'What\'s included in the free audit?',
-    answer: 'The free audit includes a 45-minute assessment, maturity score (Level 1-5), NRR benchmarks for your industry, gap analysis, and recommended deployment path customized to your needs.'
   }
 ];
 

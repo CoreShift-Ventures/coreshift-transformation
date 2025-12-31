@@ -8,6 +8,7 @@ import { GoalsWorkflowSection } from '@/components/landing/GoalsWorkflowSection'
 import { LiveDemoSection } from '@/components/landing/LiveDemoSection';
 import { ProcessFlowSection } from '@/components/landing/ProcessFlowSection';
 import { TransformationOverview } from '@/components/landing/TransformationOverview';
+import { PricingSection } from '@/components/landing/PricingSection';
 import { FAQSection } from '@/components/landing/FAQSection';
 import { ContactSection } from '@/components/landing/ContactSection';
 import { Footer } from '@/components/landing/Footer';
@@ -33,6 +34,7 @@ export default function Home() {
       <LiveDemoSection onRequestDemo={handleRequestDemo} />
       <ProcessFlowSection />
       <TransformationOverview />
+      <PricingSection />
       <FAQSection />
       <ContactSection />
       <Footer />
