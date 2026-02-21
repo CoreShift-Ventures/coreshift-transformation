@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoreShift Repositioning Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E8622A;
+    --orange-light: #FFF3ED;
+    --black: #1a1a1a;
+    --gray-900: #2d2d2d;
+    --gray-700: #555;
+    --gray-500: #888;
+    --gray-300: #ccc;
+    --gray-100: #f5f5f5;
+    --green: #22c55e;
+    --green-bg: #f0fdf4;
+    --red: #ef4444;
+    --red-bg: #fef2f2;
+    --yellow: #eab308;
+    --yellow-bg: #fefce8;
+  }
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--black);
+    background: #fff;
+    line-height: 1.6;
+  }
+  
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  
+  /* Header */
+  .doc-header {
+    background: var(--black);
+    color: white;
+    padding: 60px 0 50px;
+  }
+  .doc-header .badge {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .doc-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  .doc-header h1 span { color: var(--orange); }
+  .doc-header .subtitle {
+    font-size: 18px;
+    color: #aaa;
+    max-width: 650px;
+  }
+  .doc-header .meta {
+    margin-top: 30px;
+    display: flex;
+    gap: 30px;
+    font-size: 13px;
+    color: #888;
+  }
+  .doc-header .meta strong { color: white; }
+  
+  /* Sections */
+  section { padding: 50px 0; }
+  section + section { border-top: 1px solid var(--gray-100); }
+  
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  h2 span { color: var(--orange); }
+  
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 30px 0 12px;
+    color: var(--gray-900);
+  }
+  
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    color: var(--gray-700);
+  }
+  
+  p { margin-bottom: 14px; color: var(--gray-700); font-size: 15px; }
+  .section-intro { font-size: 16px; color: var(--gray-500); margin-bottom: 30px; max-width: 700px; }
+  
+  /* Verdict boxes */
+  .verdict {
+    padding: 20px 24px;
+    border-radius: 10px;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .verdict.kill { background: var(--red-bg); border-left: 4px solid var(--red); }
+  .verdict.change { background: var(--yellow-bg); border-left: 4px solid var(--yellow); }
+  .verdict.keep { background: var(--green-bg); border-left: 4px solid var(--green); }
+  .verdict .label {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .verdict.kill .label { color: var(--red); }
+  .verdict.change .label { color: var(--yellow); }
+  .verdict.keep .label { color: var(--green); }
+  .verdict p { margin: 0; color: var(--gray-700); }
+  
+  /* Comparison table */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 20px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+  }
+  .compare-col { padding: 24px; }
+  .compare-col.old { background: var(--red-bg); }
+  .compare-col.new { background: var(--green-bg); }
+  .compare-col .col-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .compare-col.old .col-label { color: var(--red); }
+  .compare-col.new .col-label { color: var(--green); }
+  .compare-col blockquote {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--gray-900);
+    font-style: italic;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Section card */
+  .section-card {
+    background: var(--gray-100);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+  }
+  .section-card h4 { margin-top: 0; }
+  .section-card p:last-child { margin-bottom: 0; }
+  
+  /* Rewrite block */
+  .rewrite {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+  .rewrite .rw-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+  .rewrite .hero-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    line-height: 1.3;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+  .rewrite .hero-text span { color: var(--orange); }
+  .rewrite .sub-text {
+    font-size: 15px;
+    color: var(--gray-500);
+    margin-bottom: 0;
+  }
+  
+  /* Priority table */
+  .priority-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  .priority-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--gray-100);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-500);
+  }
+  .priority-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+    vertical-align: top;
+  }
+  .priority-table tr:last-child td { border-bottom: none; }
+  
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .tag.p1 { background: var(--red-bg); color: var(--red); }
+  .tag.p2 { background: var(--yellow-bg); color: #a16207; }
+  .tag.p3 { background: #f0f9ff; color: #0369a1; }
+  
+  /* Agent cards */
+  .agent-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .agent-card {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .agent-card .icon {
+    width: 40px;
+    height: 40px;
+    background: var(--orange-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .agent-card h5 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .agent-card p { font-size: 13px; color: var(--gray-500); margin: 0; }
+  
+  /* Numbered list style */
+  .step-list { counter-reset: steps; list-style: none; padding: 0; }
+  .step-list li {
+    counter-increment: steps;
+    padding: 16px 0 16px 56px;
+    position: relative;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 15px;
+    color: var(--gray-700);
+  }
+  .step-list li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 36px;
+    height: 36px;
+    background: var(--orange-light);
+    color: var(--orange);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .step-list li strong { color: var(--black); }
+
+  /* Callout */
+  .callout {
+    background: var(--orange-light);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 30px 0;
+  }
+  .callout h4 { color: var(--orange); margin-top: 0; }
+  .callout p:last-child { margin-bottom: 0; }
+  
+  /* Portfolio audit */
+  .portfolio-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 14px;
+  }
+  .portfolio-item .name { font-weight: 600; min-width: 100px; }
+  .portfolio-item .status { flex: 1; color: var(--gray-500); }
+  .portfolio-item .action {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+  .portfolio-item .action.remove { background: var(--red-bg); color: var(--red); }
+  .portfolio-item .action.reframe { background: var(--yellow-bg); color: #a16207; }
+  .portfolio-item .action.ok { background: var(--green-bg); color: var(--green); }
+
+  @media (max-width: 700px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    .agent-grid { grid-template-columns: 1fr; }
+    .doc-header h1 { font-size: 30px; }
+    .doc-header .meta { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="container">
+    <div class="badge">Strategy Document</div>
+    <h1>CoreShift Website <span>Repositioning</span></h1>
+    <p class="subtitle">From "Custom Business Systems" → "Intelligent Agents for Enterprise Operations." A section-by-section audit with exact rewrites.</p>
+    <div class="meta">
+      <span>Prepared for: <strong>Srinath Sridharan</strong></span>
+      <span>Date: <strong>February 2026</strong></span>
+      <span>Scope: <strong>cshift.io full page rewrite</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: DIAGNOSIS -->
+<section>
+  <div class="container">
+    <h2>The <span>Diagnosis</span></h2>
+    <p class="section-intro">The site is beautifully designed — the orange/black palette, clean typography, and layout are professional and distinctive. The problem is entirely what it says, not how it looks.</p>
+    
+    <h3>Five Critical Problems</h3>
+    
+    <ol class="step-list">
+      <li><strong>Generic positioning.</strong> "Modern Business Systems for Scaling Companies" could be any of 10,000 dev shops in Bengaluru. There's nothing a CFO at Lucas TVS or a fund manager at ASK would recognize as "this is for me."</li>
+      <li><strong>Portfolio doesn't match reality.</strong> ClaimFlow, WorkMate, and SaaS Ops are marked "WIP" — they were never built. If a prospect clicks "View all 3 screens" and then asks for a reference, you have a credibility problem.</li>
+      <li><strong>Selling code, not outcomes.</strong> The site talks about React, PostgreSQL, Tailwind, Python. Your buyers (CFOs, COOs, fund managers) don't care about your stack. They care about their invoices reconciling and reports generating.</li>
+      <li><strong>No recurring revenue story.</strong> The "Diagnose → Build → Scale" model reads as one-time project work. There's no "we stay with you" proposition. The agent-as-a-service model doesn't exist on the site.</li>
+      <li><strong>Competing in a dying market.</strong> "We build AI-powered systems around your process" is now table stakes. A CA with Claude Code can build a basic web app in a weekend. The moat has to be elsewhere — and it is, but the site doesn't communicate it.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- SECTION 2: CORE IDENTITY SHIFT -->
+<section>
+  <div class="container">
+    <h2>The <span>Identity Shift</span></h2>
+    <p class="section-intro">Everything flows from this fundamental repositioning.</p>
+    
+    <div class="compare-grid">
+      <div class="compare-col old">
+        <div class="col-label">❌ Current Identity</div>
+        <blockquote>"We build modern business systems for scaling companies."</blockquote>
+        <p style="margin-top:14px; font-size:13px; color:var(--gray-500);">Selling: custom applications<br>Revenue: one-time project fees<br>Differentiator: "we code fast"<br>Competition: every dev shop in India</p>
+      </div>
+      <div class="compare-col new">
+        <div class="col-label">✅ New Identity</div>
+        <blockquote>"We deploy intelligent agents that run your enterprise operations."</blockquote>
+        <p style="margin-top:14px; font-size:13px; color:var(--gray-500);">Selling: automated outcomes<br>Revenue: monthly managed service<br>Differentiator: domain expertise + operations<br>Competition: almost nobody</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: HERO REWRITE -->
+<section>
+  <div class="container">
+    <h2>Hero Section <span>Rewrite</span></h2>
+    
+    <div class="compare-grid">
+      <div class="compare-col old">
+        <div class="col-label">Current</div>
+        <blockquote>"We transform your operations into modern, intelligent systems"</blockquote>
+        <p style="margin-top:8px; font-size:13px; color:var(--gray-500);">"Your business runs on spreadsheets. It should run on systems."</p>
+      </div>
+      <div class="compare-col new">
+        <div class="col-label">Recommended</div>
+        <blockquote>"Your operations run on manual effort. We deploy agents that do it for you."</blockquote>
+        <p style="margin-top:8px; font-size:13px; color:var(--gray-500);">"Invoice reconciliation. Fund reporting. SAP automation. Running 24/7 on your infrastructure."</p>
+      </div>
+    </div>
+    
+    <div class="rewrite">
+      <div class="rw-label">New Hero — Full Copy</div>
+      <div class="hero-text">Your operations run on manual effort.<br><span>We deploy agents that do it for you.</span></div>
+      <p class="sub-text">Invoice reconciliation. Fund reporting. SAP automation. AP/AR processing.<br>Deployed on your infrastructure. Managed by us. Live in 2 weeks.</p>
+      <p style="margin-top:16px; font-size:14px; color:var(--gray-500); margin-bottom:0;">Everyone can build an app now. We solve the problems apps alone can't — deploying intelligent agents that understand your SAP landscape, your fund structures, and your vendor portals.</p>
+    </div>
+    
+    <div class="verdict change">
+      <div class="label">Why This Works</div>
+      <p><strong>Specific outcomes</strong> (invoice reconciliation, fund reporting) — a prospect instantly knows if this is relevant. <strong>"On your infrastructure"</strong> kills the #1 objection Indian enterprises have about cloud tools. <strong>"Live in 2 weeks"</strong> creates urgency and differentiates from 6-month projects.</p>
+    </div>
+
+    <h4>Badge & CTAs</h4>
+    <p><strong>Badge:</strong> "Modern Business Systems for Scaling Companies" → <strong>"Intelligent Agents for Enterprise Operations"</strong></p>
+    <p><strong>CTA Left:</strong> "Book a Free Consult" → <strong>"See Our Agents"</strong> (lower commitment, higher curiosity)</p>
+    <p><strong>CTA Right:</strong> "See Our Work" → <strong>"Book a Discovery Call"</strong> (action-oriented)</p>
+  </div>
+</section>
+
+<!-- SECTION 4: NAVIGATION -->
+<section>
+  <div class="container">
+    <h2>Navigation <span>Update</span></h2>
+    
+    <div class="compare-grid">
+      <div class="compare-col old">
+        <div class="col-label">Current</div>
+        <blockquote>The Process | The Portfolio | The Difference | The Team</blockquote>
+      </div>
+      <div class="compare-col new">
+        <div class="col-label">Recommended</div>
+        <blockquote>Our Agents | How It Works | Results | About</blockquote>
+      </div>
+    </div>
+    <p style="font-size:14px;">"Our Agents" is the key change — it shifts the conversation from "what we build" to "what runs for you." "Results" replaces "Portfolio" because you're showing outcomes, not screenshots.</p>
+  </div>
+</section>
+
+<!-- SECTION 5: LOGO BAR -->
+<section>
+  <div class="container">
+    <h2>Logo Bar</h2>
+    <div class="verdict keep">
+      <div class="label">Keep As-Is</div>
+      <p>SAP, IBM, HCLTech, HP, Algonomy, Talend — this is your strongest credibility signal. Only change the label from "Built by transformation experts from" to <strong>"20+ years of enterprise operations expertise from"</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: WHO THIS IS FOR -->
+<section>
+  <div class="container">
+    <h2>"Who This Is For" <span>Rewrite</span></h2>
+    
+    <div class="verdict kill">
+      <div class="label">Problem</div>
+      <p>"Growing Companies / Lean Teams / Unique Processes" describes every SMB in India. It's so generic that nobody self-selects. A fund manager, a manufacturing CFO, and a SaaS founder would all read this and think "maybe, but what exactly do you do for me?"</p>
+    </div>
+    
+    <h3>New Section: "Your Operations, Our Agents"</h3>
+    
+    <div class="agent-grid">
+      <div class="agent-card">
+        <div class="icon">📊</div>
+        <h5>Fund & Investment Operations</h5>
+        <p>Investor reports assembled manually. NAV in Excel. Capital calls tracked in email. Our agents automate LP reporting, XIRR computation, and fund analytics for AIFs, PE/VC funds, and family offices.</p>
+      </div>
+      <div class="agent-card">
+        <div class="icon">⚙️</div>
+        <h5>SAP & ERP Integration</h5>
+        <p>Vendor invoices in portals, GRNs in spreadsheets, reconciliation by hand. Our agents extract, match, validate, and post — connecting the systems SAP doesn't reach.</p>
+      </div>
+      <div class="agent-card">
+        <div class="icon">💰</div>
+        <h5>Finance Operations</h5>
+        <p>AP, AR, GST reconciliation, Tally sync — your finance team moves data between systems all day. Our agents handle the data plumbing so your team focuses on decisions.</p>
+      </div>
+    </div>
+    
+    <p style="font-size:14px;"><strong>Why this works:</strong> A CFO at Lucas TVS reads "SAP & ERP Integration" and immediately thinks "that's me." A fund manager at ASK reads "Fund & Investment Operations" and knows this is relevant. Self-selection is instant instead of guesswork.</p>
+  </div>
+</section>
+
+<!-- SECTION 7: COMPETITOR COMPARISON -->
+<section>
+  <div class="container">
+    <h2>Competitor Section <span>Rewrite</span></h2>
+    
+    <div class="verdict change">
+      <div class="label">Update Needed</div>
+      <p>The current "Consultancies vs Generic SaaS vs Dev Agencies" structure is solid. But in 2026, the biggest competitor isn't dev agencies — it's <strong>DIY AI tools</strong>. The section needs a fourth column or a complete reframing.</p>
+    </div>
+    
+    <h3>New Headline: "Why Not Just Use AI Yourself?"</h3>
+    
+    <div class="section-card">
+      <h4>Option A: "Build It Yourself with AI"</h4>
+      <p>Anyone can generate code with ChatGPT now. But who configures the SAP OData connection? Who handles the vendor portal that changes its HTML monthly? Who troubleshoots at 3am when the batch fails?</p>
+      <p style="color:var(--orange); font-weight:600; margin-bottom:0;">→ AI writes code. It doesn't run operations.</p>
+    </div>
+    
+    <div class="section-card">
+      <h4>Option B: "Buy a Generic SaaS / RPA Tool"</h4>
+      <p>Off-the-shelf automation tools don't understand your fund's waterfall structure, your specific vendor portal layouts, or your SAP customizations. You'll spend 6 months configuring what we deploy in 2 weeks.</p>
+      <p style="color:var(--orange); font-weight:600; margin-bottom:0;">→ Generic tools require you to fit their box. Our agents are built around your process.</p>
+    </div>
+    
+    <div class="section-card">
+      <h4>Option C: "Hire a Dev Shop"</h4>
+      <p>Dev shops build what you ask for and walk away. When the vendor portal changes, when SAP gets upgraded, when a new compliance requirement hits — they're gone. We stay. Because we operate the agents, not just build them.</p>
+      <p style="color:var(--orange); font-weight:600; margin-bottom:0;">→ You don't need a builder. You need an operations partner.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8: DIFFERENTIATORS -->
+<section>
+  <div class="container">
+    <h2>Differentiators <span>Rewrite</span></h2>
+    <p class="section-intro">"Not a dev shop. Transformation architects." is a great sentiment — but the six differentiators listed under it need updating. Two are now meaningless.</p>
+    
+    <div class="verdict kill">
+      <div class="label">Remove</div>
+      <p><strong>"Modern Stack"</strong> (React, Postgres, AI native architecture) — everyone has this now. AI writes the code. Listing your tech stack is like listing that you use electricity.<br><br><strong>"Strategy First"</strong> — too vague, and the "Blueprint Sprint" concept merges better into the process section.</p>
+    </div>
+    
+    <div class="verdict keep">
+      <div class="label">Keep & Strengthen</div>
+      <p><strong>"Enterprise DNA"</strong> — strongest differentiator. This is your moat.<br><strong>"Startup Speed"</strong> — genuine differentiator, update to "2-week agent deployment" framing.<br><strong>"True Partnership"</strong> — reframe as "Managed Operations"<br><strong>"Right-Sized Investment"</strong> — reframe as "Outcome-Based Pricing"</p>
+    </div>
+    
+    <h3>New Six Differentiators</h3>
+    
+    <div class="agent-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="agent-card">
+        <h5>🏢 Enterprise DNA</h5>
+        <p>20+ years inside SAP, IBM, HCL, HP. We understand how enterprise operations actually work — the messy reality, not the vendor demo.</p>
+      </div>
+      <div class="agent-card">
+        <h5>🧠 Domain Intelligence</h5>
+        <p>We don't just automate — we understand. Fund waterfalls, SAP auth tokens, SEBI compliance, vendor portal quirks. This is why our agents work on day one.</p>
+      </div>
+      <div class="agent-card">
+        <h5>🔒 On-Premise Deployment</h5>
+        <p>Your data never leaves your network. Agents run on your machines — a Windows PC, an on-premise server. No cloud dependency. No data concerns.</p>
+      </div>
+      <div class="agent-card">
+        <h5>🔧 Managed Operations</h5>
+        <p>We don't build and walk away. We monitor, update, and fix your agents. Monthly reports show exactly what was automated and saved.</p>
+      </div>
+      <div class="agent-card">
+        <h5>⚡ 2-Week Deployment</h5>
+        <p>Most automation takes 6 months. Our agents go live in 2 weeks because we've already solved these problems. We configure, not build from scratch.</p>
+      </div>
+      <div class="agent-card">
+        <h5>💎 Outcome Pricing</h5>
+        <p>Monthly managed service, not hourly billing. If the agent doesn't reconcile your invoices or generate your reports, you don't pay.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9: PORTFOLIO AUDIT -->
+<section>
+  <div class="container">
+    <h2>Portfolio <span>Audit</span></h2>
+    <p class="section-intro">This is the highest-risk section on the site. Three of five showcases were never built for real clients.</p>
+    
+    <div class="portfolio-item">
+      <span class="name">LeadIQ</span>
+      <span class="status">Gaadisaathi (cousin's project) — built and running</span>
+      <span class="action reframe">Reframe</span>
+    </div>
+    <div class="portfolio-item">
+      <span class="name">FundView</span>
+      <span class="status">Vishwaksena (FundFusion) — built, paying customer</span>
+      <span class="action ok">Keep & Expand</span>
+    </div>
+    <div class="portfolio-item">
+      <span class="name">ClaimFlow</span>
+      <span class="status">Curoms — never built, proposal only</span>
+      <span class="action remove">Remove</span>
+    </div>
+    <div class="portfolio-item">
+      <span class="name">WorkMate</span>
+      <span class="status">HRMS concept — never built</span>
+      <span class="action remove">Remove</span>
+    </div>
+    <div class="portfolio-item">
+      <span class="name">SaaS Ops</span>
+      <span class="status">CS Engine concept — no customers</span>
+      <span class="action remove">Remove</span>
+    </div>
+    
+    <h3>New Portfolio: "Agents in Production"</h3>
+    <p>Only show what's real. Reframe as agent outcome stories, not app screenshots.</p>
+    
+    <div class="section-card">
+      <h4>Agent Suite 1: Fund Operations — Investment Management</h4>
+      <p>Automated investor reporting, NAV calculation, and capital call processing for a fund managing ₹1,000+ Cr across 120+ investors with dual fund structures (INR + USD feeder).</p>
+      <p style="font-size:13px; color:var(--gray-500); margin-bottom:0;">✓ Quarterly reports in minutes, not weeks &nbsp;·&nbsp; ✓ XIRR automated across complex cashflows &nbsp;·&nbsp; ✓ LP self-service portal with real-time visibility</p>
+    </div>
+    
+    <div class="section-card">
+      <h4>Agent Suite 2: Invoice Reconciliation — Auto Manufacturing</h4>
+      <p>Automated extraction from 3 vendor portals, GRN matching, and SAP posting for a leading auto component manufacturer processing 5,000+ invoices/month.</p>
+      <p style="font-size:13px; color:var(--gray-500); margin-bottom:0;">✓ Invoices processed every 6 hours automatically &nbsp;·&nbsp; ✓ 90%+ straight-through processing &nbsp;·&nbsp; ✓ Exception flagging with intelligent routing</p>
+    </div>
+    
+    <div class="section-card">
+      <h4>Agent Suite 3: SAP Data Extraction — Enterprise</h4>
+      <p>Automated dynamic query execution and data productionization from SAP tables. Deployed and transported to production with zero manual intervention.</p>
+      <p style="font-size:13px; color:var(--gray-500); margin-bottom:0;">✓ Complex multi-table joins on schedule &nbsp;·&nbsp; ✓ Data staged, validated, delivered via OData &nbsp;·&nbsp; ✓ Self-service query builder for business users</p>
+    </div>
+    
+    <p style="font-size:14px;"><strong>Note:</strong> Don't show tech stack tags (React, PostgreSQL, etc.) on these cards. Your buyer doesn't care. Show outcomes and numbers.</p>
+  </div>
+</section>
+
+<!-- SECTION 10: PROCESS -->
+<section>
+  <div class="container">
+    <h2>Process Section <span>Rewrite</span></h2>
+    
+    <div class="compare-grid">
+      <div class="compare-col old">
+        <div class="col-label">Current Process</div>
+        <blockquote>1. Diagnose (Blueprint Sprint)<br>2. Build (Systems & Automation)<br>3. Scale (Fractional COO)</blockquote>
+        <p style="margin-top:10px; font-size:13px; color:var(--gray-500);">Reads as one-time project work. "Fractional COO" doesn't match agent model.</p>
+      </div>
+      <div class="compare-col new">
+        <div class="col-label">New Process</div>
+        <blockquote>1. Discover (Week 1)<br>2. Deploy (Week 2-3)<br>3. Operate (Ongoing)</blockquote>
+        <p style="margin-top:10px; font-size:13px; color:var(--gray-500);">Maps to agent deployment. "Operate" signals recurring relationship and managed service.</p>
+      </div>
+    </div>
+    
+    <h3>New Process Detail</h3>
+    
+    <div class="section-card">
+      <h4>Step 1: Discover (Week 1)</h4>
+      <p>We map your operational workflow — every portal login, every Excel copy-paste, every manual step. We identify what should be automated and design the agent specification.</p>
+      <p style="font-size:13px; color:var(--orange); font-weight:500; margin-bottom:0;">→ Outcome: A clear automation blueprint with expected savings and ROI projection.</p>
+    </div>
+    
+    <div class="section-card">
+      <h4>Step 2: Deploy (Week 2-3)</h4>
+      <p>We build, configure, and deploy your agent — extraction scripts, validation logic, SAP/Tally integration. Deployed on your infrastructure. Runs in parallel with your team for validation.</p>
+      <p style="font-size:13px; color:var(--orange); font-weight:500; margin-bottom:0;">→ Outcome: Agent running in production, processing real data on your machines.</p>
+    </div>
+    
+    <div class="section-card">
+      <h4>Step 3: Operate (Ongoing)</h4>
+      <p>We monitor, maintain, and improve your agents. When vendor portals change, when new requirements emerge, when edge cases appear — we handle it. You just see the results in your monthly performance report.</p>
+      <p style="font-size:13px; color:var(--orange); font-weight:500; margin-bottom:0;">→ Outcome: Operations that run without your team lifting a finger. ₹50-75K/month.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 11: ROI SECTION -->
+<section>
+  <div class="container">
+    <h2>ROI Section <span>Rewrite</span></h2>
+    
+    <div class="verdict change">
+      <div class="label">Problem</div>
+      <p>Current claims ("Up to 50% productivity gains", "Up to 30% revenue leakage recovered") are generic. Every consulting website says this. Make it concrete with real math your prospects can verify.</p>
+    </div>
+    
+    <h3>New: "The Math Is Simple"</h3>
+    
+    <div class="compare-grid">
+      <div class="compare-col old">
+        <div class="col-label">Invoice Reconciliation — Manual</div>
+        <blockquote style="font-style:normal; font-size:14px;">
+          2 people × 4 hrs/day = 160 hrs/month<br>
+          Salary cost: ₹50K/month<br>
+          Late payment penalties: ₹2-5L/month<br>
+          Missed early payment discounts<br>
+          <strong style="color:var(--red);">Total cost: ₹3-6L/month</strong>
+        </blockquote>
+      </div>
+      <div class="compare-col new">
+        <div class="col-label">Invoice Reconciliation — Agent</div>
+        <blockquote style="font-style:normal; font-size:14px;">
+          Agent runs every 6 hours, 24/7<br>
+          Zero manual intervention on 90%+ invoices<br>
+          Zero late payments, zero missed discounts<br>
+          Team reassigned to vendor negotiations<br>
+          <strong style="color:var(--green);">Agent cost: ₹50-75K/month</strong>
+        </blockquote>
+      </div>
+    </div>
+    
+    <p style="font-size:14px;">This is 10x more convincing than "up to 50% productivity gains" because the CFO can immediately map it to their own team and calculate their own savings.</p>
+  </div>
+</section>
+
+<!-- SECTION 12: FAQ & FOOTER -->
+<section>
+  <div class="container">
+    <h2>FAQ & Footer <span>Updates</span></h2>
+    
+    <h3>New FAQ Questions</h3>
+    <div class="section-card">
+      <p style="margin-bottom:8px;"><strong>How do agents run on our infrastructure?</strong> → Explain Windows deployment, no cloud needed</p>
+      <p style="margin-bottom:8px;"><strong>What happens when a vendor portal changes?</strong> → Explain managed operations model</p>
+      <p style="margin-bottom:8px;"><strong>How is this different from UiPath/RPA?</strong> → Lighter, cheaper, AI-powered reasoning for edge cases</p>
+      <p style="margin-bottom:8px;"><strong>What about data security?</strong> → Data never leaves your network, we only receive operational metadata</p>
+      <p style="margin-bottom:8px;"><strong>Can we start with just one agent?</strong> → Yes, most clients start with one and expand to 3-4</p>
+      <p style="margin-bottom:0;"><strong>What does it cost?</strong> → Setup fee + monthly managed service. Exact pricing after discovery.</p>
+    </div>
+    
+    <h3>Final CTA Rewrite</h3>
+    <div class="compare-grid">
+      <div class="compare-col old">
+        <div class="col-label">Current</div>
+        <blockquote>"Ready to replace chaos with systems?"</blockquote>
+      </div>
+      <div class="compare-col new">
+        <div class="col-label">Recommended</div>
+        <blockquote>"Ready to stop doing work that machines should do?"</blockquote>
+        <p style="margin-top:8px; font-size:13px; color:var(--gray-500);">"Book a 30-minute discovery call. We'll map one workflow and show you exactly what an agent would save."</p>
+      </div>
+    </div>
+    
+    <h3>Footer Tagline</h3>
+    <div class="compare-grid">
+      <div class="compare-col old">
+        <div class="col-label">Current</div>
+        <blockquote>"Strategy first transformation studio."</blockquote>
+      </div>
+      <div class="compare-col new">
+        <div class="col-label">Recommended</div>
+        <blockquote>"Intelligent agents for enterprise operations. Fund management. SAP integration. Finance automation. On your infrastructure. Managed by us."</blockquote>
+      </div>
+    </div>
+    
+    <h4>Footer Service Links</h4>
+    <p>Blueprint Sprint → <strong>Agent Discovery</strong><br>
+    Systems & Automation → <strong>Agent Deployment</strong><br>
+    Fractional COO → <strong>Managed Operations</strong></p>
+  </div>
+</section>
+
+<!-- SECTION 13: WHAT TO KEEP/REMOVE/CHANGE -->
+<section>
+  <div class="container">
+    <h2>Summary: <span>Keep / Kill / Change</span></h2>
+    
+    <div class="verdict keep" style="margin-bottom:12px;">
+      <div class="label">Keep ✅</div>
+      <p>Brand identity & design system (orange/black, typography, layout) · Enterprise logo bar (SAP, IBM, HCL, HP) · "Not a dev shop" sentiment · 3-step process structure · "Book a Free Consult" CTA · Dark mode toggle · Overall site design quality — it's professional</p>
+    </div>
+    
+    <div class="verdict kill" style="margin-bottom:12px;">
+      <div class="label">Remove ❌</div>
+      <p>ClaimFlow, WorkMate, SaaS Ops from portfolio · "Growing Companies / Lean Teams / Unique Processes" cards · "Fractional COO" offering · "Modern Stack" differentiator · Generic ROI percentages (50% productivity, 30% revenue recovery) · Tech stack tags on portfolio cards</p>
+    </div>
+    
+    <div class="verdict change">
+      <div class="label">Change 🔄</div>
+      <p>"Modern Business Systems" → "Intelligent Agents for Enterprise Operations" · "What We Build" → "Agents in Production" · "Diagnose → Build → Scale" → "Discover → Deploy → Operate" · Portfolio from app screenshots → agent outcome stories · Target audience from generic to domain-specific · "Blueprint Sprint" → "Agent Discovery Sprint"</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 14: IMPLEMENTATION ROADMAP -->
+<section>
+  <div class="container">
+    <h2>Implementation <span>Roadmap</span></h2>
+    
+    <table class="priority-table">
+      <thead>
+        <tr>
+          <th>Priority</th>
+          <th>Change</th>
+          <th>Impact</th>
+          <th>Effort</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag p1">P1 — This Week</span></td>
+          <td>Update hero headline + sub-headline + badge</td>
+          <td>First thing every visitor sees. Instant repositioning signal.</td>
+          <td>30 min</td>
+        </tr>
+        <tr>
+          <td><span class="tag p1">P1 — This Week</span></td>
+          <td>Remove ClaimFlow, WorkMate, SaaS Ops from portfolio</td>
+          <td>Eliminates credibility risk immediately.</td>
+          <td>15 min</td>
+        </tr>
+        <tr>
+          <td><span class="tag p1">P1 — This Week</span></td>
+          <td>Update meta title + description for SEO</td>
+          <td>"Intelligent Agents Enterprise Operations Bengaluru" starts ranking.</td>
+          <td>10 min</td>
+        </tr>
+        <tr>
+          <td><span class="tag p2">P2 — Next Week</span></td>
+          <td>Rewrite "Who This Is For" with 3 domain cards</td>
+          <td>Prospects self-select instantly. Higher quality leads.</td>
+          <td>1-2 hrs</td>
+        </tr>
+        <tr>
+          <td><span class="tag p2">P2 — Next Week</span></td>
+          <td>Rewrite process: Discover → Deploy → Operate</td>
+          <td>Signals recurring relationship vs one-time project.</td>
+          <td>1-2 hrs</td>
+        </tr>
+        <tr>
+          <td><span class="tag p2">P2 — Next Week</span></td>
+          <td>Update 6 differentiators</td>
+          <td>Communicates real moats (domain, on-prem, managed ops).</td>
+          <td>1 hr</td>
+        </tr>
+        <tr>
+          <td><span class="tag p3">P3 — Week 3-4</span></td>
+          <td>Rewrite portfolio as "Agents in Production"</td>
+          <td>Shows real outcomes, builds trust.</td>
+          <td>2-3 hrs</td>
+        </tr>
+        <tr>
+          <td><span class="tag p3">P3 — Week 3-4</span></td>
+          <td>Rewrite competitor comparison section</td>
+          <td>Addresses "why not DIY with AI" objection.</td>
+          <td>1-2 hrs</td>
+        </tr>
+        <tr>
+          <td><span class="tag p3">P3 — Week 3-4</span></td>
+          <td>Update FAQ, CTA, and footer</td>
+          <td>Complete alignment top to bottom.</td>
+          <td>1 hr</td>
+        </tr>
+        <tr>
+          <td><span class="tag p3">P3 — Month 2</span></td>
+          <td>Add /agents page with detailed agent catalog</td>
+          <td>SEO + detailed information for serious prospects.</td>
+          <td>Half day</td>
+        </tr>
+        <tr>
+          <td><span class="tag p3">P3 — Month 2</span></td>
+          <td>Add /pricing page (optional but recommended)</td>
+          <td>Transparent pricing builds trust, pre-qualifies leads.</td>
+          <td>2 hrs</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section style="background: var(--black); color: white;">
+  <div class="container" style="text-align:center; padding: 50px 24px;">
+    <p style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--orange); margin-bottom:16px;">The One-Liner That Captures It All</p>
+    <h2 style="color:white; font-size:26px; max-width:700px; margin:0 auto 16px;">
+      "AI can write code. It can't understand your fund structure, your SAP landscape, or why your invoices don't match. <span>We can.</span> And we deploy agents that fix it — permanently."
+    </h2>
+    <p style="color:#888; font-size:14px; margin-bottom:0;">Use this in LinkedIn posts, proposals, BNI pitches, email signatures.</p>
+  </div>
+</section>
+
+</body>
+</html>
