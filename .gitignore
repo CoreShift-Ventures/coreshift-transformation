@@ -54,3 +54,4 @@ scripts/
 GTMStrategy*
 coreshift-homepage*.html
 *BluePrint*.html
+node_modules.nosync/
