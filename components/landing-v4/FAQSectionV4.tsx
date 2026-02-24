@@ -13,31 +13,31 @@ interface FAQItem {
 const faqs: FAQItem[] = [
   {
     question: "Can't I just use ChatGPT or Copilot for this?",
-    answer: "ChatGPT and Copilot are reasoning engines. They're brilliant — and we use them inside our agents. But they don't connect to your SAP, they don't know your vendor quirks, they don't run on a schedule, and they don't send alerts when something breaks at 3am. CoreShift agents are built around those tools. We're the team that makes them work in your specific operation."
+    answer: "ChatGPT and Copilot are reasoning engines. They're brilliant, and we use them inside our agents. But they don't connect to your SAP, they don't know your vendor quirks, they don't run on a schedule, and they don't send alerts when something breaks at 3am. CoreShift agents are built around those tools. We're the team that makes them work in your specific operation."
   },
   {
     question: "Our data is sensitive. Where does it go?",
-    answer: "Your data stays on your infrastructure. Agents are deployed on your servers, your cloud account, or your SAP system. CoreShift's Command Center receives heartbeat signals and operational metadata only — not your financial records, customer data, or proprietary information. We can walk through the architecture in detail during Discovery."
+    answer: "Your data stays on your infrastructure. Agents are deployed on your servers, your cloud account, or your SAP system. CoreShift's Command Center receives heartbeat signals and operational metadata only, not your financial records, customer data, or proprietary information. We can walk through the architecture in detail during Discovery."
   },
   {
     question: "What happens when the agent breaks?",
-    answer: "You get a Slack or email alert before it becomes a problem — that's what Command Center monitoring is for. If an agent run fails, we're notified automatically, we investigate, and we fix it. This is exactly why the subscription model exists: we have a direct financial incentive to keep every agent running. If it's broken, we're not getting paid."
+    answer: "You get a Slack or email alert before it becomes a problem. That's what Command Center monitoring is for. If an agent run fails, we're notified automatically, we investigate, and we fix it. This is exactly why the subscription model exists: we have a direct financial incentive to keep every agent running. If it's broken, we're not getting paid."
   },
   {
     question: "Can our IT team build this instead?",
-    answer: "Probably, yes. Any competent developer can build an agent. The question is: who maintains it when your SAP upgrades, a vendor portal changes its UI, or a new business rule is added? Internal IT teams build things and move on. CoreShift's subscription model means we own maintenance permanently — because that's how we get paid."
+    answer: "Probably, yes. Any competent developer can build an agent. The question is: who maintains it when your SAP upgrades, a vendor portal changes its UI, or a new business rule is added? Internal IT teams build things and move on. CoreShift's subscription model means we own maintenance permanently, because that's how we get paid."
   },
   {
     question: "How long does it take to go live?",
-    answer: "Discovery Sprint is 2 weeks. Build and Deploy is typically 4–6 weeks after a signed Design Document. First agent live within 8–10 weeks of kickoff. We've delivered faster for simpler operations and scoped longer for complex ones like SAP + 19 vendor portals."
+    answer: "Discovery Sprint is 2 weeks. Build and Deploy is typically 4 to 6 weeks after a signed Design Document. First agent live within 8 to 10 weeks of kickoff. We've delivered faster for simpler operations and scoped longer for complex ones like SAP + 19 vendor portals."
   },
   {
     question: "Do you work with companies outside India?",
-    answer: "Yes. One of our live agents is for a UK-headquartered global company — processing GBP invoices, BACS/SWIFT bank feeds, and posting to NetSuite. We integrate with SAP, NetSuite, Salesforce, and most enterprise systems regardless of geography. Billing is available in INR or USD."
+    answer: "Yes. One of our live agents is for a UK-headquartered global company, processing GBP invoices, BACS/SWIFT bank feeds, and posting to NetSuite. We integrate with SAP, NetSuite, Salesforce, and most enterprise systems regardless of geography. Billing is available in INR or USD."
   },
   {
     question: "What operations are you best suited for?",
-    answer: "Operations that are rule-based (there's a defined process), high-volume (manual work is significant), connected to enterprise systems (SAP, ERP, CRM, portals), and consequential enough that errors matter. Finance operations, supply chain reconciliation, compliance tracking, and customer success reporting are our strongest areas — but we've never encountered a well-defined operation that couldn't be agent-ified."
+    answer: "Operations that are rule-based (there's a defined process), high-volume (manual work is significant), connected to enterprise systems (SAP, ERP, CRM, portals), and consequential enough that errors matter. Finance operations, supply chain reconciliation, compliance tracking, and customer success reporting are our strongest areas, but we've never encountered a well-defined operation that couldn't be agent-ified."
   }
 ]
 
