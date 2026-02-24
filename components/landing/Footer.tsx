@@ -6,26 +6,13 @@ import { Twitter, Linkedin, Github, Mail } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { QuickEmailModal } from '@/components/QuickEmailModal';
 
-const navigation = {
-  services: [
-    { name: 'Blueprint Sprint', href: '/#what-we-do' },
-    { name: 'Systems & Automation', href: '/showcase' },
-    { name: 'Fractional COO', href: '/#what-we-do' }
-  ],
-  company: [
-    { name: 'About', href: '/about' },
-    { name: 'Why CoreShift', href: '/#why-coreshift' },
-    { name: 'FAQ', href: '/#faq' }
-  ],
-  connect: [
-    { name: 'Book a Free Consult', href: '/contact' },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/srisridh/', target: '_blank' }
-  ],
-  legal: [
-    { name: 'Privacy', href: '/privacy' },
-    { name: 'Terms', href: '/terms' }
-  ]
-};
+const navigation = [
+  { name: 'Why CoreShift', href: '/#why' },
+  { name: 'Agents', href: '/#agents' },
+  { name: 'Process', href: '/#process' },
+  { name: 'Pricing', href: '/#pricing' },
+  { name: 'Contact', href: 'mailto:contact@cshift.io' }
+];
 
 const social = [
   {
@@ -110,7 +97,7 @@ export function Footer() {
             </svg>
           </div>
           <p className={`text-sm mb-6 max-w-xs ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            Strategy first transformation studio. We design and build modern operational systems powered by AI. Blueprint Sprint in 2 weeks, deployed in 8 weeks.
+            AI agents for enterprise operations. Built for your process. Deployed on your infrastructure.
           </p>
           {/* Social Links */}
           <div className="flex gap-4">
@@ -151,115 +138,27 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Navigation Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-
-          {/* Services */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-4 ${isDark ? 'text-white' : 'text-brand-charcoal'}`}>
-              Services
-            </h3>
-            <ul className="space-y-3">
-              {navigation.services.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    target={item.target}
-                    rel={item.target ? 'noopener noreferrer' : undefined}
-                    className={`text-sm transition-colors ${
-                      isDark
-                        ? 'text-gray-400 hover:text-brand-orange'
-                        : 'text-brand-gray hover:text-brand-orange'
-                    }`}
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-4 ${isDark ? 'text-white' : 'text-brand-charcoal'}`}>
-              Company
-            </h3>
-            <ul className="space-y-3">
-              {navigation.company.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    target={item.target}
-                    rel={item.target ? 'noopener noreferrer' : undefined}
-                    className={`text-sm transition-colors ${
-                      isDark
-                        ? 'text-gray-400 hover:text-brand-orange'
-                        : 'text-brand-gray hover:text-brand-orange'
-                    }`}
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Connect */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-4 ${isDark ? 'text-white' : 'text-brand-charcoal'}`}>
-              Connect
-            </h3>
-            <ul className="space-y-3">
-              {navigation.connect.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    target={item.target}
-                    rel={item.target ? 'noopener noreferrer' : undefined}
-                    className={`text-sm transition-colors ${
-                      isDark
-                        ? 'text-gray-400 hover:text-brand-orange'
-                        : 'text-brand-gray hover:text-brand-orange'
-                    }`}
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-4 ${isDark ? 'text-white' : 'text-brand-charcoal'}`}>
-              Legal
-            </h3>
-            <ul className="space-y-3">
-              {navigation.legal.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    className={`text-sm transition-colors ${
-                      isDark
-                        ? 'text-gray-400 hover:text-brand-orange'
-                        : 'text-brand-gray hover:text-brand-orange'
-                    }`}
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Navigation Links - Simple Row */}
+        <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-12">
+          {navigation.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className={`text-sm transition-colors ${
+                isDark
+                  ? 'text-gray-400 hover:text-brand-orange'
+                  : 'text-brand-gray hover:text-brand-orange'
+              }`}
+            >
+              {item.name}
+            </a>
+          ))}
         </div>
-
-        {/* Spacer before bottom bar */}
-        <div className="mb-0"></div>
 
         {/* Bottom Bar */}
         <div className={`pt-8 border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
           <p className={`text-sm text-center ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            © {new Date().getFullYear()} <span className={isDark ? 'text-white' : 'text-brand-charcoal'}>Core</span><span className="text-brand-orange">Shift</span> Ventures LLP. All rights reserved.
+            cshift.io · © {new Date().getFullYear()}
           </p>
         </div>
       </div>
