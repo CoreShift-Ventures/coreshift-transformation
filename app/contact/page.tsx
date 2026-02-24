@@ -10,13 +10,11 @@ import { ArrowRight, Mail, CheckCircle2 } from 'lucide-react';
 
 // Map URL intent to dropdown value
 const intentToInterest: Record<string, string> = {
-  'discovery': 'Discovery Sprint',
-  'deploy': 'Build & Deploy',
-  'subscription': 'Monthly Subscription',
-  // Legacy mappings
-  'blueprint': 'Discovery Sprint',
-  'build': 'Build & Deploy',
-  'advisory': 'Monthly Subscription'
+  'finance': 'Finance & Accounting',
+  'supply-chain': 'Supply Chain & Procurement',
+  'customer-ops': 'Customer Operations',
+  'compliance': 'Compliance & Reporting',
+  'other': 'Other'
 };
 
 function ContactForm() {
@@ -28,8 +26,8 @@ function ContactForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Get intent from URL parameter
-  const urlIntent = searchParams?.get('intent') || 'discovery';
-  const defaultInterest = intentToInterest[urlIntent] || 'Discovery Sprint';
+  const urlIntent = searchParams?.get('intent') || '';
+  const defaultInterest = intentToInterest[urlIntent] || '';
 
   // Form state
   const [formData, setFormData] = useState({
@@ -49,7 +47,7 @@ function ContactForm() {
   useEffect(() => {
     setFormData(prev => ({
       ...prev,
-      interest: intentToInterest[urlIntent] || 'Discovery Sprint'
+      interest: intentToInterest[urlIntent] || ''
     }));
   }, [urlIntent]);
 
@@ -83,9 +81,11 @@ function ContactForm() {
 
       // Map interest back to intent
       const intentMap: Record<string, string> = {
-        'Discovery Sprint': 'discovery',
-        'Build & Deploy': 'deploy',
-        'Monthly Subscription': 'subscription'
+        'Finance & Accounting': 'finance',
+        'Supply Chain & Procurement': 'supply-chain',
+        'Customer Operations': 'customer-ops',
+        'Compliance & Reporting': 'compliance',
+        'Other': 'other'
       };
 
       // Submit to Supabase with simplified form data
@@ -233,10 +233,10 @@ function ContactForm() {
                       />
                     </div>
 
-                    {/* Interest Dropdown */}
+                    {/* Operation Type Dropdown */}
                     <div>
                       <label className={`block text-xs font-semibold mb-1.5 uppercase tracking-wide ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        I'm interested in <span className="text-[#ec5f2b]">*</span>
+                        Operation Type <span className="text-[#ec5f2b]">*</span>
                       </label>
                       <select
                         name="interest"
@@ -249,9 +249,12 @@ function ContactForm() {
                             : 'bg-gray-50 border-gray-200 text-gray-900 focus:border-[#ec5f2b] focus:bg-white'
                         } focus:outline-none focus:ring-2 focus:ring-[#ec5f2b]/20`}
                       >
-                        <option value="Discovery Sprint">Discovery Sprint ($750 – $1,500)</option>
-                        <option value="Build & Deploy">Build & Deploy ($2,500 – $10,000)</option>
-                        <option value="Monthly Subscription">Monthly Subscription ($500 – $1,500/mo)</option>
+                        <option value="">Select an operation type</option>
+                        <option value="Finance & Accounting">Finance & Accounting (AP/AR, reconciliation, reporting)</option>
+                        <option value="Supply Chain & Procurement">Supply Chain & Procurement (vendor portals, inventory)</option>
+                        <option value="Customer Operations">Customer Operations (success tracking, renewals)</option>
+                        <option value="Compliance & Reporting">Compliance & Reporting (regulatory, audits)</option>
+                        <option value="Other">Other / Not sure yet</option>
                       </select>
                     </div>
 

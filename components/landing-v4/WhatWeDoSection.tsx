@@ -22,7 +22,7 @@ const services = [
     ],
     outcome: 'Complete process understanding before a single line of code is written.',
     cta: 'Start Discovery',
-    ctaLink: '/contact?intent=discovery',
+    ctaLink: '/contact',
     featured: false
   },
   {
@@ -40,7 +40,7 @@ const services = [
     ],
     outcome: 'Your agent live in production, monitored 24/7, on your infrastructure.',
     cta: 'Get a Quote',
-    ctaLink: '/contact?intent=deploy',
+    ctaLink: '/contact',
     featured: true
   },
   {
@@ -58,7 +58,7 @@ const services = [
     ],
     outcome: 'Permanent accountability. Your agent keeps working because our revenue depends on it.',
     cta: 'Talk to Us',
-    ctaLink: '/contact?intent=subscription',
+    ctaLink: '/contact',
     featured: false
   }
 ]
