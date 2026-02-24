@@ -229,7 +229,7 @@ export default function HeroV4() {
             isDark ? 'text-gray-400' : 'text-brand-gray'
           }`}
         >
-          CoreShift builds AI agents tailored to your exact processes, deployed on <span className="font-semibold text-[#ec5f2b]">your infrastructure</span>, monitored 24/7 — one monthly subscription.
+          CoreShift builds AI agents tailored to your exact processes, deployed on <span className="font-semibold text-[#ec5f2b]">your infrastructure</span>, monitored 24/7. One monthly subscription.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -289,47 +289,6 @@ export default function HeroV4() {
             </svg>
             <span className="relative z-10">See Agents Built</span>
           </button>
-        </motion.div>
-
-        {/* Live Agent Pills */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="mt-8 sm:mt-10"
-        >
-          <p className={`text-[10px] uppercase tracking-widest font-semibold mb-3 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-            Live in Production
-          </p>
-          <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto px-4">
-            {[
-              { name: 'GRN Reconciliation', status: 'green' },
-              { name: 'AP/AR Automation', status: 'green' },
-              { name: 'SAP Data Agent', status: 'green' },
-              { name: 'Fund Ops', status: 'amber' },
-              { name: 'CS Command Center', status: 'green' },
-              { name: 'Vehicle Compliance', status: 'green' },
-            ].map((agent, index) => (
-              <motion.div
-                key={agent.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: 1.3 + index * 0.08 }}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium ${
-                  isDark
-                    ? 'bg-gray-900/60 text-gray-400'
-                    : 'bg-gray-100/80 text-gray-500'
-                }`}
-              >
-                <span
-                  className={`w-1.5 h-1.5 rounded-full ${
-                    agent.status === 'green' ? 'bg-green-500' : 'bg-amber-500'
-                  }`}
-                />
-                <span>{agent.name}</span>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
 
         {/* Scroll Indicator - Hidden on mobile for cleaner look */}
