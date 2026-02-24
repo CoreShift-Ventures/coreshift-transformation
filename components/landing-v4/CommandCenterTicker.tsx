@@ -5,10 +5,10 @@ import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
 
 const events = [
-  { agent: 'GRN Agent', message: 'processed 81 TAFE records, 0 failures', time: '2m ago', status: 'success' },
+  { agent: 'GRN Agent', message: 'processed 81 vendor records, 0 failures', time: '2m ago', status: 'success' },
   { agent: 'CS Command Center', message: '3 accounts moved to At-Risk, alerts sent', time: '14m ago', status: 'info' },
   { agent: 'Vehicle Compliance', message: '240 vehicles validated, 6 flagged', time: '1h ago', status: 'success' },
-  { agent: 'SAP Data Agent', message: '5,000 ACDOCA rows returned in 3.2s', time: '4m ago', status: 'success' },
+  { agent: 'SAP Data Agent', message: '5,000 rows returned in 3.2s', time: '4m ago', status: 'success' },
   { agent: 'Fund Operations', message: '6 reports generated, 97.3% match rate', time: '6h ago', status: 'success' },
   { agent: 'AP/AR Agent', message: '94% auto-match on bank feed, 12 invoices extracted', time: '38m ago', status: 'info' },
 ]
@@ -64,7 +64,7 @@ export function CommandCenterTicker() {
                       <span className={`font-semibold ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                         {event.agent}
                       </span>
-                      <span className="mx-1.5">—</span>
+                      <span className={`mx-1.5 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>·</span>
                       <span>{event.message}</span>
                     </span>
                     <span className={`text-[10px] md:text-xs ${

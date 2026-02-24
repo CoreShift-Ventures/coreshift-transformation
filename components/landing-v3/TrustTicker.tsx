@@ -40,7 +40,7 @@ export function TrustTicker() {
     { value: '6', label: 'Agents in production' },
     { value: '19+', label: 'Systems integrated' },
     { value: '94%', label: 'Automation rate' },
-    { value: '₹30K', label: 'Monthly starting' },
+    { value: '5+', label: 'Industries served' },
   ]
 
   return (
