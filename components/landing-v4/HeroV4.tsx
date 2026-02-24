@@ -13,11 +13,8 @@ const rotatingStats = [
 
 // Headline split into parts for staggered animation
 const headlineParts = [
-  { text: "Any operation your team", type: "normal" },
-  { text: "does manually today,", type: "normal" },
-  { text: "an agent", type: "gradient" },
-  { text: "can do", type: "gradient" },
-  { text: "better.", type: "gradient" },
+  { text: "Your operations.", type: "normal" },
+  { text: "Our agents.", type: "gradient" },
 ]
 
 // Animation variants for staggered reveal
@@ -301,42 +298,35 @@ export default function HeroV4() {
           transition={{ duration: 0.6, delay: 1.2 }}
           className="mt-8 sm:mt-10"
         >
-          <p className={`text-xs font-medium tracking-wide mb-3 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-            Live now
+          <p className={`text-[10px] uppercase tracking-widest font-semibold mb-3 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+            Live in Production
           </p>
-          <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto px-4">
+          <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto px-4">
             {[
-              { name: 'GRN Reconciliation', industry: 'Auto-parts Manufacturing', status: 'green' },
-              { name: 'AP/AR Automation', industry: 'Global Media', status: 'green' },
-              { name: 'SAP Data Agent', industry: 'Manufacturing', status: 'green' },
-              { name: 'Fund Ops Reporting', industry: 'Venture Capital', status: 'amber' },
-              { name: 'CS Command Center', industry: 'B2B SaaS', status: 'green' },
-              { name: 'Vehicle Compliance', industry: 'Automotive', status: 'green' },
+              { name: 'GRN Reconciliation', status: 'green' },
+              { name: 'AP/AR Automation', status: 'green' },
+              { name: 'SAP Data Agent', status: 'green' },
+              { name: 'Fund Ops', status: 'amber' },
+              { name: 'CS Command Center', status: 'green' },
+              { name: 'Vehicle Compliance', status: 'green' },
             ].map((agent, index) => (
               <motion.div
                 key={agent.name}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: 1.3 + index * 0.1 }}
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border ${
+                transition={{ duration: 0.3, delay: 1.3 + index * 0.08 }}
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium ${
                   isDark
-                    ? 'bg-gray-900/80 border-gray-800 text-gray-300'
-                    : 'bg-white/80 border-gray-200 text-gray-600'
-                } backdrop-blur-sm`}
+                    ? 'bg-gray-900/60 text-gray-400'
+                    : 'bg-gray-100/80 text-gray-500'
+                }`}
               >
                 <span
-                  className={`w-2 h-2 rounded-full ${
+                  className={`w-1.5 h-1.5 rounded-full ${
                     agent.status === 'green' ? 'bg-green-500' : 'bg-amber-500'
                   }`}
-                  style={{
-                    boxShadow: agent.status === 'green'
-                      ? '0 0 6px rgba(34, 197, 94, 0.5)'
-                      : '0 0 6px rgba(245, 158, 11, 0.5)'
-                  }}
                 />
                 <span>{agent.name}</span>
-                <span className={isDark ? 'text-gray-600' : 'text-gray-400'}>·</span>
-                <span className={isDark ? 'text-gray-500' : 'text-gray-400'}>{agent.industry}</span>
               </motion.div>
             ))}
           </div>
