@@ -1,30 +1,25 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useTheme } from 'next-themes'
-import { ArrowRight, Calendar } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { ArrowRight, Zap, Shield, Clock, CheckCircle2 } from 'lucide-react'
 
-const rotatingStats = [
-  "Your team does it manually. An agent can do it better.",
-  "Built for your process. Deployed on your infrastructure.",
-  "We build it. We run it. You own it."
+// Floating agent activity cards data
+const floatingCards = [
+  { icon: CheckCircle2, text: "GRN Agent processed 81 records", color: "green", position: "left" },
+  { icon: Zap, text: "94% auto-match rate achieved", color: "orange", position: "right" },
+  { icon: Shield, text: "Command Center monitoring active", color: "blue", position: "left-bottom" },
+  { icon: Clock, text: "Next scheduled run in 2h 14m", color: "purple", position: "right-bottom" },
 ]
 
-// Headline split into parts for staggered animation
-const headlineParts = [
-  { text: "Your operations.", type: "normal" },
-  { text: "Our agents.", type: "gradient" },
-]
-
-// Animation variants for staggered reveal
+// Word-by-word animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
+      staggerChildren: 0.08,
+      delayChildren: 0.3,
     },
   },
 }
@@ -32,87 +27,114 @@ const containerVariants = {
 const wordVariants = {
   hidden: {
     opacity: 0,
-    y: 30,
-    filter: "blur(10px)",
+    y: 40,
+    rotateX: -40,
   },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
+    rotateX: 0,
     transition: {
-      duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94],
     },
   },
 }
 
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      delay,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  }),
+}
+
 export default function HeroV4() {
-  const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const [rotatingIndex, setRotatingIndex] = useState(0)
-  const [displayedText, setDisplayedText] = useState('')
-  const [isTyping, setIsTyping] = useState(true)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  const isDark = mounted && theme === 'dark'
-
-  // Typing effect
-  useEffect(() => {
-    const currentStat = rotatingStats[rotatingIndex]
-    if (!currentStat) return
-
-    let currentIndex = 0
-    setDisplayedText('')
-    setIsTyping(true)
-
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= currentStat.length) {
-        setDisplayedText(currentStat.slice(0, currentIndex))
-        currentIndex++
-      } else {
-        clearInterval(typingInterval)
-        setIsTyping(false)
-      }
-    }, 50) // 50ms per character
-
-    return () => clearInterval(typingInterval)
-  }, [rotatingIndex])
-
-  // Rotate to next stat
-  useEffect(() => {
-    const rotateInterval = setInterval(() => {
-      setRotatingIndex((prev) => (prev + 1) % rotatingStats.length)
-    }, 7000) // 7 seconds total (typing + pause)
-    return () => clearInterval(rotateInterval)
-  }, [])
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-  }
+  if (!mounted) return null
 
   return (
-    <section className={`relative flex items-center justify-center overflow-hidden pt-28 pb-4 md:pt-48 md:pb-6 ${isDark ? 'bg-black' : 'bg-white'}`}>
-      {/* Subtle grid pattern background */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div
-          className="absolute inset-0"
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0b]">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0">
+        {/* Primary gradient orb */}
+        <motion.div
+          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full"
           style={{
-            backgroundImage: isDark
-              ? 'radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.03) 1px, transparent 0)'
-              : 'radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.02) 1px, transparent 0)',
-            backgroundSize: '40px 40px'
+            background: 'radial-gradient(circle, rgba(236, 95, 43, 0.15) 0%, rgba(236, 95, 43, 0.05) 40%, transparent 70%)',
+          }}
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.6, 0.8, 0.6],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* Secondary gradient orb - blue */}
+        <motion.div
+          className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
+          }}
+          animate={{
+            x: [0, 30, 0],
+            y: [0, -20, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* Tertiary gradient orb - purple */}
+        <motion.div
+          className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%)',
+          }}
+          animate={{
+            x: [0, -20, 0],
+            y: [0, 30, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
         />
       </div>
 
-      {/* Noise texture overlay */}
-      <div className="absolute inset-0 pointer-events-none z-[1] opacity-[0.015]">
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      {/* Noise texture */}
+      <div className="absolute inset-0 opacity-[0.02]">
         <svg className="w-full h-full">
           <filter id="noiseFilter">
             <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
@@ -121,237 +143,211 @@ export default function HeroV4() {
         </svg>
       </div>
 
-      {/* Radial gradient spotlight - matching V3 */}
-      <div className="absolute inset-0 pointer-events-none z-[2] overflow-hidden">
-        <div
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] lg:w-[1200px] lg:h-[1200px] rounded-full blur-3xl"
-          style={{
-            background: isDark
-              ? 'radial-gradient(circle, rgba(236, 95, 43, 0.2) 0%, rgba(236, 95, 43, 0.08) 40%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(236, 95, 43, 0.15) 0%, rgba(236, 95, 43, 0.05) 40%, transparent 70%)',
-            animation: 'pulse 8s ease-in-out infinite'
-          }}
-        />
+      {/* Floating activity cards - Desktop only */}
+      <div className="hidden lg:block">
+        {floatingCards.map((card, index) => {
+          const Icon = card.icon
+          const positions: Record<string, string> = {
+            "left": "top-1/3 left-[8%]",
+            "right": "top-1/4 right-[8%]",
+            "left-bottom": "bottom-1/3 left-[12%]",
+            "right-bottom": "bottom-1/4 right-[10%]",
+          }
+          const colors: Record<string, string> = {
+            "green": "from-green-500/20 to-green-500/5 border-green-500/20",
+            "orange": "from-orange-500/20 to-orange-500/5 border-orange-500/20",
+            "blue": "from-blue-500/20 to-blue-500/5 border-blue-500/20",
+            "purple": "from-purple-500/20 to-purple-500/5 border-purple-500/20",
+          }
+          const iconColors: Record<string, string> = {
+            "green": "text-green-400",
+            "orange": "text-orange-400",
+            "blue": "text-blue-400",
+            "purple": "text-purple-400",
+          }
+
+          return (
+            <motion.div
+              key={index}
+              className={`absolute ${positions[card.position]} z-20`}
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 1.5 + index * 0.2,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+            >
+              <motion.div
+                className={`flex items-center gap-3 px-4 py-3 rounded-2xl bg-gradient-to-br ${colors[card.color]} border backdrop-blur-xl`}
+                animate={{
+                  y: [0, -8, 0],
+                }}
+                transition={{
+                  duration: 4 + index,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.5,
+                }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className={`w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center`}>
+                  <Icon className={`w-4 h-4 ${iconColors[card.color]}`} />
+                </div>
+                <span className="text-sm text-gray-300 font-medium whitespace-nowrap">
+                  {card.text}
+                </span>
+              </motion.div>
+            </motion.div>
+          )
+        })}
       </div>
 
-      <div className="relative max-w-5xl mx-auto z-10 text-center">
-        {/* Hero Badge - Hidden on mobile for cleaner look */}
+      {/* Main content */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24 pb-16">
+        {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: -20, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0, ease: [0.16, 1, 0.3, 1] }}
-          className="hidden md:block mb-4 -mt-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mb-8"
         >
-          <motion.span
-            className={`relative inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-medium tracking-wide border backdrop-blur-md ${
-              isDark
-                ? 'bg-gray-900/70 border-[#ec5f2b]/20 text-gray-300'
-                : 'bg-white/90 border-[#ec5f2b]/20 text-gray-600'
-            }`}
-            style={{
-              boxShadow: isDark
-                ? '0 0 20px rgba(236, 95, 43, 0.15), 0 0 40px rgba(236, 95, 43, 0.05), inset 0 1px 0 rgba(255,255,255,0.05)'
-                : '0 0 20px rgba(236, 95, 43, 0.1), 0 0 40px rgba(236, 95, 43, 0.05), 0 4px 12px rgba(0,0,0,0.05)'
-            }}
-            whileHover={{
-              scale: 1.03,
-              boxShadow: isDark
-                ? '0 0 30px rgba(236, 95, 43, 0.25), 0 0 60px rgba(236, 95, 43, 0.1)'
-                : '0 0 30px rgba(236, 95, 43, 0.2), 0 0 60px rgba(236, 95, 43, 0.08)'
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.span
-              className="relative w-2 h-2 rounded-full bg-[#ec5f2b]"
-              animate={{
-                scale: [1, 1.3, 1],
-                boxShadow: [
-                  '0 0 0 0 rgba(236, 95, 43, 0.4)',
-                  '0 0 0 6px rgba(236, 95, 43, 0)',
-                  '0 0 0 0 rgba(236, 95, 43, 0)'
-                ]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            AI Agents for Enterprise Operations
-          </motion.span>
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white/5 border border-white/10 text-gray-300 backdrop-blur-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            6 Agents Live in Production
+          </span>
         </motion.div>
 
-        {/* Main Headline with Staggered Word Reveal */}
+        {/* Main headline with word-by-word reveal */}
         <motion.h1
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className={`text-[2.25rem] sm:text-4xl lg:text-4xl xl:text-5xl leading-[1.15] sm:leading-tight font-bold tracking-tight mb-6 px-4 sm:px-5 ${
-            isDark ? 'text-gray-100' : 'text-brand-charcoal'
-          }`}
+          className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
+          style={{ perspective: '1000px' }}
         >
-          {headlineParts.map((part, index) => (
-            <motion.span
-              key={index}
-              variants={wordVariants}
-              className={`inline-block ${
-                part.type === 'gradient'
-                  ? 'bg-gradient-to-r from-[#ec5f2b] via-[#ff6b35] to-[#ec5f2b] bg-clip-text text-transparent animate-gradient-x'
-                  : ''
-              }`}
-              style={{ willChange: 'opacity, transform, filter' }}
-            >
-              {part.text}
-              {index < headlineParts.length - 1 && <span>&nbsp;</span>}
-            </motion.span>
-          ))}
+          <motion.span variants={wordVariants} className="inline-block text-white">
+            Your&nbsp;
+          </motion.span>
+          <motion.span variants={wordVariants} className="inline-block text-white">
+            operations.
+          </motion.span>
+          <br className="hidden sm:block" />
+          <motion.span
+            variants={wordVariants}
+            className="inline-block bg-gradient-to-r from-[#ec5f2b] via-[#ff8a5b] to-[#ec5f2b] bg-clip-text text-transparent bg-[length:200%_100%] animate-gradient"
+          >
+            Our&nbsp;
+          </motion.span>
+          <motion.span
+            variants={wordVariants}
+            className="inline-block bg-gradient-to-r from-[#ec5f2b] via-[#ff8a5b] to-[#ec5f2b] bg-clip-text text-transparent bg-[length:200%_100%] animate-gradient"
+          >
+            agents.
+          </motion.span>
         </motion.h1>
 
-        {/* Rotating hook with typing effect */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-          className="mb-6 sm:mb-10 px-4 sm:px-5 min-h-[56px] sm:min-h-[70px] flex items-center justify-center"
-        >
-          <div className="text-base sm:text-xl md:text-2xl xl:text-3xl font-semibold text-[#ec5f2b] leading-[1.35] tracking-tight text-center">
-            {displayedText}
-            <span className={`inline-block w-0.5 h-4 sm:h-6 md:h-7 xl:h-8 ml-1 ${isDark ? 'bg-white' : 'bg-black'} ${isTyping ? 'animate-blink' : 'opacity-0'}`} />
-          </div>
-        </motion.div>
-
-        {/* Sub-headline */}
+        {/* Subheadline */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
-          className={`text-sm sm:text-base max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-4 sm:px-5 ${
-            isDark ? 'text-gray-400' : 'text-brand-gray'
-          }`}
+          custom={0.8}
+          variants={fadeUpVariants}
+          initial="hidden"
+          animate="visible"
+          className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          CoreShift builds AI agents tailored to your exact processes, deployed on <span className="font-semibold text-[#ec5f2b]">your infrastructure</span>, monitored 24/7. One monthly subscription.
+          AI agents built for <span className="text-white font-medium">your exact processes</span>,
+          deployed on your infrastructure, monitored 24/7.
+          <span className="text-[#ec5f2b] font-medium"> One monthly subscription.</span>
         </motion.p>
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.1 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-lg sm:max-w-3xl mx-auto px-5"
+          custom={1.0}
+          variants={fadeUpVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
+          {/* Primary CTA */}
           <a
             href="/contact"
-            className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-orange text-white rounded-xl font-semibold text-base transition-all duration-300 hover:scale-105 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-white overflow-hidden min-h-[52px]"
-            style={{
-              boxShadow: '0 4px 14px 0 rgba(236, 95, 43, 0.25)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 6px 20px rgba(236, 95, 43, 0.4), 0 0 40px rgba(236, 95, 43, 0.2)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 4px 14px 0 rgba(236, 95, 43, 0.25)';
-            }}
+            className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base overflow-hidden transition-all duration-300"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#ec5f2b] to-[#ff6b35] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <svg className="w-5 h-5 flex-shrink-0 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span className="relative z-10">Book a Discovery Call →</span>
+            {/* Gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#ec5f2b] to-[#ff6b35]" />
+
+            {/* Glow effect */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-[#ff6b35] to-[#ec5f2b]" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#ec5f2b] to-[#ff6b35] rounded-xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
+
+            <span className="relative text-white">Book a Discovery Call</span>
+            <ArrowRight className="relative w-5 h-5 text-white group-hover:translate-x-1 transition-transform" />
           </a>
-          <button
-            onClick={() => scrollToSection('agents')}
-            className={`group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300 hover:scale-105 border whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 overflow-hidden min-h-[52px] ${
-              isDark
-                ? 'bg-gray-900 border-gray-700 text-gray-100 focus-visible:ring-offset-black hover:border-gray-600'
-                : 'bg-white border-gray-200 text-gray-900 focus-visible:ring-offset-white hover:border-gray-300'
-            }`}
-            style={{
-              boxShadow: isDark
-                ? '0 4px 14px 0 rgba(0, 0, 0, 0.3)'
-                : '0 4px 14px 0 rgba(0, 0, 0, 0.1)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = isDark
-                ? '0 6px 20px rgba(0, 0, 0, 0.4), 0 0 30px rgba(236, 95, 43, 0.1)'
-                : '0 6px 20px rgba(0, 0, 0, 0.15), 0 0 30px rgba(236, 95, 43, 0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = isDark
-                ? '0 4px 14px 0 rgba(0, 0, 0, 0.3)'
-                : '0 4px 14px 0 rgba(0, 0, 0, 0.1)';
-            }}
+
+          {/* Secondary CTA */}
+          <a
+            href="#agents"
+            className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base bg-white/5 border border-white/10 text-white backdrop-blur-sm hover:bg-white/10 hover:border-white/20 transition-all duration-300"
           >
-            <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-              isDark ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-gray-50 to-white'
-            }`} />
-            <svg className="w-5 h-5 flex-shrink-0 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            <span className="relative z-10">See Agents Built</span>
-          </button>
+            <span>See Agents Built</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </a>
         </motion.div>
 
-        {/* Scroll Indicator - Hidden on mobile for cleaner look */}
+        {/* Trust indicators */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.3 }}
-          className="hidden md:flex mt-12 flex-col items-center gap-2"
+          custom={1.3}
+          variants={fadeUpVariants}
+          initial="hidden"
+          animate="visible"
+          className="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-gray-500"
         >
-          <span className={`text-xs font-medium tracking-wide ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-            Scroll to explore
-          </span>
+          {[
+            { value: "19+", label: "Systems integrated" },
+            { value: "94%", label: "Automation rate" },
+            { value: "24/7", label: "Monitoring" },
+          ].map((stat, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <span className="text-2xl font-bold text-white">{stat.value}</span>
+              <span>{stat.label}</span>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2, duration: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
           <motion.div
-            className={`w-6 h-10 rounded-full border-2 flex justify-center pt-2 ${
-              isDark ? 'border-gray-700' : 'border-gray-300'
-            }`}
-            animate={{ y: [0, 4, 0] }}
+            className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2"
+            animate={{ y: [0, 5, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
             <motion.div
-              className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-gray-500' : 'bg-gray-400'}`}
-              animate={{
-                y: [0, 12, 0],
-                opacity: [1, 0.3, 1]
-              }}
+              className="w-1 h-2 rounded-full bg-white/40"
+              animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             />
           </motion.div>
         </motion.div>
       </div>
 
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0b] to-transparent" />
+
       <style jsx>{`
-        @keyframes pulse {
-          0%, 100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.6;
-          }
+        @keyframes gradient {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
         }
-        @keyframes blink {
-          0%, 50% {
-            opacity: 1;
-          }
-          51%, 100% {
-            opacity: 0;
-          }
-        }
-        @keyframes gradient-x {
-          0%, 100% {
-            background-size: 200% 200%;
-            background-position: left center;
-          }
-          50% {
-            background-size: 200% 200%;
-            background-position: right center;
-          }
-        }
-        :global(.animate-blink) {
-          animation: blink 1s step-end infinite;
-        }
-        :global(.animate-gradient-x) {
-          animation: gradient-x 3s ease infinite;
+        :global(.animate-gradient) {
+          animation: gradient 4s ease infinite;
         }
       `}</style>
     </section>
