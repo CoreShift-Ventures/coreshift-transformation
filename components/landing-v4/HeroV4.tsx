@@ -6,19 +6,18 @@ import { useTheme } from 'next-themes'
 import { ArrowRight, Calendar } from 'lucide-react'
 
 const rotatingStats = [
-  "Your business runs on spreadsheets. It should run on systems.",
-  "Enterprise-grade operations. Without the enterprise timeline.",
-  "Stop scaling chaos. Start scaling systems."
+  "Your team does it manually. An agent can do it better.",
+  "Built for your process. Deployed on your infrastructure.",
+  "We build it. We run it. You own it."
 ]
 
 // Headline split into parts for staggered animation
 const headlineParts = [
-  { text: "We transform", type: "normal" },
-  { text: "your operations", type: "normal" },
-  { text: "into", type: "normal" },
-  { text: "modern,", type: "gradient" },
-  { text: "intelligent", type: "gradient" },
-  { text: "systems", type: "gradient" },
+  { text: "Any operation your team", type: "normal" },
+  { text: "does manually today,", type: "normal" },
+  { text: "an agent", type: "gradient" },
+  { text: "can do", type: "gradient" },
+  { text: "better.", type: "gradient" },
 ]
 
 // Animation variants for staggered reveal
@@ -181,7 +180,7 @@ export default function HeroV4() {
                 ease: "easeInOut"
               }}
             />
-            Modern Business Systems for Scaling Companies
+            AI Agents for Enterprise Operations
           </motion.span>
         </motion.div>
 
@@ -233,7 +232,7 @@ export default function HeroV4() {
             isDark ? 'text-gray-400' : 'text-brand-gray'
           }`}
         >
-          Too big for spreadsheets. Too unique for off-the-shelf. We build AI-powered systems around <span className="font-semibold text-[#ec5f2b]">your process</span>. Live in weeks, not months.
+          CoreShift builds AI agents tailored to your exact processes, deployed on <span className="font-semibold text-[#ec5f2b]">your infrastructure</span>, monitored 24/7 — one monthly subscription.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -244,7 +243,7 @@ export default function HeroV4() {
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-lg sm:max-w-3xl mx-auto px-5"
         >
           <a
-            href="/contact?intent=blueprint"
+            href="mailto:contact@cshift.io"
             className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-orange text-white rounded-xl font-semibold text-base transition-all duration-300 hover:scale-105 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-white overflow-hidden min-h-[52px]"
             style={{
               boxShadow: '0 4px 14px 0 rgba(236, 95, 43, 0.25)',
@@ -258,12 +257,12 @@ export default function HeroV4() {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-[#ec5f2b] to-[#ff6b35] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <svg className="w-5 h-5 flex-shrink-0 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span className="relative z-10">Book a Free Consult</span>
+            <span className="relative z-10">Book a Discovery Call →</span>
           </a>
           <button
-            onClick={() => scrollToSection('case-studies')}
+            onClick={() => scrollToSection('agents')}
             className={`group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300 hover:scale-105 border whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 overflow-hidden min-h-[52px] ${
               isDark
                 ? 'bg-gray-900 border-gray-700 text-gray-100 focus-visible:ring-offset-black hover:border-gray-600'
@@ -289,11 +288,58 @@ export default function HeroV4() {
               isDark ? 'bg-gradient-to-r from-gray-800 to-gray-900' : 'bg-gradient-to-r from-gray-50 to-white'
             }`} />
             <svg className="w-5 h-5 flex-shrink-0 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            <span className="relative z-10">See Our Work</span>
+            <span className="relative z-10">See Agents Built</span>
           </button>
+        </motion.div>
+
+        {/* Live Agent Pills */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="mt-8 sm:mt-10"
+        >
+          <p className={`text-xs font-medium tracking-wide mb-3 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+            Live now
+          </p>
+          <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto px-4">
+            {[
+              { name: 'GRN Reconciliation', industry: 'Auto-parts Manufacturing', status: 'green' },
+              { name: 'AP/AR Automation', industry: 'Global Media', status: 'green' },
+              { name: 'SAP Data Agent', industry: 'Manufacturing', status: 'green' },
+              { name: 'Fund Ops Reporting', industry: 'Venture Capital', status: 'amber' },
+              { name: 'CS Command Center', industry: 'B2B SaaS', status: 'green' },
+              { name: 'Vehicle Compliance', industry: 'Automotive', status: 'green' },
+            ].map((agent, index) => (
+              <motion.div
+                key={agent.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 1.3 + index * 0.1 }}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border ${
+                  isDark
+                    ? 'bg-gray-900/80 border-gray-800 text-gray-300'
+                    : 'bg-white/80 border-gray-200 text-gray-600'
+                } backdrop-blur-sm`}
+              >
+                <span
+                  className={`w-2 h-2 rounded-full ${
+                    agent.status === 'green' ? 'bg-green-500' : 'bg-amber-500'
+                  }`}
+                  style={{
+                    boxShadow: agent.status === 'green'
+                      ? '0 0 6px rgba(34, 197, 94, 0.5)'
+                      : '0 0 6px rgba(245, 158, 11, 0.5)'
+                  }}
+                />
+                <span>{agent.name}</span>
+                <span className={isDark ? 'text-gray-600' : 'text-gray-400'}>·</span>
+                <span className={isDark ? 'text-gray-500' : 'text-gray-400'}>{agent.industry}</span>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Scroll Indicator - Hidden on mobile for cleaner look */}
