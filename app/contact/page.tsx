@@ -10,9 +10,13 @@ import { ArrowRight, Mail, CheckCircle2 } from 'lucide-react';
 
 // Map URL intent to dropdown value
 const intentToInterest: Record<string, string> = {
-  'blueprint': 'Blueprint Sprint',
-  'build': 'Systems & Automation',
-  'advisory': 'Fractional COO'
+  'discovery': 'Discovery Sprint',
+  'deploy': 'Build & Deploy',
+  'subscription': 'Monthly Subscription',
+  // Legacy mappings
+  'blueprint': 'Discovery Sprint',
+  'build': 'Build & Deploy',
+  'advisory': 'Monthly Subscription'
 };
 
 function ContactForm() {
@@ -24,8 +28,8 @@ function ContactForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Get intent from URL parameter
-  const urlIntent = searchParams?.get('intent') || 'blueprint';
-  const defaultInterest = intentToInterest[urlIntent] || 'Blueprint Sprint';
+  const urlIntent = searchParams?.get('intent') || 'discovery';
+  const defaultInterest = intentToInterest[urlIntent] || 'Discovery Sprint';
 
   // Form state
   const [formData, setFormData] = useState({
@@ -45,7 +49,7 @@ function ContactForm() {
   useEffect(() => {
     setFormData(prev => ({
       ...prev,
-      interest: intentToInterest[urlIntent] || 'Blueprint Sprint'
+      interest: intentToInterest[urlIntent] || 'Discovery Sprint'
     }));
   }, [urlIntent]);
 
@@ -79,9 +83,9 @@ function ContactForm() {
 
       // Map interest back to intent
       const intentMap: Record<string, string> = {
-        'Blueprint Sprint': 'blueprint',
-        'Systems & Automation': 'build',
-        'Fractional COO': 'advisory'
+        'Discovery Sprint': 'discovery',
+        'Build & Deploy': 'deploy',
+        'Monthly Subscription': 'subscription'
       };
 
       // Submit to Supabase with simplified form data
@@ -245,9 +249,9 @@ function ContactForm() {
                             : 'bg-gray-50 border-gray-200 text-gray-900 focus:border-[#ec5f2b] focus:bg-white'
                         } focus:outline-none focus:ring-2 focus:ring-[#ec5f2b]/20`}
                       >
-                        <option value="Blueprint Sprint">Blueprint Sprint</option>
-                        <option value="Systems & Automation">Systems & Automation</option>
-                        <option value="Fractional COO">Fractional COO</option>
+                        <option value="Discovery Sprint">Discovery Sprint ($750 – $1,500)</option>
+                        <option value="Build & Deploy">Build & Deploy ($2,500 – $10,000)</option>
+                        <option value="Monthly Subscription">Monthly Subscription ($500 – $1,500/mo)</option>
                       </select>
                     </div>
 

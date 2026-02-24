@@ -158,7 +158,7 @@ export function NavigationV4() {
           </button>
 
           <a
-            href="mailto:srinath@cshift.io"
+            href="/contact"
             className="px-5 py-2.5 bg-brand-orange text-white rounded-lg text-sm font-semibold hover:bg-brand-orange-dark transition-all shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-white whitespace-nowrap hover:scale-105 inline-block"
           >
             Talk to Us →
@@ -254,7 +254,7 @@ export function NavigationV4() {
               </button>
 
               <a
-                href="mailto:srinath@cshift.io"
+                href="/contact"
                 className="w-full px-6 py-4 bg-brand-orange text-white rounded-xl font-semibold text-base hover:bg-brand-orange-dark transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-black mt-4 inline-block text-center min-h-[52px]"
               >
                 Talk to Us →

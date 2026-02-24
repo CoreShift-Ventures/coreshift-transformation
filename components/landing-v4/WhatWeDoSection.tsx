@@ -12,7 +12,7 @@ const services = [
     phase: 'Step 01 · Discover',
     title: 'Discovery Sprint',
     priceTag: '$750 – $1,500 · One-time · 2 weeks',
-    description: 'We spend 2 weeks inside your operation. Mapping the exact process, documenting edge cases, identifying system touchpoints, defining exception logic. The output is a signed-off Agent Design Document.',
+    description: 'We spend 2 weeks inside your operation. Mapping the exact process, documenting edge cases, identifying system touchpoints, and defining exception logic.',
     features: [
       'Process walkthroughs with your team',
       'System access and integration mapping',
@@ -22,7 +22,7 @@ const services = [
     ],
     outcome: 'Complete process understanding before a single line of code is written.',
     cta: 'Start Discovery',
-    ctaLink: 'mailto:contact@cshift.io',
+    ctaLink: '/contact?intent=discovery',
     featured: false
   },
   {
@@ -30,7 +30,7 @@ const services = [
     phase: 'Step 02 · Deploy',
     title: 'Build & Deploy',
     priceTag: '$2,500 – $10,000 · One-time · 4-6 weeks',
-    description: 'We build the agent, connect to your live systems, run validation sprints, and deploy on your infrastructure. Agent is registered in CoreShift Command Center from day one.',
+    description: 'We build the agent, connect to your live systems, run validation sprints, and deploy on your infrastructure. Registered in Command Center from day one.',
     features: [
       'Agent built to the Design Document',
       'Staging environment validation',
@@ -40,7 +40,7 @@ const services = [
     ],
     outcome: 'Your agent live in production, monitored 24/7, on your infrastructure.',
     cta: 'Get a Quote',
-    ctaLink: 'mailto:contact@cshift.io',
+    ctaLink: '/contact?intent=deploy',
     featured: true
   },
   {
@@ -48,7 +48,7 @@ const services = [
     phase: 'Step 03 · Operate',
     title: 'Monthly Subscription',
     priceTag: '$500 – $1,500 / month · Per agent',
-    description: 'We own the agent permanently. Monitoring, maintenance, updates when systems change, new business rule additions, all included. You get a running agent, we stay accountable for keeping it running.',
+    description: 'We own the agent permanently. Monitoring, maintenance, updates when systems change, new business rule additions, all included. We stay accountable.',
     features: [
       '24/7 Command Center monitoring',
       'Slack/email alerts on anomalies',
@@ -58,7 +58,7 @@ const services = [
     ],
     outcome: 'Permanent accountability. Your agent keeps working because our revenue depends on it.',
     cta: 'Talk to Us',
-    ctaLink: 'mailto:contact@cshift.io',
+    ctaLink: '/contact?intent=subscription',
     featured: false
   }
 ]

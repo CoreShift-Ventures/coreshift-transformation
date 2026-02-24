@@ -240,7 +240,7 @@ export default function HeroV4() {
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-lg sm:max-w-3xl mx-auto px-5"
         >
           <a
-            href="mailto:contact@cshift.io"
+            href="/contact"
             className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand-orange text-white rounded-xl font-semibold text-base transition-all duration-300 hover:scale-105 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-white overflow-hidden min-h-[52px]"
             style={{
               boxShadow: '0 4px 14px 0 rgba(236, 95, 43, 0.25)',

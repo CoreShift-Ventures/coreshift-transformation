@@ -46,7 +46,7 @@ export default function FinalCTAV4() {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-10">
               {/* Primary CTA */}
               <a
-                href="mailto:contact@cshift.io"
+                href="/contact"
                 className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-4 bg-[#ec5f2b] text-white font-semibold rounded-xl text-base hover:bg-[#d94f1f] transition-all hover:scale-105 shadow-lg group min-h-[52px]"
               >
                 <Calendar className="w-5 h-5 mr-2 flex-shrink-0" />

@@ -195,7 +195,7 @@ export default function CaseStudiesSection() {
               </p>
             </div>
             <a
-              href="mailto:contact@cshift.io"
+              href="/contact"
               className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3.5 bg-[#ec5f2b] text-white rounded-xl text-sm font-semibold hover:bg-[#d94f1f] transition-all shadow-lg shadow-[#ec5f2b]/20 hover:shadow-xl hover:shadow-[#ec5f2b]/30"
             >
               Tell us about yours
@@ -242,7 +242,7 @@ export default function CaseStudiesSection() {
                 We've never met an operation we couldn't agent-ify.
               </p>
               <a
-                href="mailto:contact@cshift.io"
+                href="/contact"
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#ec5f2b] text-white rounded-lg text-sm font-semibold"
               >
                 Tell us about yours
