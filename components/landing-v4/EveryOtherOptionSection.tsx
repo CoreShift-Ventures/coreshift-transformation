@@ -10,14 +10,14 @@ const gapCards = [
     number: '01',
     icon: Brain,
     title: 'Process Knowledge',
-    body: 'ChatGPT has no idea that Vendor 47 uses a non-standard date format, or that your 15th-of-month run is 3x larger than usual. We build agents after a 2-week Discovery Sprint that encodes exactly how your operation runs.',
-    callout: 'ChatGPT knows GRN reconciliation in theory. Our agent knows yours.'
+    body: 'AI models have no idea that Vendor 47 uses a non-standard date format, or that your 15th-of-month run is 3x larger than usual. We build agents after a 2-week Discovery Sprint that encodes exactly how your operation runs.',
+    callout: 'AI knows GRN reconciliation in theory. Our agent knows yours.'
   },
   {
     number: '02',
     icon: Plug,
     title: 'System Integration',
-    body: 'ChatGPT lives in a chat window. Your agent needs to connect to SAP via VPN, handle API rate limits, authenticate with 6 portals, and recover gracefully when NetSuite times out. We build and maintain all of that.',
+    body: 'Off-the-shelf AI lives in a chat window. Your agent needs to connect to SAP via VPN, handle API rate limits, authenticate with 6 portals, and recover gracefully when NetSuite times out. We build and maintain all of that.',
     callout: 'AI can describe the bridge. We build it and we maintain it.'
   },
   {
@@ -104,7 +104,7 @@ export default function EveryOtherOptionSection() {
             transition={{ delay: 0.1 }}
             className={`text-sm md:text-base max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}
           >
-            ChatGPT knows everything about your process in theory. Our agents know how yours actually works.
+            AI models know everything in theory. Our agents know how your process actually works.
           </motion.p>
         </div>
 
