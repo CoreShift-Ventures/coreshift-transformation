@@ -9,9 +9,9 @@ import Link from 'next/link'
 const services = [
   {
     icon: Search,
-    phase: 'Step 01 — Discover',
+    phase: 'Step 01 · Discover',
     title: 'Discovery Sprint',
-    priceTag: '₹50K – 75K · One-time · 2 weeks',
+    priceTag: '$750 – $1,500 · One-time · 2 weeks',
     description: 'We spend 2 weeks inside your operation. Mapping the exact process, documenting edge cases, identifying system touchpoints, defining exception logic. The output is a signed-off Agent Design Document.',
     features: [
       'Process walkthroughs with your team',
@@ -27,9 +27,9 @@ const services = [
   },
   {
     icon: Wrench,
-    phase: 'Step 02 — Deploy',
+    phase: 'Step 02 · Deploy',
     title: 'Build & Deploy',
-    priceTag: '₹1L – 3L · One-time · 4-6 weeks',
+    priceTag: '$2,500 – $10,000 · One-time · 4-6 weeks',
     description: 'We build the agent, connect to your live systems, run validation sprints, and deploy on your infrastructure. Agent is registered in CoreShift Command Center from day one.',
     features: [
       'Agent built to the Design Document',
@@ -45,9 +45,9 @@ const services = [
   },
   {
     icon: RefreshCw,
-    phase: 'Step 03 — Operate',
+    phase: 'Step 03 · Operate',
     title: 'Monthly Subscription',
-    priceTag: '₹30K – 75K / month · Per agent',
+    priceTag: '$500 – $1,500 / month · Per agent',
     description: 'We own the agent permanently. Monitoring, maintenance, updates when systems change, new business rule additions — all included. You get a running agent, we stay accountable for keeping it running.',
     features: [
       '24/7 Command Center monitoring',

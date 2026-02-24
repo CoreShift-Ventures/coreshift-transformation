@@ -12,52 +12,32 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: "Who are you? Why should we trust you?",
-    answer: "CoreShift was founded by a transformation architect with 20+ years of enterprise experience at SAP, IBM, HCL, HP, and Talend. We've seen what breaks when companies scale and built a team to help others escape the chaos. We're not a faceless agency. We're operators who deliver, not just advise."
+    question: "Can't I just use ChatGPT or Copilot for this?",
+    answer: "ChatGPT and Copilot are reasoning engines. They're brilliant — and we use them inside our agents. But they don't connect to your SAP, they don't know your vendor quirks, they don't run on a schedule, and they don't send alerts when something breaks at 3am. CoreShift agents are built around those tools. We're the team that makes them work in your specific operation."
   },
   {
-    question: "How is the Blueprint different from a typical sales demo?",
-    answer: "A sales demo shows you their product. A Blueprint Sprint diagnoses your business. You walk away with a validated plan, not a pitch deck."
+    question: "Our data is sensitive. Where does it go?",
+    answer: "Your data stays on your infrastructure. Agents are deployed on your servers, your cloud account, or your SAP system. CoreShift's Command Center receives heartbeat signals and operational metadata only — not your financial records, customer data, or proprietary information. We can walk through the architecture in detail during Discovery."
   },
   {
-    question: "Who is this for?",
-    answer: "Scaling companies who've outgrown spreadsheets but aren't ready for (or don't fit into) off the shelf enterprise software. Team size doesn't matter, operational complexity does."
+    question: "What happens when the agent breaks?",
+    answer: "You get a Slack or email alert before it becomes a problem — that's what Command Center monitoring is for. If an agent run fails, we're notified automatically, we investigate, and we fix it. This is exactly why the subscription model exists: we have a direct financial incentive to keep every agent running. If it's broken, we're not getting paid."
+  },
+  {
+    question: "Can our IT team build this instead?",
+    answer: "Probably, yes. Any competent developer can build an agent. The question is: who maintains it when your SAP upgrades, a vendor portal changes its UI, or a new business rule is added? Internal IT teams build things and move on. CoreShift's subscription model means we own maintenance permanently — because that's how we get paid."
   },
   {
     question: "How long does it take to go live?",
-    answer: "Blueprint: 2 weeks. Systems build: 4 to 8 weeks to MVP."
+    answer: "Discovery Sprint is 2 weeks. Build and Deploy is typically 4–6 weeks after a signed Design Document. First agent live within 8–10 weeks of kickoff. We've delivered faster for simpler operations and scoped longer for complex ones like SAP + 19 vendor portals."
   },
   {
-    question: "Can we start with just one workflow?",
-    answer: "Absolutely. Start with your highest friction workflow, prove the value, then expand."
+    question: "Do you work with companies outside India?",
+    answer: "Yes. One of our live agents is for a UK-headquartered global company — processing GBP invoices, BACS/SWIFT bank feeds, and posting to NetSuite. We integrate with SAP, NetSuite, Salesforce, and most enterprise systems regardless of geography. Billing is available in INR or USD."
   },
   {
-    question: "Do I need a technical team to work with you?",
-    answer: "Not necessarily. We handle the build end-to-end. For integrations with your existing systems, we'll collaborate with your IT team as needed, but you don't need dedicated developers on your side."
-  },
-  {
-    question: "What makes your AI different from tools that just added ChatGPT?",
-    answer: "We architect AI into your workflows from the ground up, purpose built for your processes."
-  },
-  {
-    question: "What if my processes are unique to my business?",
-    answer: "That's exactly why we exist. Unique isn't a problem; it's our specialty."
-  },
-  {
-    question: "Can you integrate with our existing tools?",
-    answer: "Yes. CRMs, ERPs, payment gateways, communication tools, and custom APIs."
-  },
-  {
-    question: "What does Fractional COO mean?",
-    answer: "C level operational leadership without the full time salary. 10 hours/month of strategic guidance with hands on execution."
-  },
-  {
-    question: "What ongoing support do you provide after launch?",
-    answer: "Hosting, AI usage, and support are available separately based on your needs. Your data, your decisions. No lock-in."
-  },
-  {
-    question: "What's your guarantee?",
-    answer: "We de-risk with the Blueprint Sprint. You see exactly what you're paying for before any major investment."
+    question: "What operations are you best suited for?",
+    answer: "Operations that are rule-based (there's a defined process), high-volume (manual work is significant), connected to enterprise systems (SAP, ERP, CRM, portals), and consequential enough that errors matter. Finance operations, supply chain reconciliation, compliance tracking, and customer success reporting are our strongest areas — but we've never encountered a well-defined operation that couldn't be agent-ified."
   }
 ]
 
@@ -87,12 +67,22 @@ export default function FAQSectionV4() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-block mb-4"
+          >
+            <span className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide ${
+              isDark ? 'bg-gray-900 text-gray-400 border border-gray-800' : 'bg-white text-gray-600 border border-gray-200 shadow-sm'
+            }`}>
+              FAQ
+            </span>
+          </motion.div>
           <h2 className={`text-2xl md:text-3xl font-bold mb-4 ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-            Frequently Asked Questions
+            Questions we hear from every prospect.
           </h2>
-          <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            Everything you need to know about transforming your operations
-          </p>
         </motion.div>
 
         {/* FAQ Items */}
