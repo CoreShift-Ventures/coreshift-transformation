@@ -3,59 +3,62 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import { Lightbulb, Zap, Rocket, Check, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Search, Wrench, RefreshCw, Check, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
 const services = [
   {
-    icon: Lightbulb,
-    phase: '1. Diagnose',
-    title: 'Blueprint Sprint™',
-    description: 'A focused 2 week engagement that uncovers bottlenecks, aligns your team, and gives you clarity before you build anything.',
+    icon: Search,
+    phase: 'Step 01 — Discover',
+    title: 'Discovery Sprint',
+    priceTag: '₹50K – 75K · One-time · 2 weeks',
+    description: 'We spend 2 weeks inside your operation. Mapping the exact process, documenting edge cases, identifying system touchpoints, defining exception logic. The output is a signed-off Agent Design Document.',
     features: [
-      'Process maturity assessment',
-      'Business workflow mapping',
-      'AI opportunity identification',
-      'Clickable prototype / working POC',
-      'Clear implementation roadmap'
+      'Process walkthroughs with your team',
+      'System access and integration mapping',
+      'Edge case and exception documentation',
+      'Agent Design Document delivered',
+      'Signed-off ROI model with confirmed numbers'
     ],
-    outcome: 'A validated, executive ready transformation blueprint that de-risks implementation.',
-    cta: 'Start with Strategy',
-    ctaLink: '/contact?intent=blueprint',
+    outcome: 'Complete process understanding before a single line of code is written.',
+    cta: 'Start Discovery',
+    ctaLink: 'mailto:contact@cshift.io',
     featured: false
   },
   {
-    icon: Zap,
-    phase: '2. Build',
-    title: 'Systems & Automation',
-    description: 'Modern, AI powered web applications that eliminate operational friction and automate critical workflows across your business.',
+    icon: Wrench,
+    phase: 'Step 02 — Deploy',
+    title: 'Build & Deploy',
+    priceTag: '₹1L – 3L · One-time · 4-6 weeks',
+    description: 'We build the agent, connect to your live systems, run validation sprints, and deploy on your infrastructure. Agent is registered in CoreShift Command Center from day one.',
     features: [
-      'Customer operations',
-      'Revenue operations',
-      'Finance & billing operations',
-      'Your unique process automation',
-      'AI framework integration'
+      'Agent built to the Design Document',
+      'Staging environment validation',
+      'Live system integration testing',
+      'Command Center monitoring setup',
+      'Handover, documentation, team training'
     ],
-    outcome: 'Enterprise grade operational infrastructure, live in weeks, not months.',
-    cta: 'Build Your System',
-    ctaLink: '/contact?intent=build',
+    outcome: 'Your agent live in production, monitored 24/7, on your infrastructure.',
+    cta: 'Get a Quote',
+    ctaLink: 'mailto:contact@cshift.io',
     featured: true
   },
   {
-    icon: Rocket,
-    phase: '3. Scale',
-    title: 'Fractional COO & Growth',
-    description: 'Strategic leadership to scale your business without the full time cost. Hands on execution with guidance.',
+    icon: RefreshCw,
+    phase: 'Step 03 — Operate',
+    title: 'Monthly Subscription',
+    priceTag: '₹30K – 75K / month · Per agent',
+    description: 'We own the agent permanently. Monitoring, maintenance, updates when systems change, new business rule additions — all included. You get a running agent, we stay accountable for keeping it running.',
     features: [
-      'Operational optimization',
-      'Team enablement & coaching',
-      'Quarterly planning & OKRs',
-      'Metrics & accountability',
-      'Scale and growth support'
+      '24/7 Command Center monitoring',
+      'Slack/email alerts on anomalies',
+      'Updates when upstream systems change',
+      'Monthly performance report',
+      'New business logic additions included'
     ],
-    outcome: 'Strategic C level partnership that drives sustainable growth without the full time cost.',
-    cta: 'Scale with Us',
-    ctaLink: '/contact?intent=advisory',
+    outcome: 'Permanent accountability. Your agent keeps working because our revenue depends on it.',
+    cta: 'Talk to Us',
+    ctaLink: 'mailto:contact@cshift.io',
     featured: false
   }
 ]
@@ -90,7 +93,7 @@ export default function WhatWeDoSection() {
   }
 
   return (
-    <section id="how-we-work" className={`relative py-16 md:py-20 overflow-hidden ${isDark ? 'bg-gradient-to-b from-black via-gray-950 to-black' : 'bg-gradient-to-b from-[#faf8f5] via-[#fff9f5] to-[#faf8f5]'}`}>
+    <section id="process" className={`relative py-16 md:py-20 overflow-hidden ${isDark ? 'bg-gradient-to-b from-black via-gray-950 to-black' : 'bg-gradient-to-b from-[#faf8f5] via-[#fff9f5] to-[#faf8f5]'}`}>
       {/* Premium background elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className={`absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl ${isDark ? 'bg-[#ec5f2b]/8' : 'bg-[#ec5f2b]/5'}`} />
@@ -116,14 +119,14 @@ export default function WhatWeDoSection() {
             <span className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide ${
               isDark ? 'bg-gray-900 text-gray-400 border border-gray-800' : 'bg-white text-gray-600 border border-gray-200 shadow-sm'
             }`}>
-              HOW WE WORK
+              HOW IT WORKS
             </span>
           </motion.div>
           <h2 className={`text-2xl md:text-3xl font-bold mb-4 tracking-tight ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
-            From chaos to clarity in three phases
+            From spreadsheet chaos to running agent in 6 weeks.
           </h2>
           <p className={`text-sm md:text-base max-w-2xl mx-auto leading-relaxed ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            We do not just build apps. We architect operational transformation with a clear process that de-risks every step.
+            Every engagement follows the same three-phase structure. Discovery de-risks the build. Subscription keeps the agent running.
           </p>
         </motion.div>
 
@@ -187,9 +190,14 @@ export default function WhatWeDoSection() {
                     </motion.div>
 
                     {/* Title */}
-                    <h3 className={`text-xl font-bold mb-3 tracking-tight ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
+                    <h3 className={`text-xl font-bold mb-2 tracking-tight ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
                       {service.title}
                     </h3>
+
+                    {/* Price Tag */}
+                    <p className={`text-xs font-medium mb-4 ${isDark ? 'text-[#ec5f2b]/80' : 'text-[#ec5f2b]'}`}>
+                      {service.priceTag}
+                    </p>
 
                     {/* Description */}
                     <p className={`text-sm mb-6 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -298,9 +306,14 @@ export default function WhatWeDoSection() {
                       </div>
 
                       {/* Title */}
-                      <h3 className={`text-lg font-bold mb-2 tracking-tight ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
+                      <h3 className={`text-lg font-bold mb-1 tracking-tight ${isDark ? 'text-gray-100' : 'text-brand-charcoal'}`}>
                         {service.title}
                       </h3>
+
+                      {/* Price Tag */}
+                      <p className={`text-xs font-medium mb-3 ${isDark ? 'text-[#ec5f2b]/80' : 'text-[#ec5f2b]'}`}>
+                        {service.priceTag}
+                      </p>
 
                       {/* Description */}
                       <p className={`text-sm mb-4 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
