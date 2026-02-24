@@ -3,6 +3,7 @@
 import { NavigationV4 } from '@/components/landing-v4/NavigationV4'
 import HeroV4 from '@/components/landing-v4/HeroV4'
 import { TrustTicker } from '@/components/landing-v3/TrustTicker'
+import { CommandCenterTicker } from '@/components/landing-v4/CommandCenterTicker'
 import WhoThisIsForSection from '@/components/landing-v4/WhoThisIsForSection'
 import EveryOtherOptionSection from '@/components/landing-v4/EveryOtherOptionSection'
 import WhatWeDoSection from '@/components/landing-v4/WhatWeDoSection'
@@ -22,8 +23,11 @@ export default function Home() {
         {/* Hero Section */}
         <HeroV4 />
 
-        {/* Trust Ticker - Founder Credibility */}
+        {/* Trust Ticker - Stats + Founder Credibility */}
         <TrustTicker />
+
+        {/* Command Center Live Ticker */}
+        <CommandCenterTicker />
 
         {/* Who This Is For - Target Audience */}
         <WhoThisIsForSection />
