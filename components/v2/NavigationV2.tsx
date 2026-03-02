@@ -60,7 +60,7 @@ export function NavigationV2() {
         }`}
       >
         {/* Logo */}
-        <Link href="/v2" className="font-space text-xl tracking-[-0.03em] no-underline">
+        <Link href="/" className="font-space text-xl tracking-[-0.03em] no-underline">
           <span className="text-[#1a1a1a] font-normal">Core</span>
           <span className="text-[#4d65ff]">·</span>
           <span className="text-[#1a1a1a] font-semibold">shift</span>
@@ -132,14 +132,22 @@ export function NavigationV2() {
           <div className="absolute top-[65px] left-0 right-0 bg-white border-b border-[#eee] shadow-lg animate-slideDown">
             <div className="flex flex-col py-4">
               {navLinks.map((link) => (
-                <Link
+                <button
                   key={link.href}
-                  href={link.href}
-                  onClick={handleNavClick}
-                  className="px-6 py-3 text-[14px] font-medium text-[#555] hover:text-[#1a1a1a] hover:bg-[#f8f9fa] transition-colors no-underline"
+                  onClick={() => {
+                    handleNavClick()
+                    const targetId = link.href.replace('#', '')
+                    const element = document.getElementById(targetId)
+                    if (element) {
+                      setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      }, 100)
+                    }
+                  }}
+                  className="px-6 py-3 text-[14px] font-medium text-[#555] hover:text-[#1a1a1a] hover:bg-[#f8f9fa] transition-colors text-left bg-transparent border-none cursor-pointer"
                 >
                   {link.label}
-                </Link>
+                </button>
               ))}
 
               {/* Divider */}
@@ -203,12 +211,21 @@ export function NavigationV2() {
 }
 
 function NavLink({ children, href = "#" }: { children: React.ReactNode; href?: string }) {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    const targetId = href.replace('#', '')
+    const element = document.getElementById(targetId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
-    <Link
-      href={href}
-      className="text-[13px] font-medium text-[#555] no-underline hover:text-[#1a1a1a] transition-colors"
+    <button
+      onClick={handleClick}
+      className="text-[13px] font-medium text-[#555] no-underline hover:text-[#1a1a1a] transition-colors cursor-pointer bg-transparent border-none"
     >
       {children}
-    </Link>
+    </button>
   )
 }
