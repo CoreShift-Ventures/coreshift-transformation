@@ -61,24 +61,31 @@ export async function sendQuickMessage(data: QuickMessageData) {
         replyTo: data.email,
         subject: `Quick Message from ${data.name}`,
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #ec5f2b;">New Quick Message</h2>
-
-            <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <p><strong>From:</strong> ${data.name}</p>
-              <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background: #f5f7fa; padding: 20px;">
+            <div style="background: #1a1a1a; padding: 24px; border-radius: 12px 12px 0 0; text-align: center;">
+              <h2 style="color: #4d65ff; margin: 0; font-size: 16px; font-weight: 600;">New Quick Message</h2>
+              <p style="color: rgba(255,255,255,0.6); margin: 8px 0 0; font-size: 13px;">Received just now</p>
             </div>
 
-            <div style="background: #fff; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
-              <h3 style="margin-top: 0;">Message:</h3>
-              <p style="white-space: pre-wrap;">${data.message}</p>
+            <div style="background: #ffffff; padding: 24px; border-radius: 0 0 12px 12px;">
+              <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 3px solid #4d65ff;">
+                <p style="margin: 0 0 8px; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px;">From</p>
+                <p style="margin: 0; font-weight: 600; color: #1a1a1a;">${data.name}</p>
+                <p style="margin: 4px 0 0;"><a href="mailto:${data.email}" style="color: #4d65ff; text-decoration: none;">${data.email}</a></p>
+              </div>
+
+              <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                <p style="margin: 0 0 12px; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px;">Message</p>
+                <p style="margin: 0; white-space: pre-wrap; color: #555; line-height: 1.6;">${data.message}</p>
+              </div>
+
+              <div style="margin-top: 24px; text-align: center;">
+                <a href="mailto:${data.email}?subject=Re: Your message to CoreShift" style="display: inline-block; padding: 12px 24px; background: #1a1a1a; color: white; text-decoration: none; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Reply to Message →</a>
+              </div>
             </div>
 
-            <hr style="margin: 30px 0; border: none; border-top: 1px solid #e0e0e0;">
-
-            <p style="font-size: 12px; color: #666;">
-              Sent via CoreShift Quick Message Form<br>
-              <a href="https://app.supabase.com">View in Supabase</a>
+            <p style="text-align: center; font-size: 11px; color: #888; margin-top: 16px;">
+              CoreShift Quick Message Notification
             </p>
           </div>
         `

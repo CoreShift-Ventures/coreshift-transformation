@@ -6,26 +6,13 @@ import { Twitter, Linkedin, Github, Mail } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { QuickEmailModal } from '@/components/QuickEmailModal';
 
-const navigation = {
-  services: [
-    { name: 'Blueprint Sprint', href: '/#what-we-do' },
-    { name: 'Systems & Automation', href: '/showcase' },
-    { name: 'Fractional COO', href: '/#what-we-do' }
-  ],
-  company: [
-    { name: 'About', href: '/about' },
-    { name: 'Why CoreShift', href: '/#why-coreshift' },
-    { name: 'FAQ', href: '/#faq' }
-  ],
-  connect: [
-    { name: 'Book a Free Consult', href: '/contact' },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/srisridh/', target: '_blank' }
-  ],
-  legal: [
-    { name: 'Privacy', href: '/privacy' },
-    { name: 'Terms', href: '/terms' }
-  ]
-};
+const navigation = [
+  { name: 'Why CoreShift', href: '/#why' },
+  { name: 'Agents', href: '/#agents' },
+  { name: 'Process', href: '/#process' },
+  { name: 'Pricing', href: '/#pricing' },
+  { name: 'Contact', href: 'mailto:contact@cshift.io' }
+];
 
 const social = [
   {
@@ -53,11 +40,12 @@ export function Footer() {
 
   return (
     <footer className={`border-t ${isDark ? 'bg-black border-gray-800' : 'bg-white border-gray-200'}`}>
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
-        {/* Brand Column */}
-        <div className="mb-12">
-          <div className="mb-4">
-            <svg width="140" height="56" viewBox="0 0 200 80" className="h-14 w-auto">
+      <div className="max-w-7xl mx-auto px-6 py-10 md:py-12">
+        {/* Main Footer Content */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-8">
+          {/* Brand */}
+          <div className="flex items-center gap-3">
+            <svg width="120" height="40" viewBox="0 0 200 80" className="h-10 w-auto">
               <g transform="translate(6, 40)">
                 <g transform="translate(0, -4)">
                   <path
@@ -109,24 +97,39 @@ export function Footer() {
               </g>
             </svg>
           </div>
-          <p className={`text-sm mb-6 max-w-xs ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            Strategy first transformation studio. We design and build modern operational systems powered by AI. Blueprint Sprint in 2 weeks, deployed in 8 weeks.
-          </p>
+
+          {/* Navigation Links */}
+          <div className="flex flex-wrap items-center gap-6 md:gap-8">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className={`text-sm font-medium transition-colors ${
+                  isDark
+                    ? 'text-gray-400 hover:text-white'
+                    : 'text-gray-600 hover:text-brand-charcoal'
+                }`}
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+
           {/* Social Links */}
-          <div className="flex gap-4">
+          <div className="flex items-center gap-3">
             {social.map((item) => {
               if (item.name === 'Email') {
                 return (
                   <button
                     key={item.name}
                     onClick={() => setIsEmailModalOpen(true)}
-                    className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
+                    className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 ${
                       isDark
-                        ? 'bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-brand-orange'
-                        : 'bg-gray-100 hover:bg-gray-200 text-brand-gray hover:text-brand-orange'
+                        ? 'bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-brand-orange border border-gray-800'
+                        : 'bg-gray-50 hover:bg-gray-100 text-gray-500 hover:text-brand-orange border border-gray-200'
                     }`}
                   >
-                    <item.icon className="w-5 h-5" />
+                    <item.icon className="w-4 h-4" />
                     <span className="sr-only">{item.name}</span>
                   </button>
                 );
@@ -137,13 +140,13 @@ export function Footer() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
+                  className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 ${
                     isDark
-                      ? 'bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-brand-orange'
-                      : 'bg-gray-100 hover:bg-gray-200 text-brand-gray hover:text-brand-orange'
+                      ? 'bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-brand-orange border border-gray-800'
+                      : 'bg-gray-50 hover:bg-gray-100 text-gray-500 hover:text-brand-orange border border-gray-200'
                   }`}
                 >
-                  <item.icon className="w-5 h-5" />
+                  <item.icon className="w-4 h-4" />
                   <span className="sr-only">{item.name}</span>
                 </a>
               );
@@ -151,115 +154,13 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Navigation Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-
-          {/* Services */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-4 ${isDark ? 'text-white' : 'text-brand-charcoal'}`}>
-              Services
-            </h3>
-            <ul className="space-y-3">
-              {navigation.services.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    target={item.target}
-                    rel={item.target ? 'noopener noreferrer' : undefined}
-                    className={`text-sm transition-colors ${
-                      isDark
-                        ? 'text-gray-400 hover:text-brand-orange'
-                        : 'text-brand-gray hover:text-brand-orange'
-                    }`}
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-4 ${isDark ? 'text-white' : 'text-brand-charcoal'}`}>
-              Company
-            </h3>
-            <ul className="space-y-3">
-              {navigation.company.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    target={item.target}
-                    rel={item.target ? 'noopener noreferrer' : undefined}
-                    className={`text-sm transition-colors ${
-                      isDark
-                        ? 'text-gray-400 hover:text-brand-orange'
-                        : 'text-brand-gray hover:text-brand-orange'
-                    }`}
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Connect */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-4 ${isDark ? 'text-white' : 'text-brand-charcoal'}`}>
-              Connect
-            </h3>
-            <ul className="space-y-3">
-              {navigation.connect.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    target={item.target}
-                    rel={item.target ? 'noopener noreferrer' : undefined}
-                    className={`text-sm transition-colors ${
-                      isDark
-                        ? 'text-gray-400 hover:text-brand-orange'
-                        : 'text-brand-gray hover:text-brand-orange'
-                    }`}
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h3 className={`text-sm font-semibold mb-4 ${isDark ? 'text-white' : 'text-brand-charcoal'}`}>
-              Legal
-            </h3>
-            <ul className="space-y-3">
-              {navigation.legal.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    className={`text-sm transition-colors ${
-                      isDark
-                        ? 'text-gray-400 hover:text-brand-orange'
-                        : 'text-brand-gray hover:text-brand-orange'
-                    }`}
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Spacer before bottom bar */}
-        <div className="mb-0"></div>
-
         {/* Bottom Bar */}
-        <div className={`pt-8 border-t ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
-          <p className={`text-sm text-center ${isDark ? 'text-gray-400' : 'text-brand-gray'}`}>
-            © {new Date().getFullYear()} <span className={isDark ? 'text-white' : 'text-brand-charcoal'}>Core</span><span className="text-brand-orange">Shift</span> Ventures LLP. All rights reserved.
+        <div className={`pt-6 border-t flex flex-col md:flex-row items-center justify-between gap-4 ${isDark ? 'border-gray-800' : 'border-gray-200'}`}>
+          <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+            © {new Date().getFullYear()} CoreShift. All rights reserved.
+          </p>
+          <p className={`text-xs ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+            AI agents for enterprise operations
           </p>
         </div>
       </div>

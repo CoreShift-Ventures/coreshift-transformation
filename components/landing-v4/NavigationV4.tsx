@@ -39,10 +39,11 @@ export function NavigationV4() {
   };
 
   const menuItems = [
-    { label: 'The Process', id: 'how-we-work', isScroll: true },
-    { label: 'The Portfolio', id: 'case-studies', isScroll: true },
-    { label: 'The Difference', id: 'why-coreshift', isScroll: true },
-    { label: 'The Team', href: '/about', isScroll: false }
+    { label: 'Why CoreShift', id: 'why', isScroll: true },
+    { label: 'Agents Built', id: 'agents', isScroll: true },
+    { label: 'How It Works', id: 'process', isScroll: true },
+    { label: 'Pricing', id: 'pricing', isScroll: true },
+    { label: 'FAQ', id: 'faq', isScroll: true }
   ];
 
   return (
@@ -157,10 +158,10 @@ export function NavigationV4() {
           </button>
 
           <a
-            href="/contact?intent=blueprint"
+            href="/contact"
             className="px-5 py-2.5 bg-brand-orange text-white rounded-lg text-sm font-semibold hover:bg-brand-orange-dark transition-all shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-white whitespace-nowrap hover:scale-105 inline-block"
           >
-            Book a Free Consult
+            Talk to Us →
           </a>
         </div>
 
@@ -253,10 +254,10 @@ export function NavigationV4() {
               </button>
 
               <a
-                href="/contact?intent=blueprint"
+                href="/contact"
                 className="w-full px-6 py-4 bg-brand-orange text-white rounded-xl font-semibold text-base hover:bg-brand-orange-dark transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ec5f2b] focus-visible:ring-offset-2 focus-visible:ring-offset-black mt-4 inline-block text-center min-h-[52px]"
               >
-                Book a Free Consult
+                Talk to Us →
               </a>
             </div>
           </motion.div>
