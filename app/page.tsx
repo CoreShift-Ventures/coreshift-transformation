@@ -1,48 +1,50 @@
 'use client'
 
-import { NavigationV4 } from '@/components/landing-v4/NavigationV4'
-import HeroV4 from '@/components/landing-v4/HeroV4'
-import { TrustTicker } from '@/components/landing-v3/TrustTicker'
-import { CommandCenterTicker } from '@/components/landing-v4/CommandCenterTicker'
-import EveryOtherOptionSection from '@/components/landing-v4/EveryOtherOptionSection'
-import CaseStudiesSection from '@/components/landing-v4/CaseStudiesSection'
-import WhatWeDoSection from '@/components/landing-v4/WhatWeDoSection'
-import FAQSectionV4 from '@/components/landing-v4/FAQSectionV4'
-import FinalCTAV4 from '@/components/landing-v4/FinalCTAV4'
-import { Footer } from '@/components/landing/Footer'
+import {
+  NavigationV2,
+  HeroV2,
+  CapabilityCardsV2,
+  PlatformExplorerV2,
+  WhyAgentsV2,
+  IndustryVerticalsV2,
+  PricingV2,
+  FAQV2,
+  ExpertiseGroupV2,
+  FooterV2,
+} from '@/components/v2'
 
 export default function Home() {
   return (
-    <>
-      <NavigationV4 />
-      <main className="min-h-screen" style={{ hyphens: 'none', WebkitHyphens: 'none', msHyphens: 'none' }}>
+    <div className="v2-page">
+      <NavigationV2 />
+      <main className="min-h-screen" style={{ hyphens: 'none', WebkitHyphens: 'none' }}>
         {/* Hero Section */}
-        <HeroV4 />
+        <HeroV2 />
 
-        {/* Trust Ticker - Stats + Founder Credibility */}
-        <TrustTicker />
+        {/* Capability Cards */}
+        <CapabilityCardsV2 />
 
-        {/* Command Center Live Ticker */}
-        <CommandCenterTicker />
+        {/* Platform Explorer */}
+        <PlatformExplorerV2 />
 
-        {/* The Gap - Why AI Alone Isn't Enough */}
-        <EveryOtherOptionSection />
+        {/* Why Agents Section (includes Before/After + Agent Studio + Comparison) */}
+        <WhyAgentsV2 />
 
-        {/* Agents Portfolio */}
-        <CaseStudiesSection />
+        {/* Industry Verticals */}
+        <IndustryVerticalsV2 />
 
-        {/* How It Works - Process */}
-        <WhatWeDoSection />
+        {/* Pricing / Engagement Model */}
+        <PricingV2 />
 
-        {/* FAQ */}
-        <FAQSectionV4 />
+        {/* FAQ Section */}
+        <FAQV2 />
 
-        {/* Final CTA */}
-        <FinalCTAV4 />
+        {/* Expertise & Group */}
+        <ExpertiseGroupV2 />
 
         {/* Footer */}
-        <Footer />
+        <FooterV2 />
       </main>
-    </>
+    </div>
   )
 }
