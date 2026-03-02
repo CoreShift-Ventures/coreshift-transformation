@@ -27,33 +27,42 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "CoreShift | AI Agents for Operations",
+  title: "CoreShift | Agents as a Service",
   description: "CoreShift builds AI agents for any enterprise operation — deployed on your infrastructure, monitored 24/7, one monthly subscription. Live across manufacturing, finance, VC, SaaS, and automotive.",
-  keywords: ["AI agents", "operations automation", "enterprise AI", "process automation", "SAP automation", "business operations", "workflow automation"],
+  keywords: ["AI agents", "operations automation", "enterprise AI", "process automation", "SAP automation", "business operations", "workflow automation", "agents as a service"],
   authors: [{ name: "CoreShift" }],
   creator: "CoreShift",
   metadataBase: new URL("https://cshift.io"),
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-icon.svg", type: "image/svg+xml" },
+    ],
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://cshift.io",
     siteName: "CoreShift",
-    title: "Any operation your team does manually today, an agent can do better.",
-    description: "CoreShift builds, deploys, and maintains AI agents tailored to your exact business processes. Real data. Real systems. Real results.",
+    title: "Agents as a Service | AI agents for any enterprise operation",
+    description: "CoreShift builds, deploys, and maintains AI agents tailored to your exact business processes. Your infrastructure. 24/7 monitoring. One subscription.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "CoreShift - AI Agents for Operations",
+        alt: "CoreShift - Agents as a Service",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Any operation your team does manually today, an agent can do better.",
-    description: "CoreShift builds, deploys, and maintains AI agents tailored to your exact business processes. Real data. Real systems. Real results.",
-    images: ["/og-image.png"],
+    title: "Agents as a Service | AI agents for any enterprise operation",
+    description: "CoreShift builds, deploys, and maintains AI agents tailored to your exact business processes. Your infrastructure. 24/7 monitoring. One subscription.",
+    images: ["/twitter-image.png"],
+    creator: "@coreshift",
   },
   robots: {
     index: true,

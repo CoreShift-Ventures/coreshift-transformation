@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A"/>
+      <stop offset="50%" style="stop-color:#1e293b"/>
+      <stop offset="100%" style="stop-color:#0F172A"/>
+    </linearGradient>
+    <linearGradient id="accent-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4d65ff;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#4d65ff;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+
+  <!-- Accent glow circle -->
+  <circle cx="900" cy="200" r="300" fill="url(#accent-glow)"/>
+
+  <!-- Grid pattern overlay -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Logo -->
+  <text x="80" y="100" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="#ffffff">
+    <tspan font-weight="400">Core</tspan><tspan fill="#4d65ff" font-weight="600">·</tspan><tspan font-weight="600">shift</tspan>
+  </text>
+
+  <!-- Main headline -->
+  <text x="80" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="700" fill="#ffffff">
+    Agents as a Service
+  </text>
+
+  <!-- Subheadline -->
+  <text x="80" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="400" fill="#94a3b8">
+    AI agents for any enterprise operation
+  </text>
+
+  <!-- Features row -->
+  <text x="80" y="450" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#64748b">
+    <tspan fill="#4ade80">✓</tspan> Your Infrastructure
+    <tspan dx="40" fill="#4ade80">✓</tspan> 24/7 Monitoring
+    <tspan dx="40" fill="#4ade80">✓</tspan> One Subscription
+  </text>
+
+  <!-- Industries -->
+  <text x="80" y="520" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#475569">
+    Manufacturing · Finance · VC/PE · B2B SaaS · Automotive
+  </text>
+
+  <!-- URL -->
+  <text x="80" y="580" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="500" fill="#4d65ff">
+    cshift.io
+  </text>
+
+  <!-- Decorative elements -->
+  <rect x="1050" y="250" width="100" height="4" rx="2" fill="#4d65ff"/>
+  <rect x="1080" y="270" width="70" height="4" rx="2" fill="#4d65ff" opacity="0.5"/>
+  <rect x="1100" y="290" width="50" height="4" rx="2" fill="#4d65ff" opacity="0.3"/>
+</svg>
