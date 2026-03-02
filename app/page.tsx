@@ -1,60 +1,50 @@
 'use client'
 
-import { NavigationV4 } from '@/components/landing-v4/NavigationV4'
-import HeroV4 from '@/components/landing-v4/HeroV4'
-import { TrustTicker } from '@/components/landing-v3/TrustTicker'
-import WhoThisIsForSection from '@/components/landing-v4/WhoThisIsForSection'
-import EveryOtherOptionSection from '@/components/landing-v4/EveryOtherOptionSection'
-import WhatWeDoSection from '@/components/landing-v4/WhatWeDoSection'
-import CaseStudiesSection from '@/components/landing-v4/CaseStudiesSection'
-import WhyThisMattersSection from '@/components/landing-v4/WhyThisMattersSection'
-import WhyCoreShiftSection from '@/components/landing-v4/WhyCoreShiftSection'
-import CoreShiftDifferenceSection from '@/components/landing-v4/CoreShiftDifferenceSection'
-import FAQSectionV4 from '@/components/landing-v4/FAQSectionV4'
-import FinalCTAV4 from '@/components/landing-v4/FinalCTAV4'
-import { Footer } from '@/components/landing/Footer'
+import {
+  NavigationV2,
+  HeroV2,
+  CapabilityCardsV2,
+  PlatformExplorerV2,
+  WhyAgentsV2,
+  IndustryVerticalsV2,
+  PricingV2,
+  FAQV2,
+  ExpertiseGroupV2,
+  FooterV2,
+} from '@/components/v2'
 
 export default function Home() {
   return (
-    <>
-      <NavigationV4 />
-      <main className="min-h-screen" style={{ hyphens: 'none', WebkitHyphens: 'none', msHyphens: 'none' }}>
+    <div className="v2-page">
+      <NavigationV2 />
+      <main className="min-h-screen" style={{ hyphens: 'none', WebkitHyphens: 'none' }}>
         {/* Hero Section */}
-        <HeroV4 />
+        <HeroV2 />
 
-        {/* Trust Ticker - Founder Credibility */}
-        <TrustTicker />
+        {/* Capability Cards */}
+        <CapabilityCardsV2 />
 
-        {/* Who This Is For - Target Audience */}
-        <WhoThisIsForSection />
+        {/* Platform Explorer */}
+        <PlatformExplorerV2 />
 
-        {/* Every Other Option - Problem/Cost (moved up) */}
-        <EveryOtherOptionSection />
+        {/* Why Agents Section (includes Before/After + Agent Studio + Comparison) */}
+        <WhyAgentsV2 />
 
-        {/* Why CoreShift - Credibility (moved up for early trust) */}
-        <WhyCoreShiftSection />
+        {/* Industry Verticals */}
+        <IndustryVerticalsV2 />
 
-        {/* Case Studies Section */}
-        <CaseStudiesSection />
+        {/* Pricing / Engagement Model */}
+        <PricingV2 />
 
-        {/* What We Do - How We Work */}
-        <WhatWeDoSection />
+        {/* FAQ Section */}
+        <FAQV2 />
 
-        {/* Why This Matters - Problem/Impact */}
-        <WhyThisMattersSection />
-
-        {/* CoreShift Difference Panel */}
-        <CoreShiftDifferenceSection />
-
-        {/* FAQ */}
-        <FAQSectionV4 />
-
-        {/* Final CTA */}
-        <FinalCTAV4 />
+        {/* Expertise & Group */}
+        <ExpertiseGroupV2 />
 
         {/* Footer */}
-        <Footer />
+        <FooterV2 />
       </main>
-    </>
+    </div>
   )
 }
