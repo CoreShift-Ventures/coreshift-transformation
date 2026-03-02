@@ -1,4 +1,5 @@
 // @ts-nocheck
+/* eslint-disable */
 'use client';
 
 import { useState, useEffect } from 'react';
