@@ -24,6 +24,11 @@ const faqs = [
     answer: 'All credentials are stored in your secret management system (HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, etc.). Agents access credentials at runtime through secure references. Nothing is hardcoded or stored in our systems.',
   },
   {
+    category: 'security',
+    question: 'Do you conduct security audits?',
+    answer: 'Before any agent goes live, we conduct a security review with your team covering access controls, data handling, and integration points. Code reviews and vulnerability scanning are standard practice. Third-party penetration testing can be coordinated upon request.',
+  },
+  {
     category: 'process',
     question: 'How long does it take to get an agent live?',
     answer: 'Typically 6 to 10 weeks from kickoff to production. 2 weeks for Discovery Sprint to map the process and scope the agent. 4 to 8 weeks for build, integration, and testing. Timeline depends on complexity, number of system integrations, and your team\'s availability for UAT.',

@@ -1115,11 +1115,11 @@ const industryData: Record<string, {
     gradient: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
     useCases: [
       'Logs into 19+ OEM vendor portals daily, extracts GRN data automatically',
-      'Extracts GRN data, validates against 14 SAP business rules',
+      'Extracts GRN data, validates against 14 ERP business rules (SAP, Oracle, and more)',
       'Updates VBRK billing documents with zero human intervention',
     ],
     outcome: 'Revenue recognition delays eliminated. GRN updates complete before the finance team arrives each morning.',
-    context: 'Tier-1 auto-parts manufacturer · SAP ECC environment',
+    context: 'Tier-1 auto-parts manufacturer · Deep SAP expertise, any ERP',
     stats: [
       { value: '19+', label: 'Vendor portals' },
       { value: '154', label: 'Extraction runs' },
@@ -1225,7 +1225,7 @@ export function IndustryVerticalsV2() {
             Every agent is built for how your<br />industry actually operates.
           </h2>
           <p className="text-[15px] text-[#666] leading-[1.7] max-w-[560px] mx-auto">
-            We don't sell generic AI. We build agents that know your SAP transaction codes, your vendor portal quirks, and your compliance requirements.
+            We don't sell generic AI. We build agents that know your ERP transaction codes — SAP, Oracle, NetSuite — your vendor portal quirks, and your compliance requirements.
           </p>
         </div>
 

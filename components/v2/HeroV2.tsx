@@ -25,11 +25,11 @@ function TickerContent() {
     <div className="flex items-center py-2 px-2">
       {tickerEvents.map((item, i) => (
         <div key={i} className="flex items-center whitespace-nowrap">
-          <span className="w-1 h-1 rounded-full bg-[#22c55e] mr-2 flex-shrink-0" />
-          <span className="font-mono text-[11px] tracking-wide">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] mr-2 flex-shrink-0" />
+          <span className="font-mono text-[13px] tracking-wide">
             <span className="text-[#333] font-medium">{item.agent}</span>
-            <span className="text-[#888]"> — {item.event}</span>
-            <span className="text-[#aaa] ml-2 text-[10px]">{item.time}</span>
+            <span className="text-[#666]"> — {item.event}</span>
+            <span className="text-[#999] ml-2 text-[11px]">{item.time}</span>
           </span>
           <span className="mx-6 text-[#ddd]">·</span>
         </div>
@@ -136,7 +136,7 @@ export function HeroV2() {
         .ticker-track {
           display: flex;
           width: fit-content;
-          animation: scroll 18s linear infinite;
+          animation: scroll 35s linear infinite;
         }
         @keyframes scroll {
           0% {
