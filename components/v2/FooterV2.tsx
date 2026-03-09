@@ -32,9 +32,19 @@ export function FooterV2() {
         <div className="grid grid-cols-2 md:grid-cols-[1.5fr_repeat(4,1fr)] gap-8 md:gap-10 mb-12">
           {/* Brand */}
           <div className="flex flex-col gap-3 col-span-2 md:col-span-1">
-            <span className="font-space text-xl tracking-[-0.03em]">
-              <span className="text-white font-normal">Core</span><span className="text-[#4d65ff]">·</span><span className="text-white font-semibold">shift</span>
-            </span>
+            <div className="flex items-center gap-2">
+              <img
+                src="/logos/New_Logo/coreshift-logo-assets/logo-mark-orange.svg"
+                alt="CoreShift"
+                width="36"
+                height="36"
+                className="flex-shrink-0"
+              />
+              <span className="font-space text-[22px] tracking-[-0.03em]">
+                <span className="font-normal text-white">Core</span>
+                <span className="font-bold text-white">shift</span>
+              </span>
+            </div>
             <p className="text-[13px] text-white/40 leading-relaxed max-w-[260px]">
               Agents as a Service · Built for enterprise operations · Deployed on your infrastructure
             </p>

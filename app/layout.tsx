@@ -35,10 +35,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://cshift.io"),
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/logos/New_Logo/favicon.svg", type: "image/svg+xml" },
     ],
     apple: [
-      { url: "/apple-icon.svg", type: "image/svg+xml" },
+      { url: "/logos/New_Logo/favicon.svg", type: "image/svg+xml" },
     ],
   },
   openGraph: {

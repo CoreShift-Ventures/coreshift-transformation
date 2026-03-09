@@ -60,10 +60,18 @@ export function NavigationV2() {
         }`}
       >
         {/* Logo */}
-        <Link href="/" className="font-space text-xl tracking-[-0.03em] no-underline">
-          <span className="text-[#1a1a1a] font-normal">Core</span>
-          <span className="text-[#4d65ff]">·</span>
-          <span className="text-[#1a1a1a] font-semibold">shift</span>
+        <Link href="/" className="flex items-center gap-2 no-underline">
+          <img
+            src="/logos/New_Logo/logo-mark-navy.svg"
+            alt="CoreShift"
+            width="32"
+            height="32"
+            className="flex-shrink-0"
+          />
+          <span className="font-space text-[22px] tracking-[-0.03em]">
+            <span className="font-normal text-[#0F172A]">Core</span>
+            <span className="font-bold text-[#0F172A]">shift</span>
+          </span>
         </Link>
 
         {/* Desktop Navigation */}

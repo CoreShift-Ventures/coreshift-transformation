@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" width="220" height="48">
+  <!-- CoreShift Wordmark — Light bg -->
+  <!-- Mark -->
+  <rect x="0" y="4" width="40" height="40" rx="8" fill="#0F172A"/>
+  <path d="M7 12 L18 24 L7 36 L11.5 36 L22.5 24 L11.5 12 Z" fill="#F97316"/>
+  <rect x="24" y="13" width="5" height="22" rx="1" fill="#FFFFFF"/>
+  <!-- Wordmark: Core (regular) + shift (bold) -->
+  <text x="50" y="33" font-family="'Space Grotesk', system-ui, sans-serif" 
+        font-size="24" letter-spacing="-0.03em" fill="#0F172A">
+    <tspan font-weight="400">Core</tspan><tspan font-weight="700">shift</tspan>
+  </text>
+</svg>
