@@ -1133,7 +1133,7 @@ const industryData: Record<string, {
     useCases: [
       'Reads vendor emails, extracts 12 fields from invoice PDFs',
       'Matches to POs and posts vendor bills to NetSuite automatically',
-      'Applies BACS/SWIFT bank payments to open invoices — 94% auto-match',
+      'Applies BACS/SWIFT bank payments to open invoices with 94% auto-match rate',
     ],
     outcome: 'Invoices arriving by email flow directly to NetSuite without manual intervention. 94% of payments auto-matched.',
     context: 'Target: Global B2B enterprises · NetSuite + bank integrations',
@@ -1225,7 +1225,7 @@ export function IndustryVerticalsV2() {
             Every agent is built for how your<br />industry actually operates.
           </h2>
           <p className="text-[15px] text-[#666] leading-[1.7] max-w-[560px] mx-auto">
-            We don't sell generic AI. We build agents that know your ERP transaction codes — SAP, Oracle, NetSuite — your vendor portal quirks, and your compliance requirements.
+            We don't sell generic AI. We build agents that know your ERP transaction codes (SAP, Oracle, NetSuite), your vendor portal quirks, and your compliance requirements.
           </p>
         </div>
 
@@ -1263,6 +1263,18 @@ export function IndustryVerticalsV2() {
 
               {/* Agent Name Overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/60 to-transparent">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[9px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-white/20 text-white/90">
+                    {industries.find(i => i.id === activeTab)?.label}
+                  </span>
+                  <span className={`text-[9px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded ${
+                    data.badge === 'live'
+                      ? 'bg-[#22c55e] text-white'
+                      : 'bg-[#f97316] text-white'
+                  }`}>
+                    {data.badge === 'live' ? 'LIVE' : 'POC'}
+                  </span>
+                </div>
                 <span className="font-space text-[18px] font-semibold text-white tracking-[-0.01em]">{data.agentName}</span>
               </div>
             </div>

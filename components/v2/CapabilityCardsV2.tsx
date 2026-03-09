@@ -279,7 +279,7 @@ function BlueprintMatcherAnimation() {
             <span className="text-[10px] font-semibold text-[#1a1a1a]">{confidenceBar}%</span>
           </div>
 
-          <p className="text-[10px] text-[#666] mb-3">4 to 6 weeks · NetSuite + Vision API</p>
+          <p className="text-[10px] text-[#666] mb-3">4 to 6 weeks · NetSuite integration</p>
 
           <button className="mt-auto w-full py-2 px-3 border border-[#1a1a1a] rounded-lg text-[9px] font-semibold text-[#1a1a1a] uppercase tracking-[1px] hover:bg-[#1a1a1a] hover:text-white transition-all">
             Start Discovery Sprint →

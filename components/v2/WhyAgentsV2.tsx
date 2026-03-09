@@ -489,7 +489,7 @@ function AgentStudio() {
       </div>
 
       {/* Content */}
-      <div className="grid grid-cols-1 md:grid-cols-[180px_1fr_180px] min-h-[280px]">
+      <div className="grid grid-cols-1 md:grid-cols-[200px_1fr_200px] min-h-[360px]">
         {/* Sidebar */}
         <div className="hidden md:block bg-[#f8fafc] border-r border-[#e2e8f0] p-3">
           <div className="text-[9px] font-bold text-[#94a3b8] tracking-[1.5px] uppercase mb-2">Active Agents</div>
@@ -521,7 +521,7 @@ function AgentStudio() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2.5 h-[180px] overflow-y-auto">
+          <div className="flex flex-col gap-2.5 h-[260px] overflow-y-auto">
             {chatMessages.map((msg, i) => (
               <div
                 key={i}

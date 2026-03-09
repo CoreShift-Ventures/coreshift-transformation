@@ -8,8 +8,8 @@ const agents = [
       </svg>
     ),
     title: 'GRN Reconciliation Agent',
-    description: 'Logs into 19+ OEM portals daily, extracts GRN data, updates SAP VBRK billing documents — without anyone touching a keyboard.',
-    tags: ['SAP ECC/S4HANA', 'Playwright', 'PostgreSQL'],
+    description: 'Logs into 19+ OEM portals daily, extracts GRN data, updates SAP VBRK billing documents. Zero manual intervention.',
+    tags: ['SAP ECC/S4HANA', 'PostgreSQL'],
   },
   {
     icon: (
@@ -19,7 +19,7 @@ const agents = [
     ),
     title: 'AP/AR Automation Agent',
     description: 'Extracts 12 fields from invoice PDFs, matches POs, applies BACS/SWIFT bank payments to open invoices with 94% auto-match rate.',
-    tags: ['NetSuite', 'Claude Vision', 'BACS/SWIFT'],
+    tags: ['NetSuite', 'BACS/SWIFT'],
   },
   {
     icon: (
@@ -29,8 +29,8 @@ const agents = [
       </svg>
     ),
     title: 'SAP Query Agent',
-    description: 'Self-service access to 10,000+ SAP tables for finance dashboards — no IT tickets, no ABAP developer, real-time via OData.',
-    tags: ['SAP S4/HANA', 'OData 2.0', 'Power BI'],
+    description: 'Self-service access to 10,000+ SAP tables for finance dashboards. No IT tickets, no ABAP developer needed.',
+    tags: ['SAP S4/HANA', 'Power BI'],
   },
   {
     icon: (
@@ -39,8 +39,8 @@ const agents = [
       </svg>
     ),
     title: 'Fund Operations Agent',
-    description: 'End-to-end investor reporting for VC/PE — 6 compliance-ready reports, 117 investors, 97.3% accuracy vs legacy Power BI.',
-    tags: ['Tally Prime', 'PostgreSQL', 'FBIL API'],
+    description: 'End-to-end investor reporting for VC/PE. 6 compliance-ready reports, 117 investors, 97.3% accuracy vs legacy Power BI.',
+    tags: ['Tally Prime', 'PostgreSQL'],
   },
   {
     icon: (
@@ -50,7 +50,7 @@ const agents = [
       </svg>
     ),
     title: 'CS Intelligence Agent',
-    description: 'Monitors churn risk and NRR across 200+ enterprise accounts syncing from Salesforce — surfaces at-risk revenue before it\'s lost.',
+    description: 'Monitors churn risk and NRR across 200+ enterprise accounts syncing from Salesforce. Surfaces at-risk revenue before it\'s lost.',
     tags: ['Salesforce', 'SOQL', 'Google Apps Script'],
   },
   {
