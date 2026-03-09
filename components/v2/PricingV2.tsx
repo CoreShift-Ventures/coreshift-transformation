@@ -26,7 +26,7 @@ const engagementStages = [
     includes: [
       'Custom agent development',
       'System integrations (SAP, Salesforce, etc.)',
-      'Testing with production data',
+      'Testing in sandboxed environment',
       'UAT and sign-off',
     ],
     outcome: 'Production-ready agent on your infrastructure',

@@ -23,19 +23,19 @@ function LiveAgentsAnimation() {
     if (visibleRows < agents.length) {
       const timer = setTimeout(() => {
         setVisibleRows(prev => prev + 1)
-      }, 500)
+      }, 700)
       return () => clearTimeout(timer)
     }
 
-    // After all rows visible, wait 1.5s then show "Next scheduled run"
+    // After all rows visible, wait 2s then show "Next scheduled run"
     if (visibleRows === agents.length && !showNextRun) {
       const timer = setTimeout(() => {
         setShowNextRun(true)
-      }, 1500)
+      }, 2000)
       return () => clearTimeout(timer)
     }
 
-    // After showing next run, wait 3s then reset
+    // After showing next run, wait 4s then reset
     if (showNextRun) {
       const timer = setTimeout(() => {
         setIsResetting(true)
@@ -44,7 +44,7 @@ function LiveAgentsAnimation() {
           setShowNextRun(false)
           setIsResetting(false)
         }, 500)
-      }, 3000)
+      }, 4000)
       return () => clearTimeout(timer)
     }
   }, [visibleRows, showNextRun, isResetting])
@@ -134,7 +134,7 @@ function BlueprintMatcherAnimation() {
         const timer = setTimeout(() => {
           setTypedText(fullText.slice(0, typedText.length + 1))
           setProgress(((typedText.length + 1) / fullText.length) * 100)
-        }, 55)
+        }, 70)
         return () => clearTimeout(timer)
       }
       const timer = setTimeout(() => {
@@ -149,7 +149,7 @@ function BlueprintMatcherAnimation() {
         // Show next check row
         const showTimer = setTimeout(() => {
           setVisibleChecks(prev => prev + 1)
-        }, 300)
+        }, 450)
 
         // Animate progress bar for current check
         const progressTimer = setInterval(() => {
@@ -201,7 +201,7 @@ function BlueprintMatcherAnimation() {
           setConfidenceBar(0)
           setPhase('input')
         }, 500)
-      }, 3000)
+      }, 4000)
 
       return () => {
         clearTimeout(showTimer)
@@ -218,18 +218,18 @@ function BlueprintMatcherAnimation() {
     >
       {/* Phase 1: Input */}
       <div className={`absolute inset-3 transition-all duration-300 ${phase === 'input' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <span className="text-[9px] font-semibold text-[#4d65ff] uppercase tracking-[1.5px]">
+        <span className="text-[9px] font-semibold text-[#F97316] uppercase tracking-[1.5px]">
           Operation Detected
         </span>
         <div className="mt-2 p-2.5 bg-[#f8f9fa] rounded-lg border border-[#e5e5e5]">
           <div className="font-mono text-[11px] text-[#1a1a1a] min-h-[18px]">
             {typedText}
-            <span className="inline-block w-0.5 h-3.5 bg-[#4d65ff] ml-0.5 animate-blink align-middle" />
+            <span className="inline-block w-0.5 h-3.5 bg-[#F97316] ml-0.5 animate-blink align-middle" />
           </div>
         </div>
         <div className="mt-2.5 h-1 bg-[#eee] rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-[#4d65ff] to-[#7c8cff] transition-all duration-100 ease-out"
+            className="h-full bg-gradient-to-r from-[#F97316] to-[#FDBA74] transition-all duration-100 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -245,7 +245,7 @@ function BlueprintMatcherAnimation() {
                 <span className="text-[#666] flex-1">Checking: {check}...</span>
                 <div className="w-14 h-1.5 bg-[#e5e5e5] rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[#4d65ff] transition-all duration-150 ease-out"
+                    className="h-full bg-[#F97316] transition-all duration-150 ease-out"
                     style={{ width: `${checkProgress[i]}%` }}
                   />
                 </div>
@@ -330,7 +330,7 @@ function CustomAgentAnimation() {
       if (visibleLines < codeLines.length) {
         const timer = setTimeout(() => {
           setVisibleLines(prev => prev + 1)
-        }, 600)
+        }, 800)
         return () => clearTimeout(timer)
       }
       // All lines typed, move to running
@@ -353,7 +353,7 @@ function CustomAgentAnimation() {
       if (visibleOutput < outputLines.length) {
         const timer = setTimeout(() => {
           setVisibleOutput(prev => prev + 1)
-        }, 350)
+        }, 500)
         return () => clearTimeout(timer)
       }
       // All output shown, move to success
@@ -371,7 +371,7 @@ function CustomAgentAnimation() {
           setVisibleOutput(0)
           setPhase('typing')
         }, 500)
-      }, 1500)
+      }, 2500)
       return () => clearTimeout(timer)
     }
   }, [phase, visibleLines, visibleOutput])
@@ -412,7 +412,7 @@ function CustomAgentAnimation() {
       <div className="flex-1 p-2.5 font-mono text-[9px] leading-[1.8] bg-white overflow-hidden">
         {codeLines.slice(0, visibleLines).map((line, i) => (
           <div key={i} className="flex animate-slideIn" style={{ animationDelay: `${i * 0.05}s` }}>
-            <span className="text-[#ccc] select-none w-3 text-right mr-2">{i + 1}</span>
+            <span className="text-[#999] select-none w-4 text-right mr-2">{i + 1}</span>
             <span style={{ paddingLeft: `${line.indent * 12}px` }}>
               {renderCodeWord(line.content)}
             </span>
@@ -420,7 +420,7 @@ function CustomAgentAnimation() {
         ))}
         {phase === 'typing' && visibleLines < codeLines.length && (
           <div className="flex">
-            <span className="text-[#ccc] select-none w-3 text-right mr-2">{visibleLines + 1}</span>
+            <span className="text-[#999] select-none w-4 text-right mr-2">{visibleLines + 1}</span>
             <span className="inline-block w-1 h-3 bg-[#4d65ff] animate-blink" />
           </div>
         )}
@@ -510,29 +510,7 @@ export function CapabilityCardsV2() {
           </div>
         </div>
 
-        {/* Card 2: Agent Blueprints */}
-        <div className="bg-white/50 backdrop-blur-xl rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col border border-white/80 min-h-[420px]">
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="font-space text-[18px] font-medium text-[#1a1a1a] tracking-[-0.01em]">
-              Agent Blueprints
-            </h3>
-            <span className="flex items-center gap-1.5 px-2 py-1 bg-[#4d65ff]/10 rounded text-[9px] font-semibold text-[#4d65ff]">
-              <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="M21 21l-4.35-4.35"/>
-              </svg>
-              MATCHER
-            </span>
-          </div>
-          <p className="text-[13px] text-[#777] leading-relaxed mb-5">
-            We've solved this class of problem before. Faster build, lower risk, known patterns.
-          </p>
-          <div className="h-[240px] overflow-hidden">
-            <BlueprintMatcherAnimation />
-          </div>
-        </div>
-
-        {/* Card 3: Custom Agents */}
+        {/* Card 2: Custom Agents */}
         <div className="bg-white/50 backdrop-blur-xl rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col border border-white/80 min-h-[420px]">
           <div className="flex justify-between items-start mb-2">
             <h3 className="font-space text-[18px] font-medium text-[#1a1a1a] tracking-[-0.01em]">
@@ -551,6 +529,28 @@ export function CapabilityCardsV2() {
           </p>
           <div className="h-[240px] overflow-hidden">
             <CustomAgentAnimation />
+          </div>
+        </div>
+
+        {/* Card 3: Agent Blueprints */}
+        <div className="bg-white/50 backdrop-blur-xl rounded-2xl p-6 shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 flex flex-col border border-white/80 min-h-[420px]">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="font-space text-[18px] font-medium text-[#1a1a1a] tracking-[-0.01em]">
+              Agent Blueprints
+            </h3>
+            <span className="flex items-center gap-1.5 px-2 py-1 bg-[#4d65ff]/10 rounded text-[9px] font-semibold text-[#4d65ff]">
+              <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+              </svg>
+              MATCHER
+            </span>
+          </div>
+          <p className="text-[13px] text-[#777] leading-relaxed mb-5">
+            We've solved this class of problem before. Faster build, lower risk, known patterns.
+          </p>
+          <div className="h-[240px] overflow-hidden">
+            <BlueprintMatcherAnimation />
           </div>
         </div>
       </div>
