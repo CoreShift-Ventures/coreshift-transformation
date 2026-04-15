@@ -30,15 +30,17 @@ const baseStyles = `
   }
   .logo {
     font-size: 24px;
-    font-weight: 500;
-    color: #1a1a1a;
-    letter-spacing: -0.02em;
-  }
-  .logo-dot {
-    color: #4d65ff;
+    font-weight: 400;
+    color: #0F172A;
+    letter-spacing: -0.03em;
   }
   .logo-bold {
-    font-weight: 600;
+    font-weight: 700;
+  }
+  .logo-mark {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
   }
   .tagline {
     margin: 8px 0 0;
@@ -64,7 +66,7 @@ const baseStyles = `
     margin: 8px 4px;
   }
   .button:hover {
-    background: #4d65ff;
+    background: #F97316;
   }
   .button-secondary {
     background: #f5f5f5;
@@ -76,7 +78,7 @@ const baseStyles = `
     padding: 24px;
     border-radius: 12px;
     margin: 24px 0;
-    border-left: 3px solid #4d65ff;
+    border-left: 3px solid #F97316;
   }
   .success-box {
     background: #f0fdf4;
@@ -89,7 +91,7 @@ const baseStyles = `
     color: #ffffff;
   }
   .footer a {
-    color: #4d65ff;
+    color: #F97316;
   }
   .footer-note {
     margin-top: 16px;
@@ -115,7 +117,7 @@ const baseStyles = `
     letter-spacing: 1px;
   }
   .highlight {
-    background: #4d65ff;
+    background: #F97316;
     padding: 4px 10px;
     border-radius: 4px;
     font-weight: 600;
@@ -149,7 +151,7 @@ const baseStyles = `
     top: 12px;
     width: 16px;
     height: 16px;
-    background: #4d65ff;
+    background: #F97316;
     border-radius: 50%;
   }
 `
@@ -182,7 +184,7 @@ export function getLeadConfirmationEmail(
   <div class="email-container">
     <div class="header">
       <div class="logo">
-        Core<span class="logo-dot">·</span><span class="logo-bold">shift</span>
+        Core<span class="logo-bold">shift</span>
       </div>
       <p class="tagline">Agents as a Service</p>
     </div>
@@ -214,7 +216,7 @@ export function getLeadConfirmationEmail(
         <a href="mailto:contact@cshift.io">contact@cshift.io</a>
       </p>
       <p class="footer-note">
-        You're receiving this because you submitted an inquiry on coreshift.io
+        You're receiving this because you submitted an inquiry on cshift.io
       </p>
     </div>
   </div>
@@ -242,7 +244,7 @@ export function getAdminNotificationEmail(submission: ContactFormSubmission) {
 <body>
   <div class="email-container">
     <div class="header" style="background: #1a1a1a;">
-      <h1 style="margin: 0; color: #4d65ff; font-size: 18px; font-weight: 600;">
+      <h1 style="margin: 0; color: #F97316; font-size: 18px; font-weight: 600;">
         New ${intentLabel} Lead
       </h1>
       <p style="margin: 8px 0 0; color: rgba(255,255,255,0.6); font-size: 13px;">Submitted just now</p>
@@ -257,7 +259,7 @@ export function getAdminNotificationEmail(submission: ContactFormSubmission) {
           </tr>
           <tr>
             <td>Email</td>
-            <td><a href="mailto:${submission.email}" style="color: #4d65ff;">${submission.email}</a></td>
+            <td><a href="mailto:${submission.email}" style="color: #F97316;">${submission.email}</a></td>
           </tr>
           <tr>
             <td>Company</td>
@@ -328,7 +330,7 @@ export function getQuickMessageConfirmationEmail(name: string, email: string) {
   <div class="email-container">
     <div class="header">
       <div class="logo">
-        Core<span class="logo-dot">·</span><span class="logo-bold">shift</span>
+        Core<span class="logo-bold">shift</span>
       </div>
       <p class="tagline">Agents as a Service</p>
     </div>
@@ -360,7 +362,7 @@ export function getQuickMessageConfirmationEmail(name: string, email: string) {
         <a href="mailto:contact@cshift.io">contact@cshift.io</a>
       </p>
       <p class="footer-note">
-        You're receiving this because you sent us a message on coreshift.io
+        You're receiving this because you sent us a message on cshift.io
       </p>
     </div>
   </div>
