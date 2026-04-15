@@ -10,13 +10,6 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM_EMAIL = 'CoreShift <noreply@cshift.io>'
 const ADMIN_EMAIL = 'srinath@cshift.io' // Your notification email
 
-// Calendly links - mapped by intent
-const CALENDLY_LINKS: Record<string, string> = {
-  blueprint: 'https://calendly.com/srinath-cshift/business-transformation-readiness',
-  build: 'https://calendly.com/srinath-cshift/business-transformation-readiness',
-  advisory: 'https://calendly.com/srinath-cshift/fractional-coo-consultation'
-}
-
 // Intent display names for emails
 const INTENT_LABELS: Record<string, string> = {
   blueprint: 'Blueprint Sprint',
@@ -60,7 +53,6 @@ export async function submitContactForm(formData: Omit<ContactFormSubmission, 'i
 
     // Send emails (don't block on email failures)
     const intentLabel = INTENT_LABELS[savedSubmission.intent] || 'Blueprint Sprint'
-    const calendlyLink = CALENDLY_LINKS[savedSubmission.intent] || CALENDLY_LINKS.blueprint
 
     try {
       // 1. Send confirmation email to the lead (BCC admin to track)
@@ -70,7 +62,7 @@ export async function submitContactForm(formData: Omit<ContactFormSubmission, 'i
         bcc: ADMIN_EMAIL,
         replyTo: 'contact@cshift.io',
         subject: `We received your ${intentLabel} inquiry`,
-        html: getLeadConfirmationEmail(savedSubmission, calendlyLink)
+        html: getLeadConfirmationEmail(savedSubmission)
       })
 
       console.log('✅ Confirmation email sent to lead:', savedSubmission.email)
