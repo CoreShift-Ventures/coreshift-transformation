@@ -184,7 +184,12 @@ export function getLeadConfirmationEmail(
   <div class="email-container">
     <div class="header">
       <div class="logo">
-        Core<span class="logo-bold">shift</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="32" height="32" style="display:inline-block;vertical-align:middle;margin-right:8px;">
+          <rect width="120" height="120" rx="24" fill="#0F172A"/>
+          <path d="M22 32 L52 60 L22 88 L36 88 L66 60 L36 32 Z" fill="#F97316"/>
+          <rect x="72" y="36" width="14" height="48" rx="2" fill="#FFFFFF"/>
+        </svg>
+        <span style="vertical-align:middle;">Core<span class="logo-bold">shift</span></span>
       </div>
       <p class="tagline">Agents as a Service</p>
     </div>
@@ -330,7 +335,12 @@ export function getQuickMessageConfirmationEmail(name: string, email: string) {
   <div class="email-container">
     <div class="header">
       <div class="logo">
-        Core<span class="logo-bold">shift</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="32" height="32" style="display:inline-block;vertical-align:middle;margin-right:8px;">
+          <rect width="120" height="120" rx="24" fill="#0F172A"/>
+          <path d="M22 32 L52 60 L22 88 L36 88 L66 60 L36 32 Z" fill="#F97316"/>
+          <rect x="72" y="36" width="14" height="48" rx="2" fill="#FFFFFF"/>
+        </svg>
+        <span style="vertical-align:middle;">Core<span class="logo-bold">shift</span></span>
       </div>
       <p class="tagline">Agents as a Service</p>
     </div>
