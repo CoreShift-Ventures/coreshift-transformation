@@ -165,8 +165,7 @@ const INTENT_LABELS: Record<string, string> = {
  * Confirmation email sent TO the lead after form submission
  */
 export function getLeadConfirmationEmail(
-  submission: Partial<ContactFormSubmission>,
-  calendlyLink: string = 'https://calendly.com/srinath-cshift/strategy-session'
+  submission: Partial<ContactFormSubmission>
 ) {
   const intentLabel = INTENT_LABELS[submission.intent || 'blueprint'] || 'Agent Deployment'
 
@@ -198,20 +197,11 @@ export function getLeadConfirmationEmail(
       <div class="info-box">
         <p style="margin: 0 0 12px; font-weight: 600; color: #1a1a1a;">What happens next?</p>
         <ol class="steps-list">
-          <li>We'll review your submission within 24 hours</li>
+          <li>We'll review your submission and get back to you</li>
           <li>You'll hear from us at <strong>${submission.email}</strong></li>
           <li>We'll schedule a strategy call to discuss your needs</li>
         </ol>
       </div>
-
-      <p style="color: #555; font-size: 15px;"><strong>Want to schedule right away?</strong></p>
-      <p style="color: #666; font-size: 14px;">Skip the wait and book a time that works for you:</p>
-
-      <center style="margin: 24px 0;">
-        <a href="${calendlyLink}" class="button">
-          Book Your Strategy Call →
-        </a>
-      </center>
 
       <p style="margin-top: 32px; font-size: 13px; color: #888;">
         In the meantime, feel free to reply to this email with any questions.
@@ -347,14 +337,14 @@ export function getQuickMessageConfirmationEmail(name: string, email: string) {
       <h2>Thanks for reaching out, ${name}.</h2>
 
       <p style="color: #555; font-size: 15px;">
-        We've received your message and will respond within 24 hours at <strong>${email}</strong>.
+        We've received your message and will be in touch at <strong>${email}</strong>.
       </p>
 
       <div class="info-box success-box">
         <p style="margin: 0 0 12px; font-weight: 600; color: #166534;">What happens next?</p>
         <ol class="steps-list">
           <li style="color: #166534;">Our team will review your message</li>
-          <li style="color: #166534;">We'll respond within 24 hours (usually sooner)</li>
+          <li style="color: #166534;">We'll respond as soon as possible</li>
           <li style="color: #166534;">If needed, we'll schedule a call to discuss further</li>
         </ol>
       </div>

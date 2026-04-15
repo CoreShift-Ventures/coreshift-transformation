@@ -32,7 +32,7 @@ const intentToInterest: Record<string, string> = {
 
 function ContactForm() {
   const searchParams = useSearchParams();
-  const [showCalendly, setShowCalendly] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -58,15 +58,6 @@ function ContactForm() {
     }));
   }, [urlIntent]);
 
-  // Load Calendly widget script
-  useEffect(() => {
-    if (showCalendly && typeof window !== 'undefined') {
-      const script = document.createElement('script');
-      script.src = 'https://assets.calendly.com/assets/external/widget.js';
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, [showCalendly]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -102,8 +93,8 @@ function ContactForm() {
         return;
       }
 
-      // Show Calendly section on success
-      setShowCalendly(true);
+      // Show success message
+      setShowSuccess(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error('Submission error:', error);
@@ -132,7 +123,7 @@ function ContactForm() {
 
       <section className="relative z-10 pt-28 pb-16 px-6 md:px-10">
         <div className="max-w-lg mx-auto">
-          {!showCalendly ? (
+          {!showSuccess ? (
             <div className="animate-fadeIn">
               {/* Premium Form Card */}
               <div className="relative rounded-2xl overflow-hidden bg-white/80 backdrop-blur-xl border border-white/80 shadow-[0_8px_40px_rgba(0,0,0,0.08)]">
@@ -149,7 +140,7 @@ function ContactForm() {
                       Deploy Your First Agent
                     </h1>
                     <p className="text-[13px] text-[#666]">
-                      We'll respond within 24 hours
+                      We'll be in touch soon
                     </p>
                   </div>
 
@@ -284,7 +275,7 @@ function ContactForm() {
                         </>
                       ) : (
                         <>
-                          Book My Strategy Call
+                          Get in Touch
                           <span>→</span>
                         </>
                       )}
@@ -299,8 +290,8 @@ function ContactForm() {
               </p>
             </div>
           ) : (
-            /* Thank You + Calendly Section */
-            <div className="animate-fadeIn space-y-6">
+            /* Thank You Section */
+            <div className="animate-fadeIn">
               {/* Success Card */}
               <div className="relative rounded-2xl overflow-hidden bg-white/80 backdrop-blur-xl border border-white/80 shadow-[0_8px_40px_rgba(0,0,0,0.08)]">
                 {/* Top accent bar */}
@@ -314,38 +305,29 @@ function ContactForm() {
                     </svg>
                   </div>
                   <h1 className="font-space text-[22px] font-medium text-[#1a1a1a] tracking-[-0.02em] mb-2">
-                    Thanks! Pick a time that works.
+                    Thanks for reaching out!
                   </h1>
-                  <p className="text-[13px] text-[#666]">
-                    Schedule your free strategy call below.
+                  <p className="text-[13px] text-[#666] mb-6">
+                    We&apos;ll review your submission and be in touch soon.
                   </p>
+
+                  {/* Contact Option */}
+                  <div className="pt-4 border-t border-[#e5e5e5]">
+                    <p className="text-[11px] mb-2 text-[#888]">
+                      Need to reach us sooner?
+                    </p>
+                    <a
+                      href="mailto:contact@cshift.io"
+                      className="text-[13px] text-[#4d65ff] hover:text-[#1a1a1a] transition-colors inline-flex items-center gap-1.5 font-medium"
+                    >
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                      </svg>
+                      contact@cshift.io
+                    </a>
+                  </div>
                 </div>
-              </div>
-
-              {/* Calendly Embed */}
-              <div className="rounded-2xl overflow-hidden bg-white/80 backdrop-blur-xl border border-white/80 shadow-[0_8px_40px_rgba(0,0,0,0.08)]">
-                <div
-                  className="calendly-inline-widget"
-                  data-url="https://calendly.com/srinath-cshift/strategy-session"
-                  style={{ minWidth: '320px', height: '650px' }}
-                />
-              </div>
-
-              {/* Alternative Contact */}
-              <div className="text-center p-4 rounded-xl bg-white/50 border border-[#e5e5e5]">
-                <p className="text-[11px] mb-1 text-[#888]">
-                  Prefer email?
-                </p>
-                <a
-                  href="mailto:contact@cshift.io"
-                  className="text-[13px] text-[#4d65ff] hover:text-[#1a1a1a] transition-colors inline-flex items-center gap-1.5 font-medium"
-                >
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                  </svg>
-                  contact@cshift.io
-                </a>
               </div>
             </div>
           )}
