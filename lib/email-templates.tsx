@@ -55,7 +55,7 @@ const baseStyles = `
   .button {
     display: inline-block;
     padding: 14px 28px;
-    background: #1a1a1a;
+    background: #0F172A;
     color: white !important;
     text-decoration: none;
     border-radius: 8px;
@@ -70,7 +70,7 @@ const baseStyles = `
   }
   .button-secondary {
     background: #f5f5f5;
-    color: #1a1a1a !important;
+    color: #0F172A !important;
     border: 1px solid #e0e0e0;
   }
   .info-box {
@@ -82,12 +82,12 @@ const baseStyles = `
   }
   .success-box {
     background: #f0fdf4;
-    border-left-color: #22c55e;
+    border-left-color: #22C98A;
   }
   .footer {
     text-align: center;
     padding: 24px 32px;
-    background: #1a1a1a;
+    background: #0F172A;
     color: #ffffff;
   }
   .footer a {
@@ -127,7 +127,7 @@ const baseStyles = `
     letter-spacing: 0.5px;
   }
   h2 {
-    color: #1a1a1a;
+    color: #0F172A;
     font-size: 22px;
     font-weight: 500;
     margin: 0 0 16px;
@@ -202,7 +202,7 @@ export function getLeadConfirmationEmail(
       </p>
 
       <div class="info-box">
-        <p style="margin: 0 0 12px; font-weight: 600; color: #1a1a1a;">What happens next?</p>
+        <p style="margin: 0 0 12px; font-weight: 600; color: #0F172A;">What happens next?</p>
         <ol class="steps-list">
           <li>We'll review your submission and get back to you</li>
           <li>You'll hear from us at <strong>${submission.email}</strong></li>
@@ -248,7 +248,7 @@ export function getAdminNotificationEmail(submission: ContactFormSubmission) {
 </head>
 <body>
   <div class="email-container">
-    <div class="header" style="background: #1a1a1a;">
+    <div class="header" style="background: #0F172A;">
       <h1 style="margin: 0; color: #F97316; font-size: 18px; font-weight: 600;">
         New ${intentLabel} Lead
       </h1>
@@ -260,7 +260,7 @@ export function getAdminNotificationEmail(submission: ContactFormSubmission) {
         <table class="data-table">
           <tr>
             <td>Name</td>
-            <td><strong style="color: #1a1a1a;">${submission.name}</strong></td>
+            <td><strong style="color: #0F172A;">${submission.name}</strong></td>
           </tr>
           <tr>
             <td>Email</td>
@@ -268,7 +268,7 @@ export function getAdminNotificationEmail(submission: ContactFormSubmission) {
           </tr>
           <tr>
             <td>Company</td>
-            <td><strong style="color: #1a1a1a;">${submission.company}</strong></td>
+            <td><strong style="color: #0F172A;">${submission.company}</strong></td>
           </tr>
           <tr>
             <td>Role</td>
@@ -285,7 +285,7 @@ export function getAdminNotificationEmail(submission: ContactFormSubmission) {
 
       ${submission.challenge ? `
       <div class="info-box">
-        <p style="margin: 0 0 12px; font-weight: 600; color: #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Operational Challenge</p>
+        <p style="margin: 0 0 12px; font-weight: 600; color: #0F172A; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Operational Challenge</p>
         <p style="margin: 0; line-height: 1.7; color: #555; font-size: 14px;">${submission.challenge}</p>
       </div>
       ` : ''}
