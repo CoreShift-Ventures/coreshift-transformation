@@ -1,0 +1,79 @@
+/* V2 Kore-style Design System */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+.v2-page {
+  --charcoal-01: #181818;
+  --charcoal-02: #333333;
+  --charcoal-03: #666666;
+  --charcoal-04: #999999;
+  --white: #ffffff;
+  --blue: #4d65ff;
+  --blue-light: rgba(77, 101, 255, 0.06);
+  --orange: #f97316;  /* Used only for hero metrics */
+  --dark: #0F172A;
+  --border: #e8e8e8;
+  --bg-light: #f8f9fb;
+  --font-primary: 'Space Grotesk', -apple-system, sans-serif;
+  --font-secondary: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease-power3: cubic-bezier(0.22, 0.6, 0.36, 1);
+}
+
+.v2-page {
+  font-family: var(--font-secondary);
+  color: var(--charcoal-01);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* Animation keyframes */
+@keyframes v2-fadeInUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes v2-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes v2-scrollArrow {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(2px); }
+}
+
+@keyframes financeFlowDot {
+  0% { left: 0; }
+  100% { left: calc(100% - 8px); }
+}
+
+/* Utility classes */
+.v2-font-primary {
+  font-family: var(--font-primary);
+}
+
+.v2-font-secondary {
+  font-family: var(--font-secondary);
+}
+
+.v2-animate-fadeInUp {
+  opacity: 0;
+  animation: v2-fadeInUp 0.8s var(--ease-power3) forwards;
+}
+
+.v2-animate-fadeInUp-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.v2-animate-fadeInUp-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.v2-animate-fadeInUp-delay-3 {
+  animation-delay: 0.3s;
+}
+
+.v2-animate-fadeInUp-delay-4 {
+  animation-delay: 0.4s;
+}
