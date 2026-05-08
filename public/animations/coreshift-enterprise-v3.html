@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoreShift - AI Agents for Enterprise Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1a1a1a;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       ANNOUNCEMENT BAR (Orange accent here!)
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .announcement-bar {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+      padding: 14px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .announcement-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      letter-spacing: 0.5px;
+    }
+
+    .announcement-logo span {
+      color: #f97316;
+      font-style: italic;
+    }
+
+    .announcement-text {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .announcement-text strong {
+      color: #f97316;
+      font-weight: 600;
+    }
+
+    .announcement-date {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .announcement-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: white;
+      color: #1a1a1a;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-left: 16px;
+    }
+
+    .announcement-cta:hover {
+      background: #f97316;
+      color: white;
+    }
+
+    .announcement-cta-dot {
+      width: 6px;
+      height: 6px;
+      background: #f97316;
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       NAVIGATION
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: white;
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      font-weight: 400;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #374151;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: #0f172a;
+    }
+
+    .nav-link svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0.5;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-signin {
+      font-size: 15px;
+      font-weight: 500;
+      color: #374151;
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      padding: 12px 24px;
+      background: #0f172a;
+      color: white;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: #1e293b;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       HERO
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 48px 120px;
+      overflow: hidden;
+    }
+
+    /* Radial gradient background - Kore.ai style */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 120% 80% at 50% 60%, rgba(191, 219, 254, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse 100% 70% at 50% 60%, rgba(191, 219, 254, 0.3) 0%, transparent 45%),
+        radial-gradient(ellipse 80% 60% at 50% 60%, rgba(191, 219, 254, 0.25) 0%, transparent 40%),
+        radial-gradient(ellipse 60% 50% at 50% 60%, rgba(186, 230, 253, 0.2) 0%, transparent 35%),
+        radial-gradient(ellipse 40% 35% at 50% 60%, rgba(186, 230, 253, 0.15) 0%, transparent 30%),
+        #f8fafc;
+      z-index: 0;
+    }
+
+    /* Concentric circles overlay */
+    .hero-circles {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .hero-circles::before,
+    .hero-circles::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .hero-circles::before {
+      width: 800px;
+      height: 800px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+    }
+
+    .hero-circles::after {
+      width: 1200px;
+      height: 1200px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -30%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 900px;
+    }
+
+    .hero-title {
+      font-size: 64px;
+      font-weight: 400;
+      color: #0f172a;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: #64748b;
+      margin-bottom: 40px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .hero-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: #0f172a;
+      color: white;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .hero-btn-primary:hover {
+      background: #1e293b;
+    }
+
+    .hero-btn-primary svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .hero-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: transparent;
+      color: #0f172a;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .hero-btn-secondary:hover {
+      border-color: #9ca3af;
+      background: white;
+    }
+
+    .hero-btn-secondary svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CAPABILITY CARDS (Frosted Glass)
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .capability-section {
+      position: relative;
+      z-index: 10;
+      margin-top: -80px;
+      padding: 0 48px 120px;
+    }
+
+    .capability-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(148, 163, 184, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .cap-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      padding: 40px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .cap-card:hover {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .cap-card:first-child {
+      border-radius: 20px 0 0 20px;
+    }
+
+    .cap-card:last-child {
+      border-radius: 0 20px 20px 0;
+    }
+
+    .cap-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .cap-card-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    .cap-card-arrow {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      transition: all 0.2s;
+    }
+
+    .cap-card:hover .cap-card-arrow {
+      color: #0f172a;
+      transform: translate(2px, -2px);
+    }
+
+    .cap-card-arrow svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .cap-card-desc {
+      font-size: 15px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       LIVE AGENTS SECTION
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .agents-section {
+      padding: 100px 48px;
+      background: white;
+    }
+
+    .agents-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 42px;
+      font-weight: 400;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .agent-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .agent-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+      transform: translateY(-2px);
+    }
+
+    .agent-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .agent-card-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .agent-card-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: white;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .agent-card-badge {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #16a34a;
+      background: rgba(34, 197, 94, 0.1);
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    .agent-card-badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+
+    .agent-card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .agent-card-desc {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .agent-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .agent-card-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: #475569;
+      background: white;
+      border: 1px solid #e2e8f0;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       ORCHESTRATION SECTION
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .orch-section {
+      padding: 100px 48px;
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    }
+
+    .orch-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .orch-features {
+      position: sticky;
+      top: 100px;
+    }
+
+    .feature-item {
+      border-bottom: 1px solid #e2e8f0;
+      padding: 28px 0;
+    }
+
+    .feature-item:first-child {
+      padding-top: 0;
+    }
+
+    .feature-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      cursor: pointer;
+    }
+
+    .feature-title {
+      font-size: 18px;
+      font-weight: 500;
+      color: #0f172a;
+      line-height: 1.4;
+      padding-right: 20px;
+    }
+
+    .feature-arrow {
+      width: 20px;
+      height: 20px;
+      color: #9ca3af;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    .feature-item.active .feature-arrow {
+      transform: rotate(180deg);
+    }
+
+    .feature-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .feature-item.active .feature-content {
+      max-height: 150px;
+    }
+
+    .feature-text {
+      padding-top: 16px;
+      font-size: 15px;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    /* Architecture Diagram */
+    .arch-diagram {
+      width: 100%;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       FOOTER
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .footer {
+      padding: 48px;
+      text-align: center;
+      background: white;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .footer-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .footer-logo span {
+      font-weight: 400;
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    /* Side tab */
+    .side-tab {
+      position: fixed;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid #e2e8f0;
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      padding: 16px 12px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 12px;
+      font-weight: 500;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 100;
+    }
+
+    .side-tab:hover {
+      color: #0f172a;
+      background: white;
+    }
+
+    .side-tab svg {
+      width: 14px;
+      height: 14px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Announcement Bar (Orange accent here) -->
+  <div class="announcement-bar">
+    <div class="announcement-logo">
+      coreshift <span>discovery</span>
+    </div>
+    <span class="announcement-text">
+      The first AI event focused on delivering <strong>outcomes</strong>
+    </span>
+    <span class="announcement-date">Coming Q2 2026 | Virtual</span>
+    <a href="#" class="announcement-cta">
+      Register Now
+      <span class="announcement-cta-dot"></span>
+    </a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">coreshift<span>.ai</span></a>
+    <div class="nav-links">
+      <a href="#" class="nav-link">
+        Live Agents
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+      <a href="#" class="nav-link">
+        Agent Platform
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+      <a href="#" class="nav-link">Agent Marketplace</a>
+      <a href="#" class="nav-link">
+        More
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="nav-signin">Sign in</a>
+      <a href="#" class="nav-cta">Get in Touch</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-circles"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">AI agents built<br>for the enterprise</h1>
+      <p class="hero-subtitle">Built on the industry-leading, operations-first agent platform.</p>
+      <div class="hero-ctas">
+        <a href="#" class="hero-btn-primary">
+          Book Discovery
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </a>
+        <a href="#" class="hero-btn-secondary">
+          See Live Agents
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capability Cards -->
+  <section class="capability-section">
+    <div class="capability-cards">
+      <div class="cap-card">
+        <div class="cap-card-header">
+          <h3 class="cap-card-title">Live Agents</h3>
+          <span class="cap-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </div>
+        <p class="cap-card-desc">Use agents for Finance, Supply Chain, Compliance, and Customer Success today.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-card-header">
+          <h3 class="cap-card-title">Agent Blueprints</h3>
+          <span class="cap-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </div>
+        <p class="cap-card-desc">Leverage our library of pre-built agent patterns, templates, and integrations.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-card-header">
+          <h3 class="cap-card-title">Custom Agents</h3>
+          <span class="cap-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </div>
+        <p class="cap-card-desc">Design and build agents on our platform across all enterprise use cases.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Agents Section -->
+  <section class="agents-section">
+    <div class="agents-container">
+      <div class="section-header">
+        <p class="section-eyebrow">Live in Production</p>
+        <h2 class="section-title">Agents running today</h2>
+      </div>
+
+      <div class="agents-grid">
+        <div class="agent-card">
+          <div class="agent-card-header">
+            <div class="agent-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </div>
+            <span class="agent-card-badge">LIVE</span>
+          </div>
+          <h3 class="agent-card-title">GRN Reconciliation Agent</h3>
+          <p class="agent-card-desc">Automates goods receipt verification against purchase orders across 19+ vendor portals.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">SAP MIGO</span>
+            <span class="agent-card-tag">Vendor Portals</span>
+            <span class="agent-card-tag">VBRK/VBRP</span>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-header">
+            <div class="agent-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <span class="agent-card-badge">LIVE</span>
+          </div>
+          <h3 class="agent-card-title">AP/AR Automation Agent</h3>
+          <p class="agent-card-desc">End-to-end invoice processing, payment matching, and reconciliation workflows.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">Invoice API</span>
+            <span class="agent-card-tag">Bank API</span>
+            <span class="agent-card-tag">GL Sync</span>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-header">
+            <div class="agent-card-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <span class="agent-card-badge">LIVE</span>
+          </div>
+          <h3 class="agent-card-title">SAP Query Agent</h3>
+          <p class="agent-card-desc">Natural language interface to SAP data with complex join and aggregation support.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">RFC/BAPI</span>
+            <span class="agent-card-tag">CDS Views</span>
+            <span class="agent-card-tag">HANA</span>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-header">
+            <div class="agent-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            </div>
+            <span class="agent-card-badge">LIVE</span>
+          </div>
+          <h3 class="agent-card-title">Fund Operations Agent</h3>
+          <p class="agent-card-desc">NAV calculations, capital calls, and investor reporting automation for PE/VC firms.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">Fund Admin</span>
+            <span class="agent-card-tag">NetSuite</span>
+            <span class="agent-card-tag">CAS</span>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-header">
+            <div class="agent-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+            <span class="agent-card-badge">LIVE</span>
+          </div>
+          <h3 class="agent-card-title">CS Intelligence Agent</h3>
+          <p class="agent-card-desc">Churn prediction, health scoring, and renewal pipeline monitoring across accounts.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">Salesforce</span>
+            <span class="agent-card-tag">HubSpot</span>
+            <span class="agent-card-tag">Mixpanel</span>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-header">
+            <div class="agent-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="agent-card-badge">LIVE</span>
+          </div>
+          <h3 class="agent-card-title">Vehicle Compliance Agent</h3>
+          <p class="agent-card-desc">Automated fitness certificate, insurance, and permit compliance for fleet operations.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">Vahan API</span>
+            <span class="agent-card-tag">Insurance</span>
+            <span class="agent-card-tag">RTO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Orchestration Section -->
+  <section class="orch-section">
+    <div class="orch-container">
+      <div class="orch-features">
+        <div class="feature-item active">
+          <div class="feature-header">
+            <span class="feature-title">Contextual agent collaboration</span>
+            <svg class="feature-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </div>
+          <div class="feature-content">
+            <p class="feature-text">Coordinate tasks across specialized AI agents to enable rule-based workflows, adaptable decision-making, and autonomous reasoning.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-header">
+            <span class="feature-title">AI agent tools + memory</span>
+            <svg class="feature-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </div>
+          <div class="feature-content">
+            <p class="feature-text">Each agent maintains long-term memory and has access to specialized tools for API calls, data processing, and enterprise integrations.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-header">
+            <span class="feature-title">Orchestrated to full agentic autonomy</span>
+            <svg class="feature-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </div>
+          <div class="feature-content">
+            <p class="feature-text">Progress from supervised automation to fully autonomous agents handling complex multi-step workflows with human oversight.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture Diagram -->
+      <svg class="arch-diagram" viewBox="0 0 700 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.06"/>
+          </filter>
+        </defs>
+
+        <!-- Main Orchestration Box -->
+        <g filter="url(#shadow)">
+          <rect x="40" y="20" width="620" height="140" rx="12" fill="white" stroke="#e2e8f0"/>
+          <rect x="40" y="20" width="620" height="36" rx="12" fill="#f0f9ff"/>
+          <line x1="40" y1="56" x2="660" y2="56" stroke="#e2e8f0"/>
+          <text x="60" y="44" font-family="Inter" font-size="13" font-weight="600" fill="#0369a1">Agent Orchestration</text>
+          <text x="560" y="44" font-family="Inter" font-size="10" fill="#94a3b8" font-weight="500">Orchestration Layer</text>
+
+          <!-- Components -->
+          <g>
+            <rect x="56" y="72" width="100" height="70" rx="8" fill="white" stroke="#e2e8f0"/>
+            <circle cx="106" cy="96" r="14" fill="#f0f9ff" stroke="#bae6fd"/>
+            <text x="106" y="130" font-family="Inter" font-size="11" font-weight="500" fill="#334155" text-anchor="middle">Router</text>
+          </g>
+          <g>
+            <rect x="170" y="72" width="100" height="70" rx="8" fill="white" stroke="#e2e8f0"/>
+            <circle cx="220" cy="96" r="14" fill="#f0f9ff" stroke="#bae6fd"/>
+            <text x="220" y="130" font-family="Inter" font-size="11" font-weight="500" fill="#334155" text-anchor="middle">Dialog GPT</text>
+          </g>
+          <g>
+            <rect x="284" y="72" width="100" height="70" rx="8" fill="white" stroke="#e2e8f0"/>
+            <circle cx="334" cy="96" r="14" fill="#f0f9ff" stroke="#bae6fd"/>
+            <text x="334" y="130" font-family="Inter" font-size="11" font-weight="500" fill="#334155" text-anchor="middle">Memory</text>
+          </g>
+          <g>
+            <rect x="398" y="72" width="100" height="70" rx="8" fill="white" stroke="#e2e8f0"/>
+            <circle cx="448" cy="96" r="14" fill="#f0f9ff" stroke="#bae6fd"/>
+            <text x="448" y="130" font-family="Inter" font-size="11" font-weight="500" fill="#334155" text-anchor="middle">Autonomous</text>
+          </g>
+          <g>
+            <rect x="512" y="72" width="130" height="70" rx="8" fill="white" stroke="#e2e8f0"/>
+            <circle cx="577" cy="96" r="14" fill="#f0f9ff" stroke="#bae6fd"/>
+            <text x="577" y="130" font-family="Inter" font-size="11" font-weight="500" fill="#334155" text-anchor="middle">Enterprise Context</text>
+          </g>
+        </g>
+
+        <!-- Connectors -->
+        <g stroke="#cbd5e1" stroke-width="1">
+          <line x1="180" y1="160" x2="180" y2="200"/>
+          <line x1="350" y1="160" x2="350" y2="200"/>
+          <line x1="520" y1="160" x2="520" y2="200"/>
+          <line x1="180" y1="180" x2="520" y2="180"/>
+        </g>
+
+        <!-- Agent Boxes -->
+        <g filter="url(#shadow)">
+          <rect x="56" y="210" width="200" height="70" rx="10" fill="white" stroke="#e2e8f0"/>
+          <rect x="56" y="210" width="200" height="28" rx="10" fill="#f0fdf4"/>
+          <line x1="56" y1="238" x2="256" y2="238" stroke="#e2e8f0"/>
+          <circle cx="76" cy="224" r="8" fill="#dcfce7" stroke="#bbf7d0"/>
+          <path d="M73 224 L75 226 L79 222" stroke="#16a34a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="92" y="228" font-family="Inter" font-size="11" font-weight="600" fill="#166534">GRN Reconciliation Agent</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="270" y="210" width="200" height="70" rx="10" fill="white" stroke="#e2e8f0"/>
+          <rect x="270" y="210" width="200" height="28" rx="10" fill="#f0fdf4"/>
+          <line x1="270" y1="238" x2="470" y2="238" stroke="#e2e8f0"/>
+          <circle cx="290" cy="224" r="8" fill="#dcfce7" stroke="#bbf7d0"/>
+          <path d="M287 224 L289 226 L293 222" stroke="#16a34a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="306" y="228" font-family="Inter" font-size="11" font-weight="600" fill="#166534">AP/AR Automation Agent</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="484" y="210" width="170" height="70" rx="10" fill="white" stroke="#e2e8f0"/>
+          <rect x="484" y="210" width="170" height="28" rx="10" fill="#f0fdf4"/>
+          <line x1="484" y1="238" x2="654" y2="238" stroke="#e2e8f0"/>
+          <circle cx="504" cy="224" r="8" fill="#dcfce7" stroke="#bbf7d0"/>
+          <path d="M501 224 L503 226 L507 222" stroke="#16a34a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="520" y="228" font-family="Inter" font-size="11" font-weight="600" fill="#166534">SAP Query Agent</text>
+        </g>
+
+        <!-- API Connectors -->
+        <g stroke="#cbd5e1" stroke-width="1">
+          <line x1="156" y1="280" x2="156" y2="320"/>
+          <line x1="370" y1="280" x2="370" y2="320"/>
+          <line x1="569" y1="280" x2="569" y2="320"/>
+        </g>
+
+        <!-- API Boxes -->
+        <g>
+          <rect x="56" y="330" width="100" height="36" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+          <text x="106" y="353" font-family="Inter" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">Vendor Portal</text>
+        </g>
+        <g>
+          <rect x="170" y="330" width="80" height="36" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+          <text x="210" y="353" font-family="Inter" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">SAP MIGO</text>
+        </g>
+        <g>
+          <rect x="270" y="330" width="90" height="36" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+          <text x="315" y="353" font-family="Inter" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">Invoice API</text>
+        </g>
+        <g>
+          <rect x="374" y="330" width="80" height="36" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+          <text x="414" y="353" font-family="Inter" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">Bank API</text>
+        </g>
+        <g>
+          <rect x="474" y="330" width="80" height="36" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+          <text x="514" y="353" font-family="Inter" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">RFC/BAPI</text>
+        </g>
+        <g>
+          <rect x="568" y="330" width="70" height="36" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+          <text x="603" y="353" font-family="Inter" font-size="10" font-weight="500" fill="#64748b" text-anchor="middle">HANA</text>
+        </g>
+
+        <!-- Enterprise Systems -->
+        <g stroke="#cbd5e1" stroke-width="1">
+          <line x1="350" y1="366" x2="350" y2="400"/>
+          <line x1="156" y1="383" x2="544" y2="383"/>
+          <line x1="156" y1="366" x2="156" y2="383"/>
+          <line x1="544" y1="366" x2="544" y2="383"/>
+        </g>
+
+        <g filter="url(#shadow)">
+          <rect x="56" y="410" width="590" height="80" rx="12" fill="white" stroke="#e2e8f0"/>
+          <text x="350" y="435" font-family="Inter" font-size="10" font-weight="500" fill="#94a3b8" text-anchor="middle" letter-spacing="1.5">ENTERPRISE SYSTEMS</text>
+
+          <rect x="80" y="450" width="70" height="28" rx="4" fill="#0066b3"/>
+          <text x="115" y="468" font-family="Inter" font-size="11" font-weight="700" fill="white" text-anchor="middle">SAP</text>
+
+          <rect x="165" y="450" width="80" height="28" rx="4" fill="white" stroke="#e2e8f0"/>
+          <text x="205" y="468" font-family="Inter" font-size="10" font-weight="600" fill="#1e5c97" text-anchor="middle">NetSuite</text>
+
+          <rect x="260" y="450" width="85" height="28" rx="4" fill="#00a1e0"/>
+          <text x="302" y="468" font-family="Inter" font-size="9" font-weight="600" fill="white" text-anchor="middle">salesforce</text>
+
+          <rect x="360" y="450" width="55" height="28" rx="4" fill="white" stroke="#e2e8f0"/>
+          <text x="387" y="468" font-family="Inter" font-size="11" font-weight="700" fill="#d63a3a" text-anchor="middle">Tally</text>
+
+          <rect x="430" y="450" width="70" height="28" rx="4" fill="white" stroke="#e2e8f0"/>
+          <text x="465" y="468" font-family="Inter" font-size="10" font-weight="600" fill="#f2c811" text-anchor="middle">Power BI</text>
+
+          <rect x="515" y="450" width="70" height="28" rx="4" fill="white" stroke="#e2e8f0"/>
+          <text x="550" y="468" font-family="Inter" font-size="10" font-weight="600" fill="#3ecf8e" text-anchor="middle">Supabase</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-logo">coreshift<span>.ai</span></p>
+    <p class="footer-text">© 2024 CoreShift. AI Agents for Enterprise Operations.</p>
+  </footer>
+
+  <!-- Side Tab -->
+  <div class="side-tab">
+    Explore our technology
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+  </div>
+
+  <script>
+    // Accordion
+    document.querySelectorAll('.feature-header').forEach(h => {
+      h.addEventListener('click', () => {
+        const item = h.parentElement;
+        const wasActive = item.classList.contains('active');
+        document.querySelectorAll('.feature-item').forEach(i => i.classList.remove('active'));
+        if (!wasActive) item.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

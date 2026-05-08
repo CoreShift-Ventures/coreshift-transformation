@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoreShift - AI Agents for Enterprise Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       GLOBAL STYLES
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* CoreShift Brand */
+      --cs-orange: #F97316;
+      --cs-orange-light: rgba(249, 115, 22, 0.08);
+
+      /* Enterprise Colors (Kore.ai inspired) */
+      --primary-blue: #2D6FE8;
+      --primary-blue-light: rgba(45, 111, 232, 0.06);
+      --success-green: #22C98A;
+      --success-green-light: rgba(34, 201, 138, 0.1);
+      --amber: #F59E0B;
+      --amber-light: rgba(245, 158, 11, 0.1);
+
+      /* Neutrals */
+      --text-primary: #1A1A2E;
+      --text-secondary: #6B7280;
+      --text-muted: #9CA3AF;
+      --border: #E8E8EE;
+      --bg-white: #FFFFFF;
+      --bg-light: #F8F8FA;
+
+      /* Typography */
+      --font-display: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background: var(--bg-white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       NAVIGATION
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--cs-orange);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-link svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .nav-signin {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .nav-signin:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-cta {
+      padding: 10px 22px;
+      background: var(--text-primary);
+      color: white;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: #2d2d44;
+      transform: translateY(-1px);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       HERO SECTION
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .hero {
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(186, 210, 255, 0.35) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(200, 220, 255, 0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 60% 80%, rgba(180, 200, 255, 0.2) 0%, transparent 50%),
+        #ffffff;
+      padding: 80px 48px 100px;
+      text-align: center;
+    }
+
+    .hero-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 18px;
+      background: var(--cs-orange-light);
+      border: 1px solid var(--cs-orange);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cs-orange);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success-green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 72px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 28px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: var(--primary-blue);
+      color: white;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(45, 111, 232, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(45, 111, 232, 0.3);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--primary-blue);
+      color: var(--primary-blue);
+      background: var(--primary-blue-light);
+    }
+
+    /* Live Agent Pills */
+    .live-agents-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .live-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .live-pill:nth-child(1) { animation-delay: 0.1s; }
+    .live-pill:nth-child(2) { animation-delay: 0.2s; }
+    .live-pill:nth-child(3) { animation-delay: 0.3s; }
+    .live-pill:nth-child(4) { animation-delay: 0.4s; }
+    .live-pill:nth-child(5) { animation-delay: 0.5s; }
+    .live-pill:nth-child(6) { animation-delay: 0.6s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .live-pill-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--success-green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       TRUST BAR
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .trust-bar {
+      padding: 48px;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-label {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .trust-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .trust-logo {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      opacity: 0.4;
+      filter: grayscale(100%);
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .trust-logo:hover {
+      opacity: 1;
+      filter: grayscale(0%);
+    }
+
+    .trust-logo.sap { color: #0066b3; }
+    .trust-logo.netsuite { color: #1e5c97; }
+    .trust-logo.salesforce { color: #00a1e0; }
+    .trust-logo.tally { color: #d63a3a; }
+    .trust-logo.powerbi { color: #f2c811; }
+    .trust-logo.supabase { color: #3ecf8e; }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       THREE-TIER CAPABILITY SECTION
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .capability-section {
+      padding: 100px 48px;
+      background: var(--bg-white);
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary-blue);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -1px;
+    }
+
+    .capability-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* Capability Card Base */
+    .cap-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cap-card:hover {
+      border-color: var(--primary-blue);
+      box-shadow: 0 8px 32px rgba(79, 142, 247, 0.12);
+    }
+
+    .cap-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .cap-card-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .cap-card-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .cap-card:hover .cap-card-arrow {
+      background: var(--text-primary);
+      border-color: var(--text-primary);
+      color: white;
+    }
+
+    .cap-card-arrow svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cap-card-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .cap-card-inner {
+      flex: 1;
+      background: var(--bg-light);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cap-card-footer {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      background: white;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* Card 1: Live Agents - Agent Pills */
+    .agent-pills-panel {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .agent-pill-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .agent-pill-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .agent-pill-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .agent-pill-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success-green);
+      border-radius: 50%;
+    }
+
+    .agent-pill-status {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--success-green);
+      background: var(--success-green-light);
+      padding: 4px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Card 2: Blueprints - Category Grid */
+    .blueprint-panel {
+      padding: 20px;
+    }
+
+    .blueprint-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .blueprint-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 16px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.3s ease;
+    }
+
+    .blueprint-chip.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .blueprint-chip-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--primary-blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .blueprint-chip-icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--primary-blue);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* Card 3: Custom - Terminal */
+    .terminal-panel {
+      background: linear-gradient(165deg, #0f172a 0%, #1e293b 100%);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #f87171; }
+    .terminal-dot.yellow { background: #fbbf24; }
+    .terminal-dot.green { background: #4ade80; }
+
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .terminal-body {
+      flex: 1;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .terminal-line {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.35s ease;
+    }
+
+    .terminal-line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .terminal-line .prompt { color: #60a5fa; }
+    .terminal-line .text { color: #e2e8f0; }
+    .terminal-line .value { color: #fbbf24; }
+    .terminal-line .success { color: #4ade80; }
+
+    .terminal-buttons {
+      display: flex;
+      gap: 10px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .terminal-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .terminal-btn-primary {
+      background: var(--cs-orange);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .terminal-btn-primary:hover {
+      background: #ea580c;
+    }
+
+    .terminal-btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .terminal-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       OPERATIONS GRID SECTION
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .operations-section {
+      padding: 100px 48px;
+      background: var(--bg-light);
+    }
+
+    .operations-container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 16px auto 0;
+      text-align: center;
+    }
+
+    .operations-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 60px;
+    }
+
+    .ops-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .ops-card:hover {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .ops-card.live {
+      border-left: 3px solid var(--success-green);
+    }
+
+    .ops-card.cta {
+      border: 2px dashed var(--primary-blue);
+      background: var(--primary-blue-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .ops-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .ops-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--bg-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ops-card-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text-secondary);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .ops-card-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .ops-card-badge {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--success-green);
+      background: var(--success-green-light);
+      padding: 4px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .ops-card-list {
+      list-style: none;
+    }
+
+    .ops-card-list li {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 6px 0;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .ops-card-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+      font-weight: bold;
+    }
+
+    .ops-card.cta .ops-cta-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .ops-card.cta .ops-cta-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .ops-card.cta .ops-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 24px;
+      background: var(--primary-blue);
+      color: white;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .ops-card.cta .ops-cta-btn:hover {
+      background: #2563eb;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       FOOTER
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .footer {
+      padding: 48px;
+      text-align: center;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .footer-logo span {
+      color: var(--cs-orange);
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">Core<span>Shift</span></a>
+    <div class="nav-links">
+      <a href="#" class="nav-link">
+        Live Agents
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+      <a href="#" class="nav-link">
+        How We Work
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+      <a href="#" class="nav-link">Pricing</a>
+      <a href="#" class="nav-link">About</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="nav-signin">Sign in</a>
+      <a href="#" class="nav-cta">Book a Call</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <span class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        AI Agents for Enterprise Operations
+      </span>
+      <h1 class="hero-title">We build it.<br>You run it.<br>We maintain it.</h1>
+      <p class="hero-subtitle">AI agents tailored to your exact operation — deployed on your infrastructure, monitored 24/7, one monthly subscription. Any process. Any system. Any industry.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary">Book a Discovery Call →</a>
+        <a href="#" class="btn-ghost">See Live Agents</a>
+      </div>
+      <div class="live-agents-row">
+        <div class="live-pill"><span class="live-pill-dot"></span>GRN Reconciliation</div>
+        <div class="live-pill"><span class="live-pill-dot"></span>AP/AR Processing</div>
+        <div class="live-pill"><span class="live-pill-dot"></span>SAP Data Access</div>
+        <div class="live-pill"><span class="live-pill-dot"></span>Fund Operations</div>
+        <div class="live-pill"><span class="live-pill-dot"></span>CS Intelligence</div>
+        <div class="live-pill"><span class="live-pill-dot"></span>Vehicle Compliance</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="trust-bar">
+    <p class="trust-label">Systems we connect to</p>
+    <div class="trust-logos">
+      <span class="trust-logo sap">SAP</span>
+      <span class="trust-logo netsuite">NetSuite</span>
+      <span class="trust-logo salesforce">Salesforce</span>
+      <span class="trust-logo tally">Tally</span>
+      <span class="trust-logo powerbi">Power BI</span>
+      <span class="trust-logo supabase">Supabase</span>
+      <span class="trust-logo">Playwright</span>
+      <span class="trust-logo">FastAPI</span>
+    </div>
+  </section>
+
+  <!-- Three-Tier Capability Section -->
+  <section class="capability-section">
+    <div class="section-header">
+      <p class="section-eyebrow">How We Work</p>
+      <h2 class="section-title">Three ways to get your agent live.</h2>
+    </div>
+
+    <div class="capability-cards">
+      <!-- Card 1: Live Agents -->
+      <div class="cap-card">
+        <div class="cap-card-header">
+          <h3 class="cap-card-title">Live Agents</h3>
+          <span class="cap-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </div>
+        <p class="cap-card-desc">Proven agents built for known operations — adaptable to your stack, faster to deploy.</p>
+        <div class="cap-card-inner">
+          <div class="agent-pills-panel" id="agentPillsPanel">
+            <div class="agent-pill-item">
+              <span class="agent-pill-name"><span class="agent-pill-dot"></span>GRN Reconciliation</span>
+              <span class="agent-pill-status">LIVE</span>
+            </div>
+            <div class="agent-pill-item">
+              <span class="agent-pill-name"><span class="agent-pill-dot"></span>AP/AR Processing</span>
+              <span class="agent-pill-status">LIVE</span>
+            </div>
+            <div class="agent-pill-item">
+              <span class="agent-pill-name"><span class="agent-pill-dot"></span>SAP Data Access</span>
+              <span class="agent-pill-status">LIVE</span>
+            </div>
+            <div class="agent-pill-item">
+              <span class="agent-pill-name"><span class="agent-pill-dot"></span>Fund Operations</span>
+              <span class="agent-pill-status">LIVE</span>
+            </div>
+            <div class="agent-pill-item">
+              <span class="agent-pill-name"><span class="agent-pill-dot"></span>CS Intelligence</span>
+              <span class="agent-pill-status">LIVE</span>
+            </div>
+            <div class="agent-pill-item">
+              <span class="agent-pill-name"><span class="agent-pill-dot"></span>Vehicle Compliance</span>
+              <span class="agent-pill-status">LIVE</span>
+            </div>
+          </div>
+          <div class="cap-card-footer">6 live in production</div>
+        </div>
+      </div>
+
+      <!-- Card 2: Agent Blueprints -->
+      <div class="cap-card">
+        <div class="cap-card-header">
+          <h3 class="cap-card-title">Agent Blueprints</h3>
+          <span class="cap-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </div>
+        <p class="cap-card-desc">We've solved this class of problem before. Faster build, lower risk, known patterns.</p>
+        <div class="cap-card-inner">
+          <div class="blueprint-panel">
+            <div class="blueprint-grid" id="blueprintGrid">
+              <div class="blueprint-chip">
+                <span class="blueprint-chip-icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                </span>
+                Finance Ops
+              </div>
+              <div class="blueprint-chip">
+                <span class="blueprint-chip-icon">
+                  <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                </span>
+                Supply Chain
+              </div>
+              <div class="blueprint-chip">
+                <span class="blueprint-chip-icon">
+                  <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                </span>
+                Compliance
+              </div>
+              <div class="blueprint-chip">
+                <span class="blueprint-chip-icon">
+                  <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                </span>
+                Customer Success
+              </div>
+              <div class="blueprint-chip">
+                <span class="blueprint-chip-icon">
+                  <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </span>
+                Sales Ops
+              </div>
+              <div class="blueprint-chip">
+                <span class="blueprint-chip-icon">
+                  <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </span>
+                HR & Payroll
+              </div>
+            </div>
+          </div>
+          <div class="cap-card-footer">12+ operation blueprints</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Custom Agents -->
+      <div class="cap-card">
+        <div class="cap-card-header">
+          <h3 class="cap-card-title">Custom Agents</h3>
+          <span class="cap-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </div>
+        <p class="cap-card-desc">Any operation. Any system. Scoped after a 2-week Discovery Sprint.</p>
+        <div class="cap-card-inner">
+          <div class="terminal-panel">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+              </div>
+              <span class="terminal-title">Discovery Sprint</span>
+              <div style="width: 44px;"></div>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+              <div class="terminal-line"><span class="prompt">&gt;</span> <span class="text">Analysing:</span> <span class="value">[your process]</span></div>
+              <div class="terminal-line"><span class="prompt">&gt;</span> <span class="text">Systems found:</span> <span class="value">SAP + 3 portals</span></div>
+              <div class="terminal-line"><span class="prompt">&gt;</span> <span class="text">Blueprint match:</span> <span class="value">73%</span></div>
+              <div class="terminal-line"><span class="prompt">&gt;</span> <span class="text">Custom scope:</span> <span class="value">4 weeks</span></div>
+              <div class="terminal-line"><span class="success">✓</span> <span class="text">Ready to build</span></div>
+            </div>
+            <div class="terminal-buttons">
+              <a href="#" class="terminal-btn terminal-btn-primary">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                Start Discovery
+              </a>
+              <a href="#" class="terminal-btn terminal-btn-secondary">View Pricing</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Operations Grid Section -->
+  <section class="operations-section">
+    <div class="operations-container">
+      <div class="section-header">
+        <p class="section-eyebrow">Operations We Agent-ify</p>
+        <h2 class="section-title">If your team does it manually, we can build an agent for it.</h2>
+        <p class="section-subtitle">We work across every major operations function. These are the areas where AI agents create the most impact.</p>
+      </div>
+
+      <div class="operations-grid">
+        <!-- Finance Operations -->
+        <div class="ops-card live">
+          <div class="ops-card-header">
+            <div class="ops-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <span class="ops-card-title">Finance Operations</span>
+            <span class="ops-card-badge">LIVE</span>
+          </div>
+          <ul class="ops-card-list">
+            <li>Invoice processing & AP/AR</li>
+            <li>GRN reconciliation</li>
+            <li>GL data extraction</li>
+            <li>Bank reconciliation</li>
+          </ul>
+        </div>
+
+        <!-- Supply Chain -->
+        <div class="ops-card live">
+          <div class="ops-card-header">
+            <div class="ops-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            </div>
+            <span class="ops-card-title">Supply Chain</span>
+            <span class="ops-card-badge">LIVE</span>
+          </div>
+          <ul class="ops-card-list">
+            <li>Vendor portal data extraction</li>
+            <li>PO matching & validation</li>
+            <li>Delivery confirmation tracking</li>
+            <li>Inventory reconciliation</li>
+          </ul>
+        </div>
+
+        <!-- Management Reporting -->
+        <div class="ops-card live">
+          <div class="ops-card-header">
+            <div class="ops-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            </div>
+            <span class="ops-card-title">Management Reporting</span>
+            <span class="ops-card-badge">LIVE</span>
+          </div>
+          <ul class="ops-card-list">
+            <li>Investor statements & CAS</li>
+            <li>NRR & churn forecasting</li>
+            <li>Board pack automation</li>
+            <li>KPI dashboard sync</li>
+          </ul>
+        </div>
+
+        <!-- Customer Success -->
+        <div class="ops-card live">
+          <div class="ops-card-header">
+            <div class="ops-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <span class="ops-card-title">Customer Success</span>
+            <span class="ops-card-badge">LIVE</span>
+          </div>
+          <ul class="ops-card-list">
+            <li>Renewal pipeline monitoring</li>
+            <li>Churn risk alerting</li>
+            <li>Health score automation</li>
+            <li>Upsell opportunity detection</li>
+          </ul>
+        </div>
+
+        <!-- Compliance & Regulatory -->
+        <div class="ops-card live">
+          <div class="ops-card-header">
+            <div class="ops-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="ops-card-title">Compliance & Regulatory</span>
+            <span class="ops-card-badge">LIVE</span>
+          </div>
+          <ul class="ops-card-list">
+            <li>Vehicle fitness & insurance check</li>
+            <li>Licence expiry tracking</li>
+            <li>Audit trail generation</li>
+            <li>Regulatory filing reminders</li>
+          </ul>
+        </div>
+
+        <!-- ERP & Systems Integration -->
+        <div class="ops-card live">
+          <div class="ops-card-header">
+            <div class="ops-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            </div>
+            <span class="ops-card-title">ERP & Systems Integration</span>
+            <span class="ops-card-badge">LIVE</span>
+          </div>
+          <ul class="ops-card-list">
+            <li>SAP data extraction & sync</li>
+            <li>Tally to cloud migration</li>
+            <li>Multi-system reconciliation</li>
+            <li>Master data management</li>
+          </ul>
+        </div>
+
+        <!-- Sales Operations -->
+        <div class="ops-card">
+          <div class="ops-card-header">
+            <div class="ops-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <span class="ops-card-title">Sales Operations</span>
+          </div>
+          <ul class="ops-card-list">
+            <li>CRM data hygiene</li>
+            <li>Pipeline stage monitoring</li>
+            <li>Quote-to-cash tracking</li>
+            <li>Commission calculation</li>
+          </ul>
+        </div>
+
+        <!-- HR & People Ops -->
+        <div class="ops-card">
+          <div class="ops-card-header">
+            <div class="ops-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+            <span class="ops-card-title">HR & People Ops</span>
+          </div>
+          <ul class="ops-card-list">
+            <li>Payroll reconciliation</li>
+            <li>Onboarding workflow automation</li>
+            <li>Attendance & compliance tracking</li>
+            <li>Benefits administration</li>
+          </ul>
+        </div>
+
+        <!-- CTA Card -->
+        <div class="ops-card cta">
+          <span class="ops-cta-title">Don't see yours?</span>
+          <p class="ops-cta-text">"We've never met an operation we couldn't agent-ify."</p>
+          <a href="#" class="ops-cta-btn">Tell us about your operation →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-logo">Core<span>Shift</span></p>
+    <p class="footer-text">© 2024 CoreShift. AI Agents for Enterprise Operations.</p>
+  </footer>
+
+  <script>
+    // Animation timing
+    const AGENT_DELAY = 300;
+    const BLUEPRINT_DELAY = 150;
+    const TERMINAL_DELAY = 400;
+    const PAUSE = 2500;
+    const RESET = 400;
+
+    // Animate Agent Pills
+    function animateAgentPills() {
+      const pills = document.querySelectorAll('#agentPillsPanel .agent-pill-item');
+      let i = 0;
+
+      function showNext() {
+        if (i < pills.length) {
+          pills[i].classList.add('visible');
+          i++;
+          setTimeout(showNext, AGENT_DELAY);
+        } else {
+          setTimeout(reset, PAUSE);
+        }
+      }
+
+      function reset() {
+        pills.forEach(p => p.classList.remove('visible'));
+        setTimeout(() => { i = 0; showNext(); }, RESET);
+      }
+
+      showNext();
+    }
+
+    // Animate Blueprint Chips
+    function animateBlueprintChips() {
+      const chips = document.querySelectorAll('#blueprintGrid .blueprint-chip');
+      let i = 0;
+
+      function showNext() {
+        if (i < chips.length) {
+          chips[i].classList.add('visible');
+          i++;
+          setTimeout(showNext, BLUEPRINT_DELAY);
+        } else {
+          setTimeout(reset, PAUSE);
+        }
+      }
+
+      function reset() {
+        chips.forEach(c => c.classList.remove('visible'));
+        setTimeout(() => { i = 0; showNext(); }, RESET);
+      }
+
+      showNext();
+    }
+
+    // Animate Terminal Lines
+    function animateTerminal() {
+      const lines = document.querySelectorAll('#terminalBody .terminal-line');
+      let i = 0;
+
+      function showNext() {
+        if (i < lines.length) {
+          lines[i].classList.add('visible');
+          i++;
+          setTimeout(showNext, TERMINAL_DELAY);
+        } else {
+          setTimeout(reset, PAUSE);
+        }
+      }
+
+      function reset() {
+        lines.forEach(l => l.classList.remove('visible'));
+        setTimeout(() => { i = 0; showNext(); }, RESET);
+      }
+
+      showNext();
+    }
+
+    // Start animations with offsets
+    setTimeout(animateAgentPills, 100);
+    setTimeout(animateBlueprintChips, 200);
+    setTimeout(animateTerminal, 150);
+  </script>
+</body>
+</html>

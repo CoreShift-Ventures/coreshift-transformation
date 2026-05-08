@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200">
+  <title>CoreShift - Multi-Agent Orchestration Hero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 40%, #f5f9fc 100%);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span {
+      color: #3b82f6;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4b5563;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-link:hover {
+      color: #111827;
+    }
+
+    .nav-link svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .nav-signin {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4b5563;
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      padding: 10px 20px;
+      background: #0f172a;
+      color: white;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: #1e293b;
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 48px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #374151;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #3b82f6;
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-size: 56px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: #6b7280;
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: #0f172a;
+      color: white;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+
+    .hero-cta:hover {
+      background: #1e293b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.2);
+    }
+
+    .hero-cta svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Dashboard Mockup */
+    .dashboard-container {
+      margin-top: 60px;
+      padding: 0 48px 80px;
+      perspective: 1500px;
+    }
+
+    .dashboard-frame {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.05),
+        0 4px 16px rgba(0, 0, 0, 0.06),
+        0 12px 40px rgba(0, 0, 0, 0.08),
+        0 24px 80px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      transform: rotateX(2deg);
+      transform-origin: top center;
+    }
+
+    /* Dashboard Header */
+    .dash-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: #fafafa;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .dash-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dash-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dash-dot.red { background: #f87171; }
+    .dash-dot.yellow { background: #fbbf24; }
+    .dash-dot.green { background: #4ade80; }
+
+    .dash-title {
+      flex: 1;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: #6b7280;
+    }
+
+    /* Dashboard Content Grid */
+    .dash-content {
+      display: grid;
+      grid-template-columns: 200px 1fr 260px;
+      height: 420px;
+    }
+
+    /* Sidebar */
+    .dash-sidebar {
+      background: #f9fafb;
+      border-right: 1px solid #e5e7eb;
+      padding: 16px 12px;
+    }
+
+    .sidebar-section {
+      margin-bottom: 24px;
+    }
+
+    .sidebar-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #9ca3af;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 0 8px;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #4b5563;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .sidebar-item:hover {
+      background: white;
+    }
+
+    .sidebar-item.active {
+      background: white;
+      color: #111827;
+      font-weight: 500;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .sidebar-icon {
+      width: 18px;
+      height: 18px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-item.active .sidebar-icon {
+      background: #dcfce7;
+    }
+
+    .sidebar-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      margin-left: auto;
+    }
+
+    /* Main Chat Area */
+    .dash-main {
+      display: flex;
+      flex-direction: column;
+      background: white;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .main-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .main-tabs {
+      display: flex;
+      gap: 2px;
+      background: #f3f4f6;
+      padding: 2px;
+      border-radius: 6px;
+    }
+
+    .main-tab {
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #6b7280;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .main-tab.active {
+      background: white;
+      color: #111827;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    .chat-area {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+    }
+
+    .chat-msg {
+      display: flex;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.4s ease forwards;
+    }
+
+    .chat-msg:nth-child(1) { animation-delay: 0.2s; }
+    .chat-msg:nth-child(2) { animation-delay: 0.6s; }
+    .chat-msg:nth-child(3) { animation-delay: 1.0s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chat-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+
+    .chat-avatar.user {
+      background: #eff6ff;
+    }
+
+    .chat-avatar.agent {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    }
+
+    .chat-avatar.agent svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+
+    .chat-bubble {
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 400px;
+    }
+
+    .chat-bubble.user {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .chat-bubble.agent {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      color: #111827;
+    }
+
+    .chat-input-area {
+      padding: 16px 20px;
+      border-top: 1px solid #f3f4f6;
+    }
+
+    .chat-input {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      color: #111827;
+      outline: none;
+    }
+
+    .chat-input input::placeholder {
+      color: #9ca3af;
+    }
+
+    .chat-send-btn {
+      width: 32px;
+      height: 32px;
+      background: #0f172a;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .chat-send-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: white;
+    }
+
+    /* Right Panel */
+    .dash-right {
+      background: #f9fafb;
+      border-left: 1px solid #e5e7eb;
+      padding: 16px;
+    }
+
+    .right-section {
+      margin-bottom: 24px;
+    }
+
+    .right-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #6b7280;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .right-title svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .task-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .task-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: #111827;
+    }
+
+    .task-badge {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    .task-badge.running {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .task-badge.complete {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .task-badge.pending {
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    .task-progress {
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .task-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+      border-radius: 2px;
+      transition: width 1s ease;
+    }
+
+    .task-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .task-stat {
+      font-size: 10px;
+      color: #6b7280;
+    }
+
+    .task-stat strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    /* Workflow mini diagram */
+    .workflow-mini {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .workflow-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .workflow-step-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .workflow-step-icon.complete {
+      background: #dcfce7;
+    }
+
+    .workflow-step-icon.complete svg {
+      width: 12px;
+      height: 12px;
+      stroke: #16a34a;
+    }
+
+    .workflow-step-icon.active {
+      background: #dbeafe;
+    }
+
+    .workflow-step-icon.active::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #3b82f6;
+      border-radius: 50%;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+
+    .workflow-step.active {
+      color: #1d4ed8;
+      font-weight: 500;
+    }
+
+    .workflow-step.complete {
+      color: #16a34a;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-logo">Core<span>Shift</span></div>
+    <div class="nav-links">
+      <a href="#" class="nav-link">
+        Agentic AI Apps
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+      <a href="#" class="nav-link">
+        Agent Platform
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+      <a href="#" class="nav-link">Agent Marketplace</a>
+      <a href="#" class="nav-link">
+        More
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="nav-signin">Sign in</a>
+      <a href="#" class="nav-cta">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <span class="hero-badge">The CoreShift Agent Platform</span>
+    <h1 class="hero-title">Multi-agent<br>Orchestration</h1>
+    <p class="hero-subtitle">Enable intelligent agentic operations.</p>
+    <a href="#" class="hero-cta">
+      Create Agent
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+    </a>
+  </section>
+
+  <!-- Dashboard Mockup -->
+  <div class="dashboard-container">
+    <div class="dashboard-frame">
+      <div class="dash-header">
+        <div class="dash-dots">
+          <span class="dash-dot red"></span>
+          <span class="dash-dot yellow"></span>
+          <span class="dash-dot green"></span>
+        </div>
+        <span class="dash-title">CoreShift Agent Studio</span>
+        <div style="width: 50px;"></div>
+      </div>
+
+      <div class="dash-content">
+        <!-- Sidebar -->
+        <div class="dash-sidebar">
+          <div class="sidebar-section">
+            <div class="sidebar-label">Agentic Apps</div>
+            <div class="sidebar-item">
+              <span class="sidebar-icon"></span>
+              Payment App
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-label">Active Agents</div>
+            <div class="sidebar-item active">
+              <span class="sidebar-icon"></span>
+              GRN Reconciliation
+              <span class="sidebar-dot"></span>
+            </div>
+            <div class="sidebar-item">
+              <span class="sidebar-icon"></span>
+              AP/AR Automation
+              <span class="sidebar-dot"></span>
+            </div>
+            <div class="sidebar-item">
+              <span class="sidebar-icon"></span>
+              SAP Query
+              <span class="sidebar-dot"></span>
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-label">Settings</div>
+            <div class="sidebar-item">
+              <span class="sidebar-icon"></span>
+              Simulate Flow
+            </div>
+            <div class="sidebar-item">
+              <span class="sidebar-icon"></span>
+              Analytics
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Chat -->
+        <div class="dash-main">
+          <div class="main-header">
+            <span class="main-title">GRN Reconciliation Agent</span>
+            <div class="main-tabs">
+              <span class="main-tab active">Chat</span>
+              <span class="main-tab">Flows</span>
+              <span class="main-tab">Logs</span>
+            </div>
+          </div>
+          <div class="chat-area">
+            <div class="chat-msg">
+              <div class="chat-avatar user">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#3b82f6"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              </div>
+              <div class="chat-bubble user">Could you please provide me with the details of the payment?</div>
+            </div>
+            <div class="chat-msg">
+              <div class="chat-avatar agent">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="8" cy="10" r="1.5"/><circle cx="16" cy="10" r="1.5"/><path d="M12 16c1.61 0 3.09-.59 4.23-1.57l.27.28-1.41 1.41C13.97 17.36 12.54 18 11 18s-2.97-.64-4.09-1.88l-1.41-1.41.27-.28C6.91 15.41 8.39 16 10 16h2z"/></svg>
+              </div>
+              <div class="chat-bubble agent">
+                I found 23 pending GRNs from TAFE portal for this week.<br><br>
+                <strong>Validation Summary:</strong><br>
+                • 21 matched against SAP POs<br>
+                • 2 flagged for review (qty mismatch)
+              </div>
+            </div>
+            <div class="chat-msg">
+              <div class="chat-avatar agent">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="8" cy="10" r="1.5"/><circle cx="16" cy="10" r="1.5"/><path d="M12 16c1.61 0 3.09-.59 4.23-1.57l.27.28-1.41 1.41C13.97 17.36 12.54 18 11 18s-2.97-.64-4.09-1.88l-1.41-1.41.27-.28C6.91 15.41 8.39 16 10 16h2z"/></svg>
+              </div>
+              <div class="chat-bubble agent">Processing VBRK updates for the 21 validated records...</div>
+            </div>
+          </div>
+          <div class="chat-input-area">
+            <div class="chat-input">
+              <input type="text" placeholder="Ask about your data...">
+              <div class="chat-send-btn">
+                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="dash-right">
+          <div class="right-section">
+            <div class="right-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              Live Tasks
+            </div>
+            <div class="task-card">
+              <div class="task-header">
+                <span class="task-name">TAFE Portal Sync</span>
+                <span class="task-badge running">Running</span>
+              </div>
+              <div class="task-progress">
+                <div class="task-progress-bar" style="width: 72%;"></div>
+              </div>
+              <div class="task-meta">
+                <span class="task-stat"><strong>23</strong> records</span>
+                <span class="task-stat"><strong>72%</strong> complete</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-header">
+                <span class="task-name">SAP Validation</span>
+                <span class="task-badge complete">Complete</span>
+              </div>
+              <div class="task-progress">
+                <div class="task-progress-bar" style="width: 100%;"></div>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-header">
+                <span class="task-name">VBRK Update</span>
+                <span class="task-badge pending">Pending</span>
+              </div>
+              <div class="task-progress">
+                <div class="task-progress-bar" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="right-section">
+            <div class="right-title">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7a2.5 2.5 0 010-5 2.5 2.5 0 010 5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z"/></svg>
+              Workflow
+            </div>
+            <div class="workflow-mini">
+              <div class="workflow-step complete">
+                <span class="workflow-step-icon complete">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                Portal Authentication
+              </div>
+              <div class="workflow-step complete">
+                <span class="workflow-step-icon complete">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>
+                GRN Extraction
+              </div>
+              <div class="workflow-step active">
+                <span class="workflow-step-icon active"></span>
+                SAP Validation
+              </div>
+              <div class="workflow-step">
+                <span class="workflow-step-icon"></span>
+                VBRK Update
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

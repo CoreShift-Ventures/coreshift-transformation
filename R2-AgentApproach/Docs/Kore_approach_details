@@ -1,0 +1,284 @@
+Rebuild cshift.io to look and feel like a premium enterprise 
+AI company in the same tier as kore.ai — light, confident, 
+expansive. I'm attaching a screenshot of kore.ai's card 
+section for visual reference.
+
+Read coreshift-content-update.md for all existing content. 
+This prompt ADDS new sections and changes the visual treatment. 
+Do not remove existing content — reorganise and elevate it.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VISUAL TREATMENT — APPLY SITE-WIDE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Background system:
+- Primary bg: white (#FFFFFF)
+- Section alternates: very light grey (#F8F8FA)
+- Hero and key sections: CSS gradient mesh, soft blue-to-white
+  like kore.ai. Use this exact CSS:
+  background: radial-gradient(ellipse at 20% 50%, 
+    rgba(186, 210, 255, 0.35) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, 
+    rgba(200, 220, 255, 0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 60% 80%, 
+    rgba(180, 200, 255, 0.2) 0%, transparent 50%),
+    #ffffff;
+
+Cards:
+- White fill, 1px border #E8E8EE, border-radius 16px
+- Hover: border-color #4F8EF7, 
+  box-shadow: 0 8px 32px rgba(79,142,247,0.12)
+- Subtle drop shadow on rest state: 
+  0 2px 12px rgba(0,0,0,0.06)
+
+Typography:
+- Headlines: "Plus Jakarta Sans" or "Syne" — bold, tight tracking
+- Body: "Inter" — 16px, #444455
+- Labels/tags: Inter 12px, uppercase, letter-spacing 1.5px
+- Code/system names: JetBrains Mono 13px
+
+Accent colours:
+- Primary: #2D6FE8 (Kore.ai style enterprise blue)
+- Secondary: #22C98A (green for live/success states)
+- Amber: #F59E0B (for POC/in-progress states)
+- Text: #1A1A2E (near-black, not pure black)
+- Muted: #6B7280
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 1: HERO (update existing)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Background: full gradient mesh (see above)
+
+Eyebrow badge:
+  "AI Agents for Enterprise Operations"
+  Style: pill, border #2D6FE8, bg rgba(45,111,232,0.06), 
+  blue text, green pulsing dot left
+
+Headline:
+  We build it.
+  You run it.
+  We maintain it.
+  
+  Style: 72px, font-weight 800, letter-spacing -2px,
+  line-height 1.05, colour #1A1A2E
+
+Sub-headline:
+  "AI agents tailored to your exact operation — deployed on 
+  your infrastructure, monitored 24/7, one monthly subscription. 
+  Any process. Any system. Any industry."
+
+Primary CTA: "Book a Discovery Call →" — filled blue button
+Secondary CTA: "See Live Agents" — ghost button
+
+Below CTAs — live agent pills (keep from existing brief)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 2: TRUST BAR — System logos
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Label: "Systems we connect to"
+Logos (text-based, styled as logo chips, greyscale 40% opacity):
+SAP  ·  NetSuite  ·  Salesforce  ·  Tally  ·  
+Power BI  ·  Supabase  ·  Playwright  ·  FastAPI
+
+Style: single row, equal spacing, grayscale filter, 
+opacity 0.4. On hover: opacity 1, colour returns.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 3: THREE-TIER CAPABILITY 
+(NEW — model after kore.ai screenshot)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section eyebrow: "How We Work"
+Section headline: "Three ways to get your agent live."
+Background: white
+
+Three cards side by side (equal width, kore.ai card style):
+
+CARD 1: "Live Agents"
+Arrow → top right
+Sub: "Proven agents built for known operations — 
+      adaptable to your stack, faster to deploy."
+Inner panel (animated, like kore.ai screenshot):
+  Show agent pills appearing one by one:
+  ● GRN Reconciliation
+  ● AP/AR Processing
+  ● SAP Data Access
+  ● Fund Operations
+  ● CS Intelligence
+  ● Vehicle Compliance
+  Footer tag: "6 live in production"
+
+CARD 2: "Agent Blueprints"  
+Arrow → top right
+Sub: "We've solved this class of problem before. 
+      Faster build, lower risk, known patterns."
+Inner panel:
+  Show a 2×3 grid of operation category chips:
+  Finance Ops  |  Supply Chain
+  Compliance   |  Customer Success
+  Sales Ops    |  HR & Payroll
+  
+  Each chip has a small icon and fades in sequentially.
+  Footer tag: "12+ operation blueprints"
+
+CARD 3: "Custom Agents"
+Arrow → top right  
+Sub: "Any operation. Any system. 
+      Scoped after a 2-week Discovery Sprint."
+Inner panel (dark bg, terminal style like kore.ai):
+  Type out line by line:
+  > Analysing: [your process]
+  > Systems found: SAP + 3 portals
+  > Blueprint match: 73%
+  > Custom scope: 4 weeks
+  > ✓ Ready to build
+  
+  Two buttons below: [▶ Start Discovery]  [View Pricing]
+  Footer tag: "Any industry. Any ERP."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 4: OPERATIONS GRID  
+(NEW — the "we do anything" signal)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section eyebrow: "Operations We Agent-ify"
+Section headline: "If your team does it manually, 
+                   we can build an agent for it."
+Section sub: "We work across every major operations 
+              function. These are the areas where 
+              AI agents create the most impact."
+Background: light grey #F8F8FA
+
+Layout: 3-column grid of category cards
+
+Each category card:
+- Icon (emoji or simple SVG)
+- Category name (bold)
+- 3-4 example operations (small grey text, bulleted)
+- "Live" green badge if CoreShift has built one
+
+CATEGORY CARDS (9 total):
+
+┌─────────────────────────────────────┐
+│ 💰 Finance Operations         [LIVE]│
+│ · Invoice processing & AP/AR        │
+│ · GRN reconciliation                │
+│ · GL data extraction                │
+│ · Bank reconciliation               │
+└─────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│ 📦 Supply Chain               [LIVE]│
+│ · Vendor portal data extraction     │
+│ · PO matching & validation          │
+│ · Delivery confirmation tracking    │
+│ · Inventory reconciliation          │
+└─────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│ 📊 Management Reporting       [LIVE]│
+│ · Investor statements & CAS         │
+│ · NRR & churn forecasting           │
+│ · Board pack automation             │
+│ · KPI dashboard sync                │
+└─────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│ 🤝 Customer Success           [LIVE]│
+│ · Renewal pipeline monitoring       │
+│ · Churn risk alerting               │
+│ · Health score automation           │
+│ · Upsell opportunity detection      │
+└─────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│ ⚖️ Compliance & Regulatory    [LIVE]│
+│ · Vehicle fitness & insurance check │
+│ · Licence expiry tracking           │
+│ · Audit trail generation            │
+│ · Regulatory filing reminders       │
+└─────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│ 🔧 ERP & Systems Integration  [LIVE]│
+│ · SAP data extraction & sync        │
+│ · Tally to cloud migration          │
+│ · Multi-system reconciliation       │
+│ · Master data management            │
+└─────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│ 📈 Sales Operations                 │
+│ · CRM data hygiene                  │
+│ · Pipeline stage monitoring         │
+│ · Quote-to-cash tracking            │
+│ · Commission calculation            │
+└─────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│ 👥 HR & People Ops                  │
+│ · Payroll reconciliation            │
+│ · Onboarding workflow automation    │
+│ · Attendance & compliance tracking  │
+│ · Benefits administration           │
+└─────────────────────────────────────┘
+
+┌─────────────────────────────────────┐
+│ 🏗️ Don't see yours?                 │
+│                                     │
+│ "We've never met an operation we    │
+│  couldn't agent-ify."               │
+│                                     │
+│ [Tell us about your operation →]    │
+└─────────────────────────────────────┘
+
+Cards with [LIVE] badge: border-left 3px solid #22C98A
+Cards without: standard border
+Last card (Don't see yours): dashed border, blue accent
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 5: LIVE AGENTS (existing 6 cards)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Keep all content from coreshift-content-update.md Section 6.
+Update card visual style to match new light theme:
+- White cards, blue accent on hover
+- Green LIVE badge, amber POC badge
+- System tags as monospace chips
+- Client quote in italics at bottom with left blue border
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 6: WHY AI ALONE ISN'T ENOUGH
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Keep all 5 Gap cards from coreshift-content-update.md 
+Section 5. Update to light card style. 
+Add a comparison table below (also in content brief).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+REMAINING SECTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Keep all remaining sections from coreshift-content-update.md:
+- How It Works (Section 7)
+- Pricing (Section 8)  
+- FAQ (Section 9)
+- Final CTA (Section 10)
+- Footer (Section 11)
+
+Apply new light visual treatment to all of them.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BUILD ORDER — do these one at a time,
+show me each before proceeding:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Global styles + nav + hero
+2. Trust bar + three-tier capability section
+3. Operations grid (the 9 category cards)
+4. Live agent cards (updated style)
+5. Gap section + comparison table
+6. How it works + pricing
+7. FAQ + CTA + footer

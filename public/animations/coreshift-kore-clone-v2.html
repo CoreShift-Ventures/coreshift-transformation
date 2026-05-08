@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoreShift - AI Agents for Enterprise Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --charcoal-01: #181818;
+      --charcoal-02: #333333;
+      --charcoal-03: #666666;
+      --charcoal-04: #999999;
+      --white: #ffffff;
+      --blue: #4d65ff;
+      --blue-light: rgba(77, 101, 255, 0.06);
+      --orange: #f97316;
+      --border: #e8e8e8;
+      --bg-light: #f8f9fb;
+      --font-primary: 'Space Grotesk', -apple-system, sans-serif;
+      --font-secondary: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease-power3: cubic-bezier(0.22, 0.6, 0.36, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 15px; }
+    body {
+      font-family: var(--font-secondary);
+      color: var(--charcoal-01);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ━━━ NAVIGATION ━━━ */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .nav.scrolled { border-bottom-color: var(--border); box-shadow: 0 2px 20px rgba(0,0,0,0.04); }
+
+    .nav-logo {
+      font-family: var(--font-primary);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--charcoal-01);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+    .nav-logo span { color: var(--orange); }
+
+    .nav-links { display: flex; gap: 36px; }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--charcoal-01);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--charcoal-03); }
+    .nav-link svg { width: 11px; height: 11px; transition: transform 0.2s; }
+    .nav-link:hover svg { transform: rotate(180deg); }
+
+    .nav-actions { display: flex; gap: 16px; align-items: center; }
+    .nav-signin {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--charcoal-01);
+      text-decoration: none;
+    }
+    .nav-cta {
+      padding: 11px 22px;
+      background: var(--charcoal-01);
+      color: var(--white);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      transition: background 0.3s var(--ease-power3);
+    }
+    .nav-cta:hover { background: var(--blue); }
+
+    /* ━━━ HERO ━━━ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 100px 60px 180px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 160% 80% at 50% 120%, rgba(200, 220, 255, 0.45) 0%, transparent 55%),
+        radial-gradient(ellipse 120% 60% at 50% 110%, rgba(190, 215, 255, 0.35) 0%, transparent 50%),
+        radial-gradient(ellipse 90% 50% at 50% 100%, rgba(210, 230, 255, 0.25) 0%, transparent 45%),
+        var(--bg-light);
+      z-index: 0;
+    }
+
+    .hero-circles {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.025);
+      top: 110%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .hero-circle:nth-child(1) { width: 500px; height: 500px; }
+    .hero-circle:nth-child(2) { width: 800px; height: 800px; }
+    .hero-circle:nth-child(3) { width: 1100px; height: 1100px; }
+    .hero-circle:nth-child(4) { width: 1400px; height: 1400px; }
+    .hero-circle:nth-child(5) { width: 1700px; height: 1700px; }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 850px;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--charcoal-03);
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-power3) 0.1s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--font-primary);
+      font-size: 58px;
+      font-weight: 500;
+      color: var(--charcoal-01);
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-power3) 0.2s forwards;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      color: var(--charcoal-03);
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-power3) 0.3s forwards;
+    }
+
+    .hero-ctas {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-power3) 0.4s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--charcoal-01);
+      color: var(--white);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      transition: all 0.3s var(--ease-power3);
+    }
+    .btn-primary:hover { background: var(--blue); }
+    .btn-primary svg { width: 12px; height: 12px; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--charcoal-01);
+      border: 1px solid var(--charcoal-01);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      transition: all 0.3s var(--ease-power3);
+    }
+    .btn-secondary:hover { background: var(--charcoal-01); color: var(--white); }
+    .btn-secondary svg { width: 12px; height: 12px; }
+
+    /* ━━━ CAPABILITY CARDS (Kore.ai exact style with rich content) ━━━ */
+    .capability-section {
+      position: relative;
+      z-index: 20;
+      margin-top: -120px;
+      padding: 0 60px 100px;
+    }
+
+    .capability-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .cap-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 36px 32px 32px;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.04);
+      transition: all 0.4s var(--ease-power3);
+      display: flex;
+      flex-direction: column;
+    }
+    .cap-card:hover {
+      box-shadow: 0 8px 50px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
+    }
+
+    .cap-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .cap-card-title {
+      font-family: var(--font-primary);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--charcoal-01);
+      letter-spacing: -0.02em;
+    }
+
+    .cap-card-arrow {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--charcoal-04);
+      transition: all 0.3s var(--ease-power3);
+    }
+    .cap-card:hover .cap-card-arrow {
+      color: var(--charcoal-01);
+      transform: translate(3px, -3px);
+    }
+    .cap-card-arrow svg { width: 20px; height: 20px; }
+
+    .cap-card-desc {
+      font-size: 14px;
+      color: var(--charcoal-03);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    /* Card inner panel */
+    .cap-card-inner {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Card 1: Pre-built Agents */
+    .prebuilt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .prebuilt-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--bg-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .prebuilt-icon svg { width: 22px; height: 22px; stroke: var(--charcoal-02); fill: none; stroke-width: 1.5; }
+    .prebuilt-btn {
+      padding: 8px 16px;
+      background: var(--charcoal-01);
+      color: var(--white);
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .prebuilt-line {
+      border-bottom: 2px dotted var(--border);
+      margin: 16px 0;
+    }
+    .prebuilt-label {
+      font-size: 13px;
+      color: var(--charcoal-03);
+      margin-bottom: 20px;
+    }
+    .prebuilt-tags {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .prebuilt-tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 10px 18px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--charcoal-01);
+      transition: all 0.2s ease;
+    }
+    .prebuilt-tag:hover {
+      border-color: var(--charcoal-03);
+    }
+
+    /* Card 2: Agent Blueprints */
+    .blueprints-icons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .blueprint-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .blueprint-icon.sap { background: #0066b3; }
+    .blueprint-icon.sf { background: #00a1e0; }
+    .blueprint-icon.ns { background: #1e5c97; }
+    .blueprint-icon svg { width: 22px; height: 22px; fill: white; }
+    .blueprint-icon span { font-size: 10px; font-weight: 700; color: white; }
+
+    .blueprints-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .blueprint-bar {
+      height: 6px;
+      background: var(--bg-light);
+      border-radius: 3px;
+    }
+    .blueprint-bar:nth-child(1) { width: 100%; background: linear-gradient(90deg, #e8e8e8 0%, #d0d0d0 100%); }
+    .blueprint-bar:nth-child(2) { width: 75%; }
+    .blueprint-bar:nth-child(3) { width: 50%; }
+
+    .blueprints-categories {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .blueprint-cat {
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--charcoal-02);
+    }
+    .blueprint-cat.highlight {
+      background: var(--blue-light);
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .blueprints-line { border-bottom: 1px solid var(--border); margin: 12px 0; }
+
+    .blueprints-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .blueprint-tag {
+      padding: 8px 14px;
+      background: var(--bg-light);
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--charcoal-02);
+    }
+    .blueprint-tag.more {
+      background: transparent;
+      color: var(--charcoal-03);
+    }
+
+    /* Card 3: Custom Agents - Code Editor */
+    .code-editor {
+      flex: 1;
+      background: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    .code-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 16px;
+      background: var(--bg-light);
+      border-bottom: 1px solid var(--border);
+    }
+    .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .code-dot.red { background: #ff5f57; }
+    .code-dot.yellow { background: #febc2e; }
+    .code-dot.green { background: #28c840; }
+
+    .code-body {
+      flex: 1;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.7;
+      background: var(--white);
+    }
+    .code-line {
+      display: flex;
+      gap: 16px;
+    }
+    .code-num {
+      color: var(--charcoal-04);
+      user-select: none;
+      min-width: 16px;
+      text-align: right;
+    }
+    .code-content { flex: 1; }
+    .code-keyword { color: #d73a49; }
+    .code-function { color: #6f42c1; }
+    .code-string { color: #22863a; }
+    .code-comment { color: var(--charcoal-04); }
+
+    .code-footer {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .code-run {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: #22c55e;
+      color: white;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .code-run svg { width: 10px; height: 10px; fill: white; }
+    .code-deploy {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--charcoal-01);
+    }
+
+    /* ━━━ TRUST SECTION ━━━ */
+    .trust-section {
+      padding: 80px 60px;
+      background: var(--white);
+    }
+    .trust-container { max-width: 1300px; margin: 0 auto; }
+    .trust-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 48px;
+    }
+    .trust-tab {
+      padding: 10px 22px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--charcoal-03);
+      cursor: pointer;
+      transition: all 0.3s var(--ease-power3);
+    }
+    .trust-tab:hover, .trust-tab.active {
+      background: var(--charcoal-01);
+      border-color: var(--charcoal-01);
+      color: var(--white);
+    }
+    .trust-header { text-align: center; margin-bottom: 32px; }
+    .trust-label { font-size: 14px; color: var(--charcoal-03); }
+    .trust-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 56px;
+      flex-wrap: wrap;
+    }
+    .trust-logo {
+      font-family: var(--font-primary);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--charcoal-01);
+      opacity: 0.35;
+      transition: opacity 0.3s ease;
+    }
+    .trust-logo:hover { opacity: 1; }
+
+    /* ━━━ AGENTS SECTION (without green badges) ━━━ */
+    .agents-section {
+      padding: 100px 60px;
+      background: var(--bg-light);
+    }
+    .agents-container { max-width: 1300px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--charcoal-03);
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--font-primary);
+      font-size: 40px;
+      font-weight: 500;
+      color: var(--charcoal-01);
+      letter-spacing: -0.02em;
+    }
+
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .agent-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.4s var(--ease-power3);
+    }
+    .agent-card:hover {
+      border-color: transparent;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+      transform: translateY(-3px);
+    }
+
+    .agent-card-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .agent-card-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--charcoal-02);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .agent-card-title {
+      font-family: var(--font-primary);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--charcoal-01);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .agent-card-desc {
+      font-size: 14px;
+      color: var(--charcoal-03);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .agent-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .agent-card-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--charcoal-03);
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 4px;
+    }
+
+    /* ━━━ SIDE SCROLL ━━━ */
+    .side-scroll {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+      padding: 18px 10px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 100px;
+      border: 1px solid var(--border);
+    }
+    .side-scroll-text {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--charcoal-03);
+      letter-spacing: 1px;
+    }
+    .side-scroll-arrows { display: flex; flex-direction: column; gap: 2px; }
+    .side-scroll-arrows svg {
+      width: 12px;
+      height: 12px;
+      color: var(--charcoal-03);
+      animation: scrollArrow 1.5s ease-in-out infinite;
+    }
+    .side-scroll-arrows svg:nth-child(2) { animation-delay: 0.15s; }
+    @keyframes scrollArrow {
+      0%, 100% { opacity: 0.3; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(2px); }
+    }
+
+    /* ━━━ FOOTER ━━━ */
+    .footer {
+      padding: 80px 60px 40px;
+      background: var(--charcoal-01);
+      color: var(--white);
+    }
+    .footer-container { max-width: 1300px; margin: 0 auto; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(4, 1fr);
+      gap: 48px;
+      margin-bottom: 56px;
+    }
+    .footer-brand { display: flex; flex-direction: column; gap: 16px; }
+    .footer-logo {
+      font-family: var(--font-primary);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.03em;
+    }
+    .footer-logo span { color: var(--orange); }
+    .footer-tagline {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.6;
+      max-width: 280px;
+    }
+    .footer-column h4 {
+      font-family: var(--font-primary);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .footer-copyright { font-size: 13px; color: rgba(255, 255, 255, 0.35); }
+    .footer-social { display: flex; gap: 14px; }
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      transition: all 0.2s ease;
+    }
+    .footer-social a:hover { background: var(--orange); }
+    .footer-social svg { width: 16px; height: 16px; }
+
+    /* ━━━ INDUSTRY VERTICALS SECTION ━━━ */
+    .verticals-section {
+      padding: 120px 60px;
+      background: var(--white);
+      overflow: hidden;
+    }
+    .verticals-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .verticals-left {
+      padding-right: 40px;
+    }
+    .verticals-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--charcoal-03);
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      margin-bottom: 24px;
+    }
+    .verticals-title {
+      font-family: var(--font-primary);
+      font-size: 44px;
+      font-weight: 500;
+      color: var(--charcoal-01);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+    .verticals-desc {
+      font-size: 16px;
+      color: var(--charcoal-03);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 420px;
+    }
+    .verticals-ctas {
+      display: flex;
+      gap: 14px;
+    }
+
+    .verticals-right {
+      position: relative;
+    }
+
+    /* Vertical tabs */
+    .vertical-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .vertical-tab {
+      padding: 12px 24px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-family: var(--font-primary);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--charcoal-03);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-power3);
+    }
+    .vertical-tab:hover {
+      border-color: var(--charcoal-03);
+      color: var(--charcoal-01);
+    }
+    .vertical-tab.active {
+      background: var(--charcoal-01);
+      border-color: var(--charcoal-01);
+      color: var(--white);
+    }
+
+    /* Industry cards container */
+    .vertical-cards {
+      position: relative;
+      height: 580px;
+    }
+
+    /* ━━━ NEW 3-ZONE CARD STRUCTURE ━━━ */
+    .vertical-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 0.5s var(--ease-power3);
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      border: 1px solid var(--border);
+    }
+    .vertical-card.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    /* ZONE A: GIF Placeholder */
+    .gif-zone {
+      height: 45%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border: 1px dashed rgba(255,255,255,0.2);
+      margin: 16px;
+      border-radius: 16px;
+    }
+    .gif-zone-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1px;
+    }
+    .gif-zone-agent {
+      font-family: var(--font-primary);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      text-align: center;
+    }
+    .gif-zone-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .gif-zone-badge.live {
+      background: rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+    }
+    .gif-zone-badge.live::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .gif-zone-badge.poc {
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Card gradients */
+    .vertical-card[data-industry="manufacturing"] .gif-zone {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+    .vertical-card[data-industry="finance"] .gif-zone {
+      background: linear-gradient(135deg, #3d2314 0%, #5c3a28 50%, #7a4f3c 100%);
+    }
+    .vertical-card[data-industry="vcpe"] .gif-zone {
+      background: linear-gradient(135deg, #2c1810 0%, #4a2c2a 50%, #5d3a38 100%);
+    }
+    .vertical-card[data-industry="saas"] .gif-zone {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 50%, #3d3d5c 100%);
+    }
+    .vertical-card[data-industry="automotive"] .gif-zone {
+      background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #2b3a4d 100%);
+    }
+
+    /* ZONE B: What It Does */
+    .usecase-zone {
+      height: 30%;
+      padding: 20px 24px;
+      background: var(--white);
+    }
+    .usecase-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--charcoal-04);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .usecase-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .usecase-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--charcoal-02);
+      line-height: 1.5;
+    }
+    .usecase-item svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--blue);
+      fill: none;
+      stroke-width: 2;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ZONE C: Case Study */
+    .casestudy-zone {
+      height: 25%;
+      padding: 20px 24px;
+      background: var(--bg-light);
+      border-left: 3px solid var(--blue);
+      margin: 0 16px 16px;
+      border-radius: 0 12px 12px 0;
+    }
+    .casestudy-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--charcoal-04);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .casestudy-quote {
+      font-size: 13px;
+      font-style: italic;
+      color: var(--charcoal-02);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .casestudy-attribution {
+      font-size: 11px;
+      color: var(--charcoal-03);
+    }
+
+    /* Stats row at bottom of card */
+    .vertical-stats-row {
+      display: flex;
+      gap: 24px;
+      padding: 16px 24px;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+    .vertical-stat-mini {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .vertical-stat-mini-value {
+      font-family: var(--font-primary);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--charcoal-01);
+      letter-spacing: -0.02em;
+    }
+    .vertical-stat-mini-label {
+      font-size: 11px;
+      color: var(--charcoal-03);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">coreshift<span>.</span>io</a>
+    <div class="nav-links">
+      <a href="#" class="nav-link">
+        Agentic AI Apps
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+      <a href="#" class="nav-link">
+        Agent Platform
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+      <a href="#" class="nav-link">Agent Marketplace</a>
+      <a href="#" class="nav-link">
+        More
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+      </a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="nav-signin">Sign in</a>
+      <a href="#" class="nav-cta">Get in Touch</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-circles">
+      <div class="hero-circle"></div>
+      <div class="hero-circle"></div>
+      <div class="hero-circle"></div>
+      <div class="hero-circle"></div>
+      <div class="hero-circle"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Agents as a Service · AI Agents for Enterprise Operations</p>
+      <h1 class="hero-title">We build it.<br>You run it.<br>We maintain it.</h1>
+      <p class="hero-subtitle">AI agents tailored to your exact operation — deployed on your infrastructure, monitored 24/7, one monthly subscription. Any process. Any system. Any industry.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary">
+          Book a Discovery Call
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </a>
+        <a href="#" class="btn-secondary">
+          See Live Agents
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capability Cards -->
+  <section class="capability-section">
+    <div class="capability-cards">
+      <!-- Card 1: Live Agents -->
+      <div class="cap-card">
+        <div class="cap-card-header">
+          <h3 class="cap-card-title">Live Agents</h3>
+          <span class="cap-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </div>
+        <p class="cap-card-desc">Proven agents running in production — adaptable to your stack, deployable in weeks.</p>
+        <div class="cap-card-inner">
+          <div class="prebuilt-header">
+            <div class="prebuilt-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+            <span class="prebuilt-btn">Preview & Deploy</span>
+          </div>
+          <div class="prebuilt-line"></div>
+          <p class="prebuilt-label">6 live in production</p>
+          <div class="prebuilt-tags">
+            <span class="prebuilt-tag">GRN Reconciliation</span>
+            <span class="prebuilt-tag">AP/AR Automation</span>
+            <span class="prebuilt-tag">SAP Data Access</span>
+            <span class="prebuilt-tag">Fund Operations</span>
+            <span class="prebuilt-tag">CS Intelligence</span>
+            <span class="prebuilt-tag">Vehicle Compliance</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Agent Blueprints -->
+      <div class="cap-card">
+        <div class="cap-card-header">
+          <h3 class="cap-card-title">Agent Blueprints</h3>
+          <span class="cap-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </div>
+        <p class="cap-card-desc">We've solved this class of problem before. Faster build, lower risk, known patterns.</p>
+        <div class="cap-card-inner">
+          <div class="blueprints-icons">
+            <div class="blueprint-icon sap"><span>SAP</span></div>
+            <div class="blueprint-icon sf"><span>SF</span></div>
+            <div class="blueprint-icon ns"><span>NS</span></div>
+          </div>
+          <div class="blueprints-bars">
+            <div class="blueprint-bar"></div>
+            <div class="blueprint-bar"></div>
+            <div class="blueprint-bar"></div>
+          </div>
+          <div class="blueprints-categories">
+            <span class="blueprint-cat">Finance Ops</span>
+            <span class="blueprint-cat highlight">Supply Chain</span>
+          </div>
+          <div class="blueprints-line"></div>
+          <div class="blueprints-tags">
+            <span class="blueprint-tag">Compliance</span>
+            <span class="blueprint-tag">Reporting</span>
+            <span class="blueprint-tag">Customer Success</span>
+            <span class="blueprint-tag more">+more</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Custom Agents -->
+      <div class="cap-card">
+        <div class="cap-card-header">
+          <h3 class="cap-card-title">Custom Agents</h3>
+          <span class="cap-card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
+        </div>
+        <p class="cap-card-desc">Any operation. Any system. Scoped after a 2-week Discovery Sprint.</p>
+        <div class="cap-card-inner" style="padding: 0;">
+          <div class="code-editor">
+            <div class="code-header">
+              <span class="code-dot red"></span>
+              <span class="code-dot yellow"></span>
+              <span class="code-dot green"></span>
+            </div>
+            <div class="code-body">
+              <div class="code-line"><span class="code-num">1</span><span class="code-content"><span class="code-keyword">def</span> <span class="code-function">grn_agent</span>(vendor_portal):</span></div>
+              <div class="code-line"><span class="code-num">2</span><span class="code-content">    records = <span class="code-function">extract_grn_data</span>()</span></div>
+              <div class="code-line"><span class="code-num">3</span><span class="code-content">    validated = <span class="code-function">run_sap_rules</span>()</span></div>
+              <div class="code-line"><span class="code-num">4</span><span class="code-content">    <span class="code-keyword">if</span> validated:</span></div>
+              <div class="code-line"><span class="code-num">5</span><span class="code-content">        <span class="code-function">update_vbrk_table</span>()</span></div>
+              <div class="code-line"><span class="code-num">6</span><span class="code-content">    <span class="code-keyword">return</span> <span class="code-string">"81 records updated"</span></span></div>
+            </div>
+            <div class="code-footer">
+              <span class="code-run">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                Run
+              </span>
+              <span class="code-deploy">Deploy now</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Section -->
+  <section class="trust-section">
+    <div class="trust-container">
+      <div class="trust-tabs">
+        <button class="trust-tab active">Manufacturing</button>
+        <button class="trust-tab">Finance</button>
+        <button class="trust-tab">VC & PE</button>
+        <button class="trust-tab">B2B SaaS</button>
+        <button class="trust-tab">Automotive</button>
+      </div>
+      <div class="trust-header">
+        <p class="trust-label">Trusted by manufacturing leaders:</p>
+      </div>
+      <div class="trust-logos">
+        <span class="trust-logo">TAFE</span>
+        <span class="trust-logo">SML Isuzu</span>
+        <span class="trust-logo">DICV</span>
+        <span class="trust-logo">Mahindra</span>
+        <span class="trust-logo">Ashok Leyland</span>
+        <span class="trust-logo">TVS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agents Section -->
+  <section class="agents-section">
+    <div class="agents-container">
+      <div class="section-header">
+        <p class="section-eyebrow">Live in Production</p>
+        <h2 class="section-title">Agents running today</h2>
+      </div>
+      <div class="agents-grid">
+        <div class="agent-card">
+          <div class="agent-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          </div>
+          <h3 class="agent-card-title">GRN Reconciliation Agent</h3>
+          <p class="agent-card-desc">Logs into 19+ OEM portals daily, extracts GRN data, updates SAP VBRK billing documents — without anyone touching a keyboard.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">SAP ECC/S4HANA</span>
+            <span class="agent-card-tag">Playwright</span>
+            <span class="agent-card-tag">Supabase</span>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <h3 class="agent-card-title">AP/AR Automation Agent</h3>
+          <p class="agent-card-desc">Extracts 12 fields from invoice PDFs, matches POs, applies BACS/SWIFT bank payments to open invoices with 94% auto-match rate.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">NetSuite</span>
+            <span class="agent-card-tag">Claude Vision</span>
+            <span class="agent-card-tag">BACS/SWIFT</span>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3 class="agent-card-title">SAP Query Agent</h3>
+          <p class="agent-card-desc">Self-service access to 10,000+ SAP tables for finance dashboards — no IT tickets, no ABAP developer, real-time via OData.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">SAP S4/HANA</span>
+            <span class="agent-card-tag">OData 2.0</span>
+            <span class="agent-card-tag">Power BI</span>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          </div>
+          <h3 class="agent-card-title">Fund Operations Agent</h3>
+          <p class="agent-card-desc">End-to-end investor reporting for VC/PE — 6 compliance-ready reports, 117 investors, 97.3% accuracy vs legacy Power BI.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">Tally Prime</span>
+            <span class="agent-card-tag">Supabase</span>
+            <span class="agent-card-tag">FBIL API</span>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          </div>
+          <h3 class="agent-card-title">CS Intelligence Agent</h3>
+          <p class="agent-card-desc">Monitors churn risk and NRR across 200+ enterprise accounts syncing from Salesforce — surfaces at-risk revenue before it's lost.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">Salesforce</span>
+            <span class="agent-card-tag">SOQL</span>
+            <span class="agent-card-tag">Google Apps Script</span>
+          </div>
+        </div>
+
+        <div class="agent-card">
+          <div class="agent-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="agent-card-title">Vehicle Compliance Agent</h3>
+          <p class="agent-card-desc">Validates 10,000+ vehicles against government RTO databases, auto-flags compliance issues, generates renewal campaigns daily.</p>
+          <div class="agent-card-tags">
+            <span class="agent-card-tag">Signzy API</span>
+            <span class="agent-card-tag">SurePass</span>
+            <span class="agent-card-tag">Parivahan/Vahan</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Side Scroll -->
+  <div class="side-scroll">
+    <span class="side-scroll-text">Explore our technology</span>
+    <div class="side-scroll-arrows">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+    </div>
+  </div>
+
+  <!-- Industry Verticals Section -->
+  <section class="verticals-section">
+    <div class="verticals-container">
+      <div class="verticals-left">
+        <p class="verticals-eyebrow">Industry Solutions</p>
+        <h2 class="verticals-title">Every agent is built for how your industry actually operates.</h2>
+        <p class="verticals-desc">We don't sell generic AI. We build agents that know your SAP transaction codes, your vendor portal quirks, and your compliance requirements. Six industries live. More added every quarter.</p>
+        <div class="verticals-ctas">
+          <a href="#" class="btn-primary">
+            Book a Discovery Call
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </a>
+          <a href="#" class="btn-secondary">See All Agents</a>
+        </div>
+      </div>
+      <div class="verticals-right">
+        <div class="vertical-tabs">
+          <button class="vertical-tab active" data-target="manufacturing">Manufacturing</button>
+          <button class="vertical-tab" data-target="finance">Finance & Media</button>
+          <button class="vertical-tab" data-target="vcpe">VC & PE</button>
+          <button class="vertical-tab" data-target="saas">B2B SaaS</button>
+          <button class="vertical-tab" data-target="automotive">Automotive</button>
+        </div>
+        <div class="vertical-cards">
+          <!-- Manufacturing Card -->
+          <div class="vertical-card active" data-industry="manufacturing">
+            <div class="gif-zone">
+              <span class="gif-zone-label">[ agent animation ]</span>
+              <span class="gif-zone-agent">GRN Reconciliation Agent</span>
+              <span class="gif-zone-badge live">Live</span>
+            </div>
+            <div class="usecase-zone">
+              <p class="usecase-eyebrow">What It Does</p>
+              <div class="usecase-list">
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Logs into 19+ OEM vendor portals (TAFE, SML, DICV, Mahindra) daily</span>
+                </div>
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Extracts GRN data, validates against 14 SAP business rules</span>
+                </div>
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Updates VBRK billing documents — zero human intervention</span>
+                </div>
+              </div>
+            </div>
+            <div class="casestudy-zone">
+              <p class="casestudy-eyebrow">Real Result</p>
+              <p class="casestudy-quote">"Revenue recognition delays ended. GRN updates now happen before the finance team arrives."</p>
+              <p class="casestudy-attribution">Tier-1 auto-parts manufacturer · ₹200–2,000 Cr revenue · SAP ECC</p>
+            </div>
+            <div class="vertical-stats-row">
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">19+</span>
+                <span class="vertical-stat-mini-label">Vendor portals</span>
+              </div>
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">154</span>
+                <span class="vertical-stat-mini-label">Extraction runs</span>
+              </div>
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">~100%</span>
+                <span class="vertical-stat-mini-label">Automation rate</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Finance & Media Card -->
+          <div class="vertical-card" data-industry="finance">
+            <div class="gif-zone">
+              <span class="gif-zone-label">[ agent animation ]</span>
+              <span class="gif-zone-agent">AP/AR Automation Agent</span>
+              <span class="gif-zone-badge poc">POC Complete</span>
+            </div>
+            <div class="usecase-zone">
+              <p class="usecase-eyebrow">What It Does</p>
+              <div class="usecase-list">
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Reads vendor emails, extracts 12 fields from invoice PDFs</span>
+                </div>
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Matches to POs and posts vendor bills to NetSuite automatically</span>
+                </div>
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Applies BACS/SWIFT bank payments to open invoices — 94% auto-match</span>
+                </div>
+              </div>
+            </div>
+            <div class="casestudy-zone">
+              <p class="casestudy-eyebrow">Real Result</p>
+              <p class="casestudy-quote">"Every invoice that arrives by email now goes to NetSuite without a human in the loop."</p>
+              <p class="casestudy-attribution">Global B2B media company · £100M+ revenue · UK-headquartered</p>
+            </div>
+            <div class="vertical-stats-row">
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">94%</span>
+                <span class="vertical-stat-mini-label">Auto-match rate</span>
+              </div>
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">8 min</span>
+                <span class="vertical-stat-mini-label">Saved per txn</span>
+              </div>
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">40–80 hrs</span>
+                <span class="vertical-stat-mini-label">Monthly saved</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- VC & PE Card -->
+          <div class="vertical-card" data-industry="vcpe">
+            <div class="gif-zone">
+              <span class="gif-zone-label">[ agent animation ]</span>
+              <span class="gif-zone-agent">Fund Operations Agent</span>
+              <span class="gif-zone-badge live">Live</span>
+            </div>
+            <div class="usecase-zone">
+              <p class="usecase-eyebrow">What It Does</p>
+              <div class="usecase-list">
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Ingests Tally Prime exports, calculates 3 allocation ratio types</span>
+                </div>
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Generates 6 compliance-ready reports: CAS, IRR, Management Fees, Expenses</span>
+                </div>
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Handles 117 investors across 2 funds with 97.3% accuracy vs Power BI</span>
+                </div>
+              </div>
+            </div>
+            <div class="casestudy-zone">
+              <p class="casestudy-eyebrow">Real Result</p>
+              <p class="casestudy-quote">"Capital Account Statements that used to take a weekend now run in minutes, with audit-ready reconciliation built in."</p>
+              <p class="casestudy-attribution">AIF Category II VC fund · ₹277 Cr AUM · ₹600 Cr target corpus</p>
+            </div>
+            <div class="vertical-stats-row">
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">117</span>
+                <span class="vertical-stat-mini-label">Investors managed</span>
+              </div>
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">₹277 Cr</span>
+                <span class="vertical-stat-mini-label">AUM</span>
+              </div>
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">97.3%</span>
+                <span class="vertical-stat-mini-label">Accuracy</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- B2B SaaS Card -->
+          <div class="vertical-card" data-industry="saas">
+            <div class="gif-zone">
+              <span class="gif-zone-label">[ agent animation ]</span>
+              <span class="gif-zone-agent">CS Command Center Agent</span>
+              <span class="gif-zone-badge live">Live</span>
+            </div>
+            <div class="usecase-zone">
+              <p class="usecase-eyebrow">What It Does</p>
+              <div class="usecase-list">
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Syncs from Salesforce every 6 hours via SOQL, tracks 200+ accounts</span>
+                </div>
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Classifies 15 pipeline stages into churn risk buckets (S12–S14 = at risk)</span>
+                </div>
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Calculates NRR, surfaces at-risk accounts before revenue is lost</span>
+                </div>
+              </div>
+            </div>
+            <div class="casestudy-zone">
+              <p class="casestudy-eyebrow">Real Result</p>
+              <p class="casestudy-quote">"Leadership stopped asking 'is this data right?' The agent has a single source of truth that refreshes automatically."</p>
+              <p class="casestudy-attribution">$191M ARR B2B SaaS · 200+ enterprise accounts · Global</p>
+            </div>
+            <div class="vertical-stats-row">
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">$191M</span>
+                <span class="vertical-stat-mini-label">ARR monitored</span>
+              </div>
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">200+</span>
+                <span class="vertical-stat-mini-label">Accounts tracked</span>
+              </div>
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">4–6 hrs</span>
+                <span class="vertical-stat-mini-label">Weekly saved</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Automotive Card -->
+          <div class="vertical-card" data-industry="automotive">
+            <div class="gif-zone">
+              <span class="gif-zone-label">[ agent animation ]</span>
+              <span class="gif-zone-agent">Vehicle Compliance Agent</span>
+              <span class="gif-zone-badge live">Live</span>
+            </div>
+            <div class="usecase-zone">
+              <p class="usecase-eyebrow">What It Does</p>
+              <div class="usecase-list">
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Validates 10,000+ vehicles against Parivahan/RTO government databases</span>
+                </div>
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Auto-flags 6 compliance issue types: insurance, fitness, challans, hypothecation, blacklist, PUC</span>
+                </div>
+                <div class="usecase-item">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Generates daily prioritised call centre campaign list for renewals</span>
+                </div>
+              </div>
+            </div>
+            <div class="casestudy-zone">
+              <p class="casestudy-eyebrow">Real Result</p>
+              <p class="casestudy-quote">"Proactive renewal outreach is now automatic. The call centre works from a daily agent-generated list."</p>
+              <p class="casestudy-attribution">Indian automotive service chain · 500–10,000 vehicles · PUCC test centres</p>
+            </div>
+            <div class="vertical-stats-row">
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">10K+</span>
+                <span class="vertical-stat-mini-label">Vehicles validated</span>
+              </div>
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">~95%</span>
+                <span class="vertical-stat-mini-label">Automation rate</span>
+              </div>
+              <div class="vertical-stat-mini">
+                <span class="vertical-stat-mini-value">60+</span>
+                <span class="vertical-stat-mini-label">Fields per vehicle</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="footer-logo">coreshift<span>.</span>io</span>
+          <p class="footer-tagline">Agents as a Service · Built for enterprise operations · Deployed on your infrastructure</p>
+        </div>
+        <div class="footer-column">
+          <h4>Platform</h4>
+          <ul class="footer-links">
+            <li><a href="#">Live Agents</a></li>
+            <li><a href="#">Agent Blueprints</a></li>
+            <li><a href="#">Custom Builds</a></li>
+            <li><a href="#">Command Center</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Industries</h4>
+          <ul class="footer-links">
+            <li><a href="#">Manufacturing</a></li>
+            <li><a href="#">Finance</a></li>
+            <li><a href="#">VC & PE</a></li>
+            <li><a href="#">B2B SaaS</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Case Studies</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 CoreShift Ventures LLP. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Trust section tabs
+    document.querySelectorAll('.trust-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.trust-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // Industry vertical tabs
+    document.querySelectorAll('.vertical-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.target;
+
+        // Update tabs
+        document.querySelectorAll('.vertical-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Update cards
+        document.querySelectorAll('.vertical-card').forEach(card => {
+          card.classList.remove('active');
+          if (card.dataset.industry === target) {
+            card.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoreShift - AI Agents for Enterprise Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #111827;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       NAVIGATION
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: #f97316;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #6b7280;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: #111827;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .nav-cta {
+      padding: 10px 20px;
+      background: #0f172a;
+      color: white;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: #1e293b;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       HERO
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .hero {
+      background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 40%, #f5f9fc 100%);
+      padding: 80px 48px 100px;
+      text-align: center;
+    }
+
+    .hero-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #374151;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero-title {
+      font-size: 56px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: #6b7280;
+      max-width: 520px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+
+    .hero-ctas {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 60px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: #0f172a;
+      color: white;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.2);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: white;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: #d1d5db;
+      background: #f9fafb;
+    }
+
+    /* Live Pills */
+    .live-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .live-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    .live-pill:nth-child(1) { animation-delay: 0.1s; }
+    .live-pill:nth-child(2) { animation-delay: 0.15s; }
+    .live-pill:nth-child(3) { animation-delay: 0.2s; }
+    .live-pill:nth-child(4) { animation-delay: 0.25s; }
+    .live-pill:nth-child(5) { animation-delay: 0.3s; }
+    .live-pill:nth-child(6) { animation-delay: 0.35s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .live-pill-dot {
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       TRUST BAR
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .trust-bar {
+      padding: 40px 48px;
+      background: white;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .trust-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: #9ca3af;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .trust-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .trust-logo {
+      font-size: 14px;
+      font-weight: 600;
+      color: #9ca3af;
+      transition: color 0.2s;
+    }
+
+    .trust-logo:hover {
+      color: #374151;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       CAPABILITY SECTION
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .capability-section {
+      padding: 100px 48px;
+      background: white;
+    }
+
+    .capability-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      color: #6b7280;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    .capability-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .cap-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cap-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.08);
+    }
+
+    .cap-card-top {
+      padding: 24px 24px 20px;
+    }
+
+    .cap-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .cap-card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .cap-card-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      transition: all 0.2s;
+    }
+
+    .cap-card:hover .cap-card-arrow {
+      background: #0f172a;
+      border-color: #0f172a;
+      color: white;
+    }
+
+    .cap-card-desc {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    .cap-card-inner {
+      flex: 1;
+      margin: 0 16px 16px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .cap-card-footer {
+      padding: 12px 16px;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      font-size: 11px;
+      font-weight: 600;
+      color: #9ca3af;
+      letter-spacing: 0.5px;
+    }
+
+    /* Card 1: Agent Pills */
+    .agent-list {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .agent-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .agent-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .agent-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .agent-dot {
+      width: 6px;
+      height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+
+    .agent-badge {
+      font-size: 9px;
+      font-weight: 600;
+      color: #16a34a;
+      background: rgba(34, 197, 94, 0.1);
+      padding: 3px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    /* Card 2: Blueprint Grid */
+    .blueprint-grid {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .blueprint-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #374151;
+      opacity: 0;
+      transform: scale(0.96);
+      transition: all 0.3s ease;
+    }
+
+    .blueprint-item.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .blueprint-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #eff6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .blueprint-icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: #3b82f6;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* Card 3: Terminal */
+    .terminal {
+      background: linear-gradient(165deg, #0f172a 0%, #1e293b 100%);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .terminal-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #f87171; }
+    .terminal-dot.yellow { background: #fbbf24; }
+    .terminal-dot.green { background: #4ade80; }
+
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.5px;
+    }
+
+    .terminal-body {
+      flex: 1;
+      padding: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.9;
+    }
+
+    .terminal-line {
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.3s ease;
+    }
+
+    .terminal-line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .t-prompt { color: #60a5fa; }
+    .t-text { color: #cbd5e1; }
+    .t-val { color: #fbbf24; }
+    .t-ok { color: #4ade80; }
+
+    .terminal-btns {
+      display: flex;
+      gap: 8px;
+      padding: 14px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .terminal-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .terminal-btn-primary {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .terminal-btn-primary:hover {
+      background: #2563eb;
+    }
+
+    .terminal-btn-ghost {
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .terminal-btn-ghost:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       ORCHESTRATION SECTION
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .orch-section {
+      padding: 100px 48px;
+      background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 50%, #f5f9fc 100%);
+    }
+
+    .orch-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* Accordion */
+    .orch-features {
+      padding-top: 20px;
+    }
+
+    .feature-item {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 24px 0;
+    }
+
+    .feature-item:first-child {
+      padding-top: 0;
+    }
+
+    .feature-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      cursor: pointer;
+    }
+
+    .feature-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #111827;
+      line-height: 1.4;
+      padding-right: 16px;
+    }
+
+    .feature-arrow {
+      width: 20px;
+      height: 20px;
+      color: #9ca3af;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    .feature-item.active .feature-arrow {
+      transform: rotate(180deg);
+    }
+
+    .feature-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .feature-item.active .feature-content {
+      max-height: 150px;
+    }
+
+    .feature-text {
+      padding-top: 14px;
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.7;
+    }
+
+    /* Architecture Diagram */
+    .arch-diagram {
+      width: 100%;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       OPERATIONS GRID
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .ops-section {
+      padding: 100px 48px;
+      background: #f9fafb;
+    }
+
+    .ops-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-subtitle {
+      font-size: 15px;
+      color: #6b7280;
+      max-width: 480px;
+      margin: 12px auto 0;
+      text-align: center;
+    }
+
+    .ops-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 56px;
+    }
+
+    .ops-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      transition: box-shadow 0.2s;
+    }
+
+    .ops-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .ops-card.live {
+      border-left: 3px solid #22c55e;
+    }
+
+    .ops-card.cta-card {
+      border: 2px dashed #3b82f6;
+      background: rgba(59, 130, 246, 0.02);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .ops-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .ops-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ops-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: #6b7280;
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .ops-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .ops-badge {
+      margin-left: auto;
+      font-size: 9px;
+      font-weight: 600;
+      color: #16a34a;
+      background: rgba(34, 197, 94, 0.1);
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+
+    .ops-list {
+      list-style: none;
+    }
+
+    .ops-list li {
+      font-size: 13px;
+      color: #6b7280;
+      padding: 5px 0 5px 14px;
+      position: relative;
+    }
+
+    .ops-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: #d1d5db;
+      font-weight: bold;
+    }
+
+    .cta-card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .cta-card-text {
+      font-size: 13px;
+      color: #6b7280;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+
+    .cta-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      background: #3b82f6;
+      color: white;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .cta-card-btn:hover {
+      background: #2563eb;
+    }
+
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       FOOTER
+       ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    .footer {
+      padding: 40px 48px;
+      text-align: center;
+      background: white;
+      border-top: 1px solid #f3f4f6;
+    }
+
+    .footer-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .footer-logo span {
+      color: #f97316;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">Core<span>Shift</span></a>
+    <div class="nav-links">
+      <a href="#" class="nav-link">Live Agents</a>
+      <a href="#" class="nav-link">How We Work</a>
+      <a href="#" class="nav-link">Pricing</a>
+      <a href="#" class="nav-link">About</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="nav-cta">Book a Call</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-container">
+      <span class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        AI Agents for Enterprise Operations
+      </span>
+      <h1 class="hero-title">We build it.<br>You run it.<br>We maintain it.</h1>
+      <p class="hero-subtitle">AI agents tailored to your exact operation — deployed on your infrastructure, monitored 24/7, one monthly subscription.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary">Book a Discovery Call →</a>
+        <a href="#" class="btn-secondary">See Live Agents</a>
+      </div>
+      <div class="live-pills">
+        <div class="live-pill"><span class="live-pill-dot"></span>GRN Reconciliation</div>
+        <div class="live-pill"><span class="live-pill-dot"></span>AP/AR Processing</div>
+        <div class="live-pill"><span class="live-pill-dot"></span>SAP Data Access</div>
+        <div class="live-pill"><span class="live-pill-dot"></span>Fund Operations</div>
+        <div class="live-pill"><span class="live-pill-dot"></span>CS Intelligence</div>
+        <div class="live-pill"><span class="live-pill-dot"></span>Vehicle Compliance</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="trust-bar">
+    <p class="trust-label">Systems we connect to</p>
+    <div class="trust-logos">
+      <span class="trust-logo">SAP</span>
+      <span class="trust-logo">NetSuite</span>
+      <span class="trust-logo">Salesforce</span>
+      <span class="trust-logo">Tally</span>
+      <span class="trust-logo">Power BI</span>
+      <span class="trust-logo">Supabase</span>
+      <span class="trust-logo">Playwright</span>
+      <span class="trust-logo">FastAPI</span>
+    </div>
+  </section>
+
+  <!-- Three-Tier Capability -->
+  <section class="capability-section">
+    <div class="capability-container">
+      <div class="section-header">
+        <p class="section-eyebrow">How We Work</p>
+        <h2 class="section-title">Three ways to get your agent live.</h2>
+      </div>
+
+      <div class="capability-cards">
+        <!-- Card 1 -->
+        <div class="cap-card">
+          <div class="cap-card-top">
+            <div class="cap-card-header">
+              <h3 class="cap-card-title">Live Agents</h3>
+              <span class="cap-card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </span>
+            </div>
+            <p class="cap-card-desc">Proven agents built for known operations — adaptable to your stack.</p>
+          </div>
+          <div class="cap-card-inner">
+            <div class="agent-list" id="agentList">
+              <div class="agent-item"><span class="agent-name"><span class="agent-dot"></span>GRN Reconciliation</span><span class="agent-badge">LIVE</span></div>
+              <div class="agent-item"><span class="agent-name"><span class="agent-dot"></span>AP/AR Processing</span><span class="agent-badge">LIVE</span></div>
+              <div class="agent-item"><span class="agent-name"><span class="agent-dot"></span>SAP Data Access</span><span class="agent-badge">LIVE</span></div>
+              <div class="agent-item"><span class="agent-name"><span class="agent-dot"></span>Fund Operations</span><span class="agent-badge">LIVE</span></div>
+              <div class="agent-item"><span class="agent-name"><span class="agent-dot"></span>CS Intelligence</span><span class="agent-badge">LIVE</span></div>
+              <div class="agent-item"><span class="agent-name"><span class="agent-dot"></span>Vehicle Compliance</span><span class="agent-badge">LIVE</span></div>
+            </div>
+            <div class="cap-card-footer">6 live in production</div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="cap-card">
+          <div class="cap-card-top">
+            <div class="cap-card-header">
+              <h3 class="cap-card-title">Agent Blueprints</h3>
+              <span class="cap-card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </span>
+            </div>
+            <p class="cap-card-desc">We've solved this class of problem before. Faster build, lower risk.</p>
+          </div>
+          <div class="cap-card-inner">
+            <div class="blueprint-grid" id="blueprintGrid">
+              <div class="blueprint-item"><span class="blueprint-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>Finance Ops</div>
+              <div class="blueprint-item"><span class="blueprint-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span>Supply Chain</div>
+              <div class="blueprint-item"><span class="blueprint-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Compliance</div>
+              <div class="blueprint-item"><span class="blueprint-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>Customer Success</div>
+              <div class="blueprint-item"><span class="blueprint-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>Sales Ops</div>
+              <div class="blueprint-item"><span class="blueprint-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>HR & Payroll</div>
+            </div>
+            <div class="cap-card-footer">12+ operation blueprints</div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="cap-card">
+          <div class="cap-card-top">
+            <div class="cap-card-header">
+              <h3 class="cap-card-title">Custom Agents</h3>
+              <span class="cap-card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </span>
+            </div>
+            <p class="cap-card-desc">Any operation. Any system. Scoped after a 2-week Discovery Sprint.</p>
+          </div>
+          <div class="cap-card-inner">
+            <div class="terminal">
+              <div class="terminal-header">
+                <div class="terminal-dots">
+                  <span class="terminal-dot red"></span>
+                  <span class="terminal-dot yellow"></span>
+                  <span class="terminal-dot green"></span>
+                </div>
+                <span class="terminal-title">Discovery Sprint</span>
+                <div style="width: 44px;"></div>
+              </div>
+              <div class="terminal-body" id="terminalBody">
+                <div class="terminal-line"><span class="t-prompt">&gt;</span> <span class="t-text">Analysing:</span> <span class="t-val">[your process]</span></div>
+                <div class="terminal-line"><span class="t-prompt">&gt;</span> <span class="t-text">Systems found:</span> <span class="t-val">SAP + 3 portals</span></div>
+                <div class="terminal-line"><span class="t-prompt">&gt;</span> <span class="t-text">Blueprint match:</span> <span class="t-val">73%</span></div>
+                <div class="terminal-line"><span class="t-prompt">&gt;</span> <span class="t-text">Custom scope:</span> <span class="t-val">4 weeks</span></div>
+                <div class="terminal-line"><span class="t-ok">✓</span> <span class="t-text">Ready to build</span></div>
+              </div>
+              <div class="terminal-btns">
+                <a href="#" class="terminal-btn terminal-btn-primary">▶ Start Discovery</a>
+                <a href="#" class="terminal-btn terminal-btn-ghost">View Pricing</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Orchestration Section -->
+  <section class="orch-section">
+    <div class="orch-container">
+      <div class="orch-features">
+        <div class="feature-item active">
+          <div class="feature-header">
+            <span class="feature-title">Contextual agent collaboration</span>
+            <svg class="feature-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </div>
+          <div class="feature-content">
+            <p class="feature-text">Coordinate tasks across specialized AI agents to enable rule-based workflows, adaptable decision-making, and autonomous reasoning.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-header">
+            <span class="feature-title">AI agent tools + memory</span>
+            <svg class="feature-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </div>
+          <div class="feature-content">
+            <p class="feature-text">Each agent maintains long-term memory and has access to specialized tools for API calls, data processing, and enterprise integrations.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-header">
+            <span class="feature-title">Orchestrated to full agentic autonomy</span>
+            <svg class="feature-arrow" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </div>
+          <div class="feature-content">
+            <p class="feature-text">Progress from supervised automation to fully autonomous agents handling complex multi-step workflows with human oversight.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture Diagram SVG -->
+      <svg class="arch-diagram" viewBox="0 0 680 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.06"/>
+          </filter>
+        </defs>
+
+        <!-- Main Orchestration Box -->
+        <g filter="url(#shadow)">
+          <rect x="40" y="20" width="600" height="130" rx="8" fill="white" stroke="#e5e7eb"/>
+          <rect x="40" y="20" width="600" height="32" rx="8" fill="#eff6ff"/>
+          <line x1="40" y1="52" x2="640" y2="52" stroke="#e5e7eb"/>
+          <text x="56" y="42" font-family="Inter" font-size="12" font-weight="600" fill="#1e40af">Agent Orchestration</text>
+          <text x="540" y="42" font-family="Inter" font-size="10" fill="#9ca3af">Orchestration Layer</text>
+
+          <!-- Components -->
+          <g>
+            <rect x="56" y="66" width="80" height="64" rx="6" fill="white" stroke="#e5e7eb"/>
+            <circle cx="96" cy="86" r="10" fill="#eff6ff" stroke="#dbeafe"/>
+            <text x="96" y="116" font-family="Inter" font-size="10" font-weight="500" fill="#374151" text-anchor="middle">Router</text>
+          </g>
+          <g>
+            <rect x="150" y="66" width="80" height="64" rx="6" fill="white" stroke="#e5e7eb"/>
+            <circle cx="190" cy="86" r="10" fill="#eff6ff" stroke="#dbeafe"/>
+            <text x="190" y="116" font-family="Inter" font-size="10" font-weight="500" fill="#374151" text-anchor="middle">Dialog GPT</text>
+          </g>
+          <g>
+            <rect x="244" y="66" width="80" height="64" rx="6" fill="white" stroke="#e5e7eb"/>
+            <circle cx="284" cy="86" r="10" fill="#eff6ff" stroke="#dbeafe"/>
+            <text x="284" y="116" font-family="Inter" font-size="10" font-weight="500" fill="#374151" text-anchor="middle">Memory</text>
+          </g>
+          <g>
+            <rect x="338" y="66" width="90" height="64" rx="6" fill="white" stroke="#e5e7eb"/>
+            <circle cx="383" cy="86" r="10" fill="#eff6ff" stroke="#dbeafe"/>
+            <text x="383" y="116" font-family="Inter" font-size="10" font-weight="500" fill="#374151" text-anchor="middle">Autonomous</text>
+          </g>
+          <g>
+            <rect x="442" y="66" width="180" height="64" rx="6" fill="white" stroke="#e5e7eb"/>
+            <circle cx="532" cy="86" r="10" fill="#eff6ff" stroke="#dbeafe"/>
+            <text x="532" y="116" font-family="Inter" font-size="10" font-weight="500" fill="#374151" text-anchor="middle">Enterprise Context</text>
+          </g>
+        </g>
+
+        <!-- Connectors -->
+        <g stroke="#d1d5db">
+          <line x1="150" y1="150" x2="150" y2="185"/>
+          <line x1="340" y1="150" x2="340" y2="185"/>
+          <line x1="530" y1="150" x2="530" y2="185"/>
+          <line x1="150" y1="167" x2="530" y2="167"/>
+        </g>
+
+        <!-- Agent Boxes -->
+        <g filter="url(#shadow)">
+          <rect x="56" y="190" width="180" height="60" rx="6" fill="white" stroke="#e5e7eb"/>
+          <rect x="56" y="190" width="180" height="24" rx="6" fill="#f0fdf4"/>
+          <line x1="56" y1="214" x2="236" y2="214" stroke="#e5e7eb"/>
+          <circle cx="72" cy="202" r="6" fill="#dcfce7" stroke="#bbf7d0"/>
+          <text x="86" y="206" font-family="Inter" font-size="10" font-weight="600" fill="#166534">GRN Reconciliation Agent</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="250" y="190" width="180" height="60" rx="6" fill="white" stroke="#e5e7eb"/>
+          <rect x="250" y="190" width="180" height="24" rx="6" fill="#f0fdf4"/>
+          <line x1="250" y1="214" x2="430" y2="214" stroke="#e5e7eb"/>
+          <circle cx="266" cy="202" r="6" fill="#dcfce7" stroke="#bbf7d0"/>
+          <text x="280" y="206" font-family="Inter" font-size="10" font-weight="600" fill="#166534">AP/AR Automation Agent</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="444" y="190" width="180" height="60" rx="6" fill="white" stroke="#e5e7eb"/>
+          <rect x="444" y="190" width="180" height="24" rx="6" fill="#f0fdf4"/>
+          <line x1="444" y1="214" x2="624" y2="214" stroke="#e5e7eb"/>
+          <circle cx="460" cy="202" r="6" fill="#dcfce7" stroke="#bbf7d0"/>
+          <text x="474" y="206" font-family="Inter" font-size="10" font-weight="600" fill="#166534">SAP Query Agent</text>
+        </g>
+
+        <!-- API Connectors -->
+        <g stroke="#d1d5db">
+          <line x1="146" y1="250" x2="146" y2="285"/>
+          <line x1="340" y1="250" x2="340" y2="285"/>
+          <line x1="534" y1="250" x2="534" y2="285"/>
+        </g>
+
+        <!-- API Boxes -->
+        <g>
+          <rect x="56" y="290" width="90" height="32" rx="4" fill="#f9fafb" stroke="#e5e7eb"/>
+          <text x="101" y="310" font-family="Inter" font-size="9" font-weight="500" fill="#6b7280" text-anchor="middle">Vendor Portal</text>
+        </g>
+        <g>
+          <rect x="156" y="290" width="80" height="32" rx="4" fill="#f9fafb" stroke="#e5e7eb"/>
+          <text x="196" y="310" font-family="Inter" font-size="9" font-weight="500" fill="#6b7280" text-anchor="middle">SAP MIGO</text>
+        </g>
+        <g>
+          <rect x="250" y="290" width="80" height="32" rx="4" fill="#f9fafb" stroke="#e5e7eb"/>
+          <text x="290" y="310" font-family="Inter" font-size="9" font-weight="500" fill="#6b7280" text-anchor="middle">Invoice API</text>
+        </g>
+        <g>
+          <rect x="344" y="290" width="80" height="32" rx="4" fill="#f9fafb" stroke="#e5e7eb"/>
+          <text x="384" y="310" font-family="Inter" font-size="9" font-weight="500" fill="#6b7280" text-anchor="middle">Bank API</text>
+        </g>
+        <g>
+          <rect x="444" y="290" width="80" height="32" rx="4" fill="#f9fafb" stroke="#e5e7eb"/>
+          <text x="484" y="310" font-family="Inter" font-size="9" font-weight="500" fill="#6b7280" text-anchor="middle">RFC/BAPI</text>
+        </g>
+        <g>
+          <rect x="534" y="290" width="80" height="32" rx="4" fill="#f9fafb" stroke="#e5e7eb"/>
+          <text x="574" y="310" font-family="Inter" font-size="9" font-weight="500" fill="#6b7280" text-anchor="middle">HANA</text>
+        </g>
+
+        <!-- Enterprise Systems Connector -->
+        <g stroke="#d1d5db">
+          <line x1="340" y1="322" x2="340" y2="355"/>
+          <line x1="146" y1="338" x2="534" y2="338"/>
+          <line x1="146" y1="322" x2="146" y2="338"/>
+          <line x1="534" y1="322" x2="534" y2="338"/>
+        </g>
+
+        <!-- Enterprise Systems -->
+        <g filter="url(#shadow)">
+          <rect x="56" y="360" width="568" height="90" rx="8" fill="white" stroke="#e5e7eb"/>
+          <text x="340" y="385" font-family="Inter" font-size="10" font-weight="500" fill="#9ca3af" text-anchor="middle" letter-spacing="1">ENTERPRISE SYSTEMS</text>
+
+          <rect x="80" y="400" width="70" height="32" rx="4" fill="#0066b3"/>
+          <text x="115" y="420" font-family="Inter" font-size="12" font-weight="700" fill="white" text-anchor="middle">SAP</text>
+
+          <rect x="165" y="400" width="75" height="32" rx="4" fill="white" stroke="#e5e7eb"/>
+          <text x="202" y="420" font-family="Inter" font-size="10" font-weight="600" fill="#1e5c97" text-anchor="middle">NetSuite</text>
+
+          <rect x="255" y="400" width="80" height="32" rx="4" fill="#00a1e0"/>
+          <text x="295" y="420" font-family="Inter" font-size="9" font-weight="600" fill="white" text-anchor="middle">salesforce</text>
+
+          <rect x="350" y="400" width="55" height="32" rx="4" fill="white" stroke="#e5e7eb"/>
+          <text x="377" y="420" font-family="Inter" font-size="11" font-weight="700" fill="#d63a3a" text-anchor="middle">Tally</text>
+
+          <rect x="420" y="400" width="70" height="32" rx="4" fill="white" stroke="#e5e7eb"/>
+          <text x="455" y="420" font-family="Inter" font-size="10" font-weight="600" fill="#f2c811" text-anchor="middle">Power BI</text>
+
+          <rect x="505" y="400" width="70" height="32" rx="4" fill="white" stroke="#e5e7eb"/>
+          <text x="540" y="420" font-family="Inter" font-size="10" font-weight="600" fill="#3ecf8e" text-anchor="middle">Supabase</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Operations Grid -->
+  <section class="ops-section">
+    <div class="ops-container">
+      <div class="section-header">
+        <p class="section-eyebrow">Operations We Agent-ify</p>
+        <h2 class="section-title">If your team does it manually, we can build an agent for it.</h2>
+        <p class="section-subtitle">We work across every major operations function. These are the areas where AI agents create the most impact.</p>
+      </div>
+
+      <div class="ops-grid">
+        <div class="ops-card live">
+          <div class="ops-header">
+            <div class="ops-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+            <span class="ops-title">Finance Operations</span>
+            <span class="ops-badge">LIVE</span>
+          </div>
+          <ul class="ops-list">
+            <li>Invoice processing & AP/AR</li>
+            <li>GRN reconciliation</li>
+            <li>GL data extraction</li>
+            <li>Bank reconciliation</li>
+          </ul>
+        </div>
+
+        <div class="ops-card live">
+          <div class="ops-header">
+            <div class="ops-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+            <span class="ops-title">Supply Chain</span>
+            <span class="ops-badge">LIVE</span>
+          </div>
+          <ul class="ops-list">
+            <li>Vendor portal data extraction</li>
+            <li>PO matching & validation</li>
+            <li>Delivery confirmation tracking</li>
+            <li>Inventory reconciliation</li>
+          </ul>
+        </div>
+
+        <div class="ops-card live">
+          <div class="ops-header">
+            <div class="ops-icon"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+            <span class="ops-title">Management Reporting</span>
+            <span class="ops-badge">LIVE</span>
+          </div>
+          <ul class="ops-list">
+            <li>Investor statements & CAS</li>
+            <li>NRR & churn forecasting</li>
+            <li>Board pack automation</li>
+            <li>KPI dashboard sync</li>
+          </ul>
+        </div>
+
+        <div class="ops-card live">
+          <div class="ops-header">
+            <div class="ops-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <span class="ops-title">Customer Success</span>
+            <span class="ops-badge">LIVE</span>
+          </div>
+          <ul class="ops-list">
+            <li>Renewal pipeline monitoring</li>
+            <li>Churn risk alerting</li>
+            <li>Health score automation</li>
+            <li>Upsell opportunity detection</li>
+          </ul>
+        </div>
+
+        <div class="ops-card live">
+          <div class="ops-header">
+            <div class="ops-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <span class="ops-title">Compliance & Regulatory</span>
+            <span class="ops-badge">LIVE</span>
+          </div>
+          <ul class="ops-list">
+            <li>Vehicle fitness & insurance</li>
+            <li>Licence expiry tracking</li>
+            <li>Audit trail generation</li>
+            <li>Regulatory filing reminders</li>
+          </ul>
+        </div>
+
+        <div class="ops-card live">
+          <div class="ops-header">
+            <div class="ops-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <span class="ops-title">ERP & Systems</span>
+            <span class="ops-badge">LIVE</span>
+          </div>
+          <ul class="ops-list">
+            <li>SAP data extraction & sync</li>
+            <li>Tally to cloud migration</li>
+            <li>Multi-system reconciliation</li>
+            <li>Master data management</li>
+          </ul>
+        </div>
+
+        <div class="ops-card">
+          <div class="ops-header">
+            <div class="ops-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <span class="ops-title">Sales Operations</span>
+          </div>
+          <ul class="ops-list">
+            <li>CRM data hygiene</li>
+            <li>Pipeline stage monitoring</li>
+            <li>Quote-to-cash tracking</li>
+            <li>Commission calculation</li>
+          </ul>
+        </div>
+
+        <div class="ops-card">
+          <div class="ops-header">
+            <div class="ops-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <span class="ops-title">HR & People Ops</span>
+          </div>
+          <ul class="ops-list">
+            <li>Payroll reconciliation</li>
+            <li>Onboarding automation</li>
+            <li>Attendance tracking</li>
+            <li>Benefits administration</li>
+          </ul>
+        </div>
+
+        <div class="ops-card cta-card">
+          <span class="cta-card-title">Don't see yours?</span>
+          <p class="cta-card-text">"We've never met an operation we couldn't agent-ify."</p>
+          <a href="#" class="cta-card-btn">Tell us about your operation →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-logo">Core<span>Shift</span></p>
+    <p class="footer-text">© 2024 CoreShift. AI Agents for Enterprise Operations.</p>
+  </footer>
+
+  <script>
+    // Animations
+    const DELAY = 280;
+    const PAUSE = 2200;
+
+    function animateList(selector, className) {
+      const items = document.querySelectorAll(selector);
+      let i = 0;
+      function show() {
+        if (i < items.length) {
+          items[i].classList.add(className);
+          i++;
+          setTimeout(show, DELAY);
+        } else {
+          setTimeout(reset, PAUSE);
+        }
+      }
+      function reset() {
+        items.forEach(el => el.classList.remove(className));
+        i = 0;
+        setTimeout(show, 300);
+      }
+      show();
+    }
+
+    // Accordion
+    document.querySelectorAll('.feature-header').forEach(h => {
+      h.addEventListener('click', () => {
+        const item = h.parentElement;
+        const wasActive = item.classList.contains('active');
+        document.querySelectorAll('.feature-item').forEach(i => i.classList.remove('active'));
+        if (!wasActive) item.classList.add('active');
+      });
+    });
+
+    // Start animations
+    setTimeout(() => animateList('#agentList .agent-item', 'visible'), 100);
+    setTimeout(() => animateList('#blueprintGrid .blueprint-item', 'visible'), 150);
+    setTimeout(() => animateList('#terminalBody .terminal-line', 'visible'), 200);
+  </script>
+</body>
+</html>
